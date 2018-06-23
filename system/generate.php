@@ -22,6 +22,11 @@ class Genarate
      * @var array
      */
     private $decorations = [];
+    /**
+     * 修飾コマンドエイリアス保持マップ
+     * @var array
+     */
+    private $decorations_alias = [];
 
     function __construct()
     {
@@ -63,6 +68,7 @@ class Genarate
                 // クラス生成
                 list($class_name, $exp) = explode('.', $file);
                 $this->$decorations[$class_name] = new $class_name();
+                $this->decorations_alias[$this->decorations[$class_name]->ALIAS] = $class_name;
             }
         }
         $decoration_dir->close();
