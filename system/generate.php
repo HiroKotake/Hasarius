@@ -3,7 +3,7 @@
 namespace Hasarius\system;
 
 /**
- * [Genarate description]
+ * HTML 生成クラス
  */
 class Genarate
 {
@@ -42,11 +42,17 @@ class Genarate
         $dir_map = explode(DIRECTORY_SEPARATOR, __DIR__);
         array_pop($dir_map);
         $base_dir = implode(DIRECTORY_SEPARATOR, $dir_map);
-        define('HASARIUS_SYSTEM_DIR', $base_dir . DIRECTORY_SEPARATOR . 'system');
-        define('HASARIUS_COMMANDS_DIR', $base_dir . DIRECTORY_SEPARATOR . 'commands');
-        define('HASARIUS_DECORATION_DIR', $base_dir . DIRECTORY_SEPARATOR . 'decoration');
+        define('HASARIUS_BASE_DIR', $base_dir);
+        define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
+        define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
+        define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decoration');
 
-        // commands読み込み
+        // system 読み込み
+        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'command.php');
+        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'decoration.php');
+        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'vessel.php');
+
+        // commands 読み込み
         $command_dir = dir(HASARIUS_COMMANDS_DIR);
         while (false !== ($file = $command_dir->read())) {
             if ($file != '.' || $file != '..') {
@@ -59,7 +65,7 @@ class Genarate
         }
         $command_dir->close();
 
-        // dcecoration読み込み
+        // dcecoration 読み込み
         $decoration_dir = dir(HASARIUS_DECORATION_DIR);
         while (false !== ($file = $command_dir->read())) {
             if ($file != '.' || $file != '..') {
@@ -82,11 +88,47 @@ class Genarate
     function make(string $source) : bool
     {
         // 設定ファイル読み込み
+        $source_path = explode(DIRECTORY_SEPARATOR, $source);
+        array_pop($source_path);
+        $make_config_file = implode(DIRECTORY_SEPARATOR, $source_path) . DIRECTORY_SEPARATOR . 'make.cfg';
+        if (!file_exists($make_config_file)) {
+            $make_config_file = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.cfg';
+        }
+        require_once($make_config_file);
+
         // 解析
-        //  - ファイルオープン
-        //  -- 行読み込み
-        //  --- 解析
-        // 出力
+        try {
+            self::analyze($source);
+        } catch (Exception $e){
+            var_dump($e);
+            return false;
+        }
+
+        return true;
+    }
+
+    function analyze(string $source, $line = 0) : int
+    {
+        try {
+            // 解析
+            if (!file_exists($source)) {
+                throw new \Exception("[ERROR] FILE NOT EXISTS !!", 1);
+            }
+            //  - ファイルオープン
+            $hFile = fopen($source, 'r');
+            //  -- 行読み込み
+            while (($line = fgets($hFile)) !== false) {
+                $line++;    // 行インデックス更新
+                //  --- 解析
+                //  --- 出力
+            }
+            //  - ファイルクローズ
+            fclose($hFile);
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return $line;
     }
 
 }
