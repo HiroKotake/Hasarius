@@ -44,6 +44,7 @@ class Genarate
         $base_dir = implode(DIRECTORY_SEPARATOR, $dir_map);
         define('HASARIUS_BASE_DIR', $base_dir);
         define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
+        define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
         define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decoration');
 
@@ -51,6 +52,9 @@ class Genarate
         require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'command.php');
         require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'decoration.php');
         require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'vessel.php');
+
+        // Utility 読み込み
+        require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'parser.php');
 
         // commands 読み込み
         $command_dir = dir(HASARIUS_COMMANDS_DIR);
@@ -107,7 +111,7 @@ class Genarate
         return true;
     }
 
-    function analyze(string $source, $line = 0) : int
+    function analyze(string $source, $line_number = 0) : int
     {
         try {
             // 解析
@@ -118,13 +122,26 @@ class Genarate
             $hFile = fopen($source, 'r');
             //  -- 行読み込み
             while (($line = fgets($hFile)) !== false) {
-                $line++;    // 行インデックス更新
+                $line_number++;    // 行インデックス更新
                 //  --- 解析
-                //  --- 出力
+                $line_parameters = Parser::analyze_line($line);
+                if ($line_parameters['command'] == 'include') {
+                    // --- 外部ソース読み込み
+                    self::analyze($line_parameters['text'], $line_number);
+                } else {
+                    //  --- 出力
+                    //  ---- 修飾エイリアス確認
+                    //  ---- 修飾エイリアスになければ実態を確認
+                    //  ---- テキスト置換
+                    //  ---- コマンドエイリアス確認
+                    //  ---- コマンドエイリアスになければ実態を確認
+                    //  ---- HTML生成
+                }
             }
             //  - ファイルクローズ
             fclose($hFile);
         } catch (Exception $e) {
+            echo 'Error at line nunber : ' . $line . PHP_EOL;
             throw $e;
         }
 
