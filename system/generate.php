@@ -27,6 +27,32 @@ class Genarate
      * @var array
      */
     private $decorations_alias = [];
+    /**
+     * クローズスタック
+     * @var string
+     */
+    private $coloser_stack = [];
+
+    /**
+     * クローズスタックからアイテムを取得
+     * @return string アイテム
+     */
+    private function popc():string
+    {
+        if (empty($this->coloser_stack)) {
+            return null;
+        }
+        return array_pop($this->coloser_stack);
+    }
+
+    /**
+     * クローズスタックにアイテムを積む
+     * @param string $item アイテム
+     */
+    private function pushc(string $item): void
+    {
+        $this->coloser_stack[] = $item;
+    }
 
     function __construct()
     {
@@ -64,20 +90,20 @@ class Genarate
                 require_once(HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file . '.php');
                 // クラス生成
                 $this->commands[$file] = new $file();
-                $this->$command_alias[$this->commands[$file]->ALIAS] = $file;
+                $this->command_alias[$this->commands[$file]->ALIAS] = $file;
             }
         }
         $command_dir->close();
 
         // dcecoration 読み込み
         $decoration_dir = dir(HASARIUS_DECORATION_DIR);
-        while (false !== ($file = $command_dir->read())) {
+        while (false !== ($file = $decoration_dir->read())) {
             if ($file != '.' || $file != '..') {
                 // phpファイル読み込み
-                require_once(HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . $file . '.php');
+                require_once(HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . '.php');
                 // クラス生成
                 list($class_name, $exp) = explode('.', $file);
-                $this->$decorations[$class_name] = new $class_name();
+                $this->decorations[$class_name] = new $class_name();
                 $this->decorations_alias[$this->decorations[$class_name]->ALIAS] = $class_name;
             }
         }
@@ -127,7 +153,7 @@ class Genarate
                 $line_parameters = Parser::analyze_line($line);
                 if ($line_parameters['command'] == 'include') {
                     // --- 外部ソース読み込み
-                    self::analyze($line_parameters['text'], $line_number);
+                    $line_number = self::analyze($line_parameters['text'], $line_number);
                 } else {
                     //  --- 出力
                     //  ---- 修飾エイリアス確認
@@ -141,11 +167,11 @@ class Genarate
             //  - ファイルクローズ
             fclose($hFile);
         } catch (Exception $e) {
-            echo 'Error at line nunber : ' . $line . PHP_EOL;
+            echo 'Error at line nunber (' . $line_number . '): ' . $line . PHP_EOL;
             throw $e;
         }
 
-        return $line;
+        return $line_number;
     }
 
 }
