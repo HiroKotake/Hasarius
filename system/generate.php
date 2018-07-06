@@ -10,6 +10,8 @@
 
 namespace Hasarius\system;
 
+use Hasarius\utils as utils;
+
 /**
  * HTML 生成クラス
  *
@@ -28,7 +30,7 @@ class Genarate
      * コマンドエイリアス保持マップ
      * @var array
      */
-    private $command_alias = [];
+    private $commandAlias = [];
     /**
      * 修飾コマンド保持マップ
      * @var array
@@ -38,12 +40,12 @@ class Genarate
      * 修飾コマンドエイリアス保持マップ
      * @var array
      */
-    private $decorations_alias = [];
+    private $decorationsAlias = [];
     /**
      * クローズスタック
      * @var string
      */
-    private $coloser_stack = [];
+    private $closerStack = [];
 
     /**
      * クローズスタックからアイテムを取得
@@ -51,10 +53,10 @@ class Genarate
      */
     private function popc():string
     {
-        if (empty($this->coloser_stack)) {
+        if (empty($this->closerStack)) {
             return null;
         }
-        return array_pop($this->coloser_stack);
+        return array_pop($this->closerStack);
     }
 
     /**
@@ -63,7 +65,7 @@ class Genarate
      */
     private function pushc(string $item): void
     {
-        $this->coloser_stack[] = $item;
+        $this->closerStack[] = $item;
     }
 
     public function __construct()
@@ -77,10 +79,10 @@ class Genarate
     private function initialize() : void
     {
         // directory解析
-        $dir_map = explode(DIRECTORY_SEPARATOR, __DIR__);
-        array_pop($dir_map);
-        $base_dir = implode(DIRECTORY_SEPARATOR, $dir_map);
-        define('HASARIUS_BASE_DIR', $base_dir);
+        $dirMap = explode(DIRECTORY_SEPARATOR, __DIR__);
+        array_pop($dirMap);
+        $baseDir = implode(DIRECTORY_SEPARATOR, $dirMap);
+        define('HASARIUS_BASE_DIR', $baseDir);
         define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
         define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
@@ -96,31 +98,36 @@ class Genarate
         require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'validater.php');
 
         // commands 読み込み
-        $command_dir = dir(HASARIUS_COMMANDS_DIR);
-        while (false !== ($file = $command_dir->read())) {
+        $commandDir = dir(HASARIUS_COMMANDS_DIR);
+        while (false !== ($file = $commandDir->read())) {
             if ($file != '.' || $file != '..') {
                 // phpファイル読み込み
-                require_once(HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file . '.php');
+                $commandFileName = HASARIUS_COMMANDS_DIR
+                                    . DIRECTORY_SEPARATOR
+                                    . $file
+                                    . DIRECTORY_SEPARATOR
+                                    . $file . '.php';
+                require_once($commandFileName);
                 // クラス生成
                 $this->commands[$file] = new $file();
-                $this->command_alias[$this->commands[$file]->ALIAS] = $file;
+                $this->commandAlias[$this->commands[$file]->ALIAS] = $file;
             }
         }
-        $command_dir->close();
+        $commandDir->close();
 
         // dcecoration 読み込み
-        $decoration_dir = dir(HASARIUS_DECORATION_DIR);
-        while (false !== ($file = $decoration_dir->read())) {
+        $decorationDir = dir(HASARIUS_DECORATION_DIR);
+        while (false !== ($file = $decorationDir->read())) {
             if ($file != '.' || $file != '..') {
                 // phpファイル読み込み
                 require_once(HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . '.php');
                 // クラス生成
-                list($class_name, $exp) = explode('.', $file);
-                $this->decorations[$class_name] = new $class_name();
-                $this->decorations_alias[$this->decorations[$class_name]->ALIAS] = $class_name;
+                list($className, $exp) = explode('.', $file);
+                $this->decorations[$className] = new $className();
+                $this->decorationsAlias[$this->decorations[$className]->ALIAS] = $className;
             }
         }
-        $decoration_dir->close();
+        $decorationDir->close();
     }
 
     /**
@@ -131,13 +138,13 @@ class Genarate
     public function make(string $source): bool
     {
         // 設定ファイル読み込み
-        $source_path = explode(DIRECTORY_SEPARATOR, $source);
-        array_pop($source_path);
-        $make_config_file = implode(DIRECTORY_SEPARATOR, $source_path) . DIRECTORY_SEPARATOR . 'make.cfg';
-        if (!file_exists($make_config_file)) {
-            $make_config_file = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.cfg';
+        $sourcePath = explode(DIRECTORY_SEPARATOR, $source);
+        array_pop($sourcePath);
+        $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.cfg';
+        if (!file_exists($makeConfigFile)) {
+            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.cfg';
         }
-        require_once($make_config_file);
+        require_once($makeConfigFile);
 
         // 解析
         try {
@@ -150,7 +157,7 @@ class Genarate
         return true;
     }
 
-    public function analyze(string $source, $line_number = 0) : int
+    public function analyze(string $source, $lineNumber = 0) : int
     {
         try {
             // 解析
@@ -161,12 +168,12 @@ class Genarate
             $hFile = fopen($source, 'r');
             //  -- 行読み込み
             while (($line = fgets($hFile)) !== false) {
-                $line_number++;    // 行インデックス更新
+                $lineNumber++;    // 行インデックス更新
                 //  --- 解析
-                $line_parameters = Parser::analyze_line($line);
-                if ($line_parameters['command'] == 'include') {
+                $lineParameters = utils\Parser::analyzeLine($line);
+                if ($lineParameters['command'] == 'include') {
                     // --- 外部ソース読み込み
-                    $line_number = self::analyze($line_parameters['text'], $line_number);
+                    $lineNumber = self::analyze($lineParameters['text'], $lineNumber);
                 } else {
                     //  --- 出力
                     //  ---- 修飾エイリアス確認
@@ -180,9 +187,9 @@ class Genarate
             //  - ファイルクローズ
             fclose($hFile);
         } catch (Exception $e) {
-            echo 'Error at line nunber (' . $line_number . '): ' . $line . PHP_EOL;
+            echo 'Error at line nunber (' . $lineNumber . '): ' . $line . PHP_EOL;
             throw $e;
         }
-        return $line_number;
+        return $lineNumber;
     }
 }

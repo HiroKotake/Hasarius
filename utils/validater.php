@@ -21,57 +21,60 @@ class Validater
     /**
      * 指定された文字列は数値で、さらに指定最大桁数以内か判定
      * @param  int     $number     確認する数値文字列
-     * @param  int     $max_length 最大桁数（ディフォルト：0...チェックしない)
+     * @param  int     $maxLength 最大桁数（ディフォルト：0...チェックしない)
      * @return boolean             合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function isInteger($number, int $max_length = 0): boolean
+    public static function isInteger($number, int $maxLength = 0): boolean
     {
-        $check_number = str_replace(',', '', $number);
-        if ($max_length > 0) {
+        $checkNumber = str_replace(',', '', $number);
+        if ($maxLength > 0) {
             // 最大桁数指定アリ
-            return (is_numeric($check_number) && strlen($check_number) <= $max_length);
+            return (is_numeric($checkNumber) && strlen($checkNumber) <= $maxLength);
         } else {
             // 最大桁数指定ナシ
-            return is_numeric($check_number);
+            return is_numeric($checkNumber);
         }
     }
 
     /**
      * 指定された文字列は浮動小数値で、さらに整数部が指定最大桁数以内か判定
      * @param  float   $number             確認する浮動小数値文字列
-     * @param  int     $max_integer_length 整数部最大桁数（ディフォルト：0...チェックしない)
-     * @param  int     $max_decimal_length 少数部最大桁数（ディフォルト：0...チェックしない)
+     * @param  int     $maxIntegerLength 整数部最大桁数（ディフォルト：0...チェックしない)
+     * @param  int     $maxDecimalLength 少数部最大桁数（ディフォルト：0...チェックしない)
      * @return boolean                     合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function isFloat($number, int $max_integer_length = 0, int $max_decimal_length = 0): boolean
-    {
-        $check_number = str_replace(',', '', $number);
-        list($integer_number, $decimal_number) = explode('.', $check_number);
-        if ($max_integer_length > 0 && $max_decimal_length > 0) {
+    public static function isFloat(
+        $number,
+        int $maxIntegerLength = 0,
+        int $maxDecimalLength = 0
+    ): boolean {
+        $checkNumber = str_replace(',', '', $number);
+        list($integerNumber, $decimalNumber) = explode('.', $checkNumber);
+        if ($maxIntegerLength > 0 && $maxDecimalLength > 0) {
             // 整数部最大桁数指定アリ、小数部最大桁数指定アリ
-            return (is_float($check_number) && strlen($integer_number) <= $max_integer_length && strlen($decimal_number) <= $max_decimal_length);
-        } elseif ($max_integer_length > 0 && $max_decimal_length == 0) {
+            return (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength && strlen($decimalNumber) <= $maxDecimalLength);
+        } elseif ($maxIntegerLength > 0 && $maxDecimalLength == 0) {
             // 整数部最大桁数指定アリ、小数部最大桁数指定ナシ
-            return (is_float($check_number) && strlen($integer_number) <= $max_integer_length);
-        } elseif ($max_integer_length == 0 && $max_decimal_length > 0) {
+            return (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength);
+        } elseif ($maxIntegerLength == 0 && $maxDecimalLength > 0) {
             // 整数部最大桁数指定ナシ、小数部最大桁数指定アリ
-            return (is_float($check_number) && strlen($decimal_number) <= $max_decimal_length);
+            return (is_float($checkNumber) && strlen($decimalNumber) <= $maxDecimalLength);
         } else {
             // 整数部最大桁数指定ナシ、小数部最大桁数指定ナシ
-            return is_float($check_number);
+            return is_float($checkNumber);
         }
     }
 
     /**
      * 指定された文字列は文字のみで構成され、さらに指定最大文字数以内か判定
      * @param  string  $str        確認する文字列
-     * @param  integer $max_length 最大文字列長
+     * @param  integer $maxLength 最大文字列長
      * @return boolean             合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function isString(string $str, int $max_length = 0): boolean
+    public static function isString(string $str, int $maxLength = 0): boolean
     {
-        if ($max_length > 0) {
-            return (is_string($str) && (strlen($str) <= $max_length));
+        if ($maxLength > 0) {
+            return (is_string($str) && (strlen($str) <= $maxLength));
         } else {
             return is_string($str);
         }
@@ -81,13 +84,13 @@ class Validater
      * 指定した文字列が指定した配列に含まれているか判定
      * @param  string  $str            確認する文字列
      * @param  array   $list           確認する配列
-     * @param  boolean $all_leter_type 大文字小文字を無視して判定するか(ディフォルト：true ... 無視して判定)
+     * @param  boolean $allLeterType 大文字小文字を無視して判定するか(ディフォルト：true ... 無視して判定)
      * @return string                  配列に含まれている場合は配列に含まている適合する文字列を返す。ない場合は null を返す
      */
-    public static function inList(string $str, array &$list, bool $all_leter_type = true): string
+    public static function inList(string $str, array &$list, bool $allLeterType = true): string
     {
         $result = null;
-        if ($all_leter_type) {
+        if ($allLeterType) {
             $str = strtolower($str);
             foreach ($list as $member) {
                 if (strtolower($member) == $str) {

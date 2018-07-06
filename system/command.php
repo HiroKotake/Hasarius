@@ -33,13 +33,13 @@ class Command
     private $scripts    = [];
 
     // コマンド挙動確定用変数：以下の変数は継承先コンストラクタ内で設定する必要がある
-    private $tab_open        = null;
-    private $tab_close       = null;
-    private $block_type      = self::BLOCK_TYPE_ONE_LINE;
-    private $command_perpose = null;
+    private $tabOpen        = null;
+    private $tabClose       = null;
+    private $blockType      = self::BLOCK_TYPE_ONE_LINE;
+    private $commandPerpose = null;
 
     // パラメータチェック
-    private function subVerifyParamater(string $param_name, $param_value)
+    private function subVerifyParamater(string $paramName, $paramValue)
     {
     }
 

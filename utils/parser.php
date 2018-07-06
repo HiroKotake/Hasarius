@@ -23,52 +23,52 @@ class Parser
     /**
      * 文字列を解析する
      * @param string $line
-     * @param string $command_head
-     * @param string $parameter_delim
-     * @param array $modifiers_key
+     * @param string $commandHead
+     * @param string $parameterDelim
+     * @param array $modifiersKey
      * @param string $escape
      * @return array
      */
     public static function analyzeLine(
         string $line,
-        string $command_head = '#',
-        string $parameter_delim = ':',
-        array $modifiers_key = ['@', '@'],
+        string $commandHead = '#',
+        string $parameterDelim = ':',
+        array $modifiersKey = ['@', '@'],
         string $escape = '\\'
     ): array {
-        $line_work = $line;
+        $lineWork = $line;
         $paramaters = [];
-        $modifier_command = [];
-        $command_name = "";
+        $modifierCommand = [];
+        $commandName = "";
         $text = rtrim($line);
 
         // コマンドラインか確認
-        $match_command = null;
-        preg_match('|^#.*\s|U', $line, $match_command);
-        if (!empty($match_command)) {
+        $matchCommand = null;
+        preg_match('|^' . $commandHead . '.*\s|U', $line, $matchCommand);
+        if (!empty($matchCommand)) {
             // コマンド確定
-            $command_name = trim($match_command[0], '# ');
-            $line_work = str_replace($match_command[0], '', $line);
+            $commandName = trim($matchCommand[0], '# ');
+            $lineWork = str_replace($matchCommand[0], '', $line);
             // パラメータ抽出
-            $paramaters_work = self::getParamaters($line_work, $parameter_delim);
+            $paramatersWork = self::getParamaters($lineWork, $parameterDelim);
             // テキスト抽出およびパラメータ解析
-            $text = $line_work;
-            foreach ($paramaters_work as $param) {
+            $text = $lineWork;
+            foreach ($paramatersWork as $param) {
                 $text = str_replace($param, '', $text);
                 // パラメータ解析
-                list($key, $value) = explode($parameter_delim, trim($param, ' '));
+                list($key, $value) = explode($parameterDelim, trim($param, ' '));
                 $paramaters[$key] = trim($value, '"');
             }
             $text = rtrim($text);
         }
 
         // 修飾コマンド抽出
-        $modifier_command = self::getModifiers($text, $modifiers_key, $escape);
+        $modifierCommand = self::getModifiers($text, $modifiersKey, $escape);
 
         return [
-            'command' => $command_name,
+            'command' => $commandName,
             'paramaters' => $paramaters,
-            'modifiers' => $modifier_command,
+            'modifiers' => $modifierCommand,
             'text' => $text,
         ];
     }
@@ -76,19 +76,19 @@ class Parser
     /**
      * 指定された文字列からパラメータを抽出する
      * @param string $line
-     * @param string $parameter_delim
+     * @param string $parameterDelim
      * @param string $escape
      * @return array
      */
     private static function getParamaters(
         string $line,
-        string $parameter_delim = ':',
+        string $parameterDelim = ':',
         string $escape = '\\'
     ): array {
         if ($escape == '\\') {
-            $preg = '|.*[^\\\]' . $parameter_delim . '.*\s|U';
+            $preg = '|.*[^\\\]' . $parameterDelim . '.*\s|U';
         } else {
-            $preg = '|.*[^' . $escape . ']' . $parameter_delim . '.*\s|U';
+            $preg = '|.*[^' . $escape . ']' . $parameterDelim . '.*\s|U';
         }
         $matches = [];
         preg_match_all($preg, $line, $matches, PREG_PATTERN_ORDER);
@@ -98,58 +98,58 @@ class Parser
     /**
      * 指定された文字列から修飾コマンドを抽出する
      * @param string $line
-     * @param array $modifiers_key
+     * @param array $modifiersKey
      * @param string $escape
      * @return array
      */
     private static function getModifiers(
         string $line,
-        array $modifiers_key = ['@', '@'],
+        array $modifiersKey = ['@', '@'],
         string $escape = '\\'
     ): array {
-        $flag_escape_on = false;
-        $flag_modifier_on = false;
+        $flagEscapeOn = false;
+        $flagModifierOn = false;
         $length = mb_strlen($line);
-        $modifiers_command = "";
+        $modifiersCommand = "";
         $modifiers = [];
 
         for ($i = 0; $i < $length; $i++) {
             // エスケープ中か？
-            if ($flag_escape_on) {
+            if ($flagEscapeOn) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
-                if ($flag_modifier_on) {
-                    $modifiers_command .= $line[$i];
+                if ($flagModifierOn) {
+                    $modifiersCommand .= $line[$i];
                 }
-                $flag_escape_on = false;
+                $flagEscapeOn = false;
                 continue;
             }
             // 文中のエスケープ文字か？
             if ($line[$i] == $escape) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
-                if ($flag_modifier_on) {
-                    $modifiers_command .= $line[$i];
+                if ($flagModifierOn) {
+                    $modifiersCommand .= $line[$i];
                 }
-                $flag_escape_on = true;
+                $flagEscapeOn = true;
                 continue;
             }
 
             // 修飾コマンド開始か？
-            if (!$flag_modifier_on && $line[$i] == $modifiers_key[0]) {
-                $modifiers_command = "";
-                $flag_modifier_on = true;
-                $modifiers_command .= $line[$i];
+            if (!$flagModifierOn && $line[$i] == $modifiersKey[0]) {
+                $modifiersCommand = "";
+                $flagModifierOn = true;
+                $modifiersCommand .= $line[$i];
                 continue;
             }
             // 修飾コマンド終了か？
-            if ($flag_modifier_on && $line[$i] == $modifiers_key[1]) {
-                $modifiers_command .= $line[$i];
-                $modifiers[] = $modifiers_command;
-                $flag_modifier_on = false;
+            if ($flagModifierOn && $line[$i] == $modifiersKey[1]) {
+                $modifiersCommand .= $line[$i];
+                $modifiers[] = $modifiersCommand;
+                $flagModifierOn = false;
                 continue;
             }
             // 修飾コマンド中か？
-            if ($flag_modifier_on) {
-                $modifiers_command .= $line[$i];
+            if ($flagModifierOn) {
+                $modifiersCommand .= $line[$i];
             }
         }
         return $modifiers;
