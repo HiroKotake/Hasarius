@@ -81,6 +81,7 @@ class Genarate
 
         // Utility 読み込み
         require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'parser.php');
+        require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'validater.php');
 
         // commands 読み込み
         $command_dir = dir(HASARIUS_COMMANDS_DIR);
