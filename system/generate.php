@@ -1,9 +1,21 @@
 <?php
+/**
+ * genarate.php
+ *
+ * @package hasarius
+ * @category system
+ * @author Takahiro Kotake
+ * @license Teleios Development
+ */
 
 namespace Hasarius\system;
 
 /**
  * HTML 生成クラス
+ *
+ * @package hasarius
+ * @category system
+ * @author Takahiro Kotake
  */
 class Genarate
 {

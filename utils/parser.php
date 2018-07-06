@@ -1,10 +1,20 @@
 <?php
+/**
+ * parser.php
+ *
+ * @package hasarius
+ * @category utility
+ * @author Takahiro Kotake
+ * @license Teleios Development
+ */
 
 namespace Hasarius\Utils;
 
 /**
  * 行解析ユーティリティ
  *
+ * @package hasarius
+ * @category utility
  * @author tkotake
  */
 class Parser

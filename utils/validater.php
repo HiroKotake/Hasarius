@@ -1,7 +1,21 @@
 <?php
-
+/**
+ * validater.php
+ *
+ * @package hasarius
+ * @category utility
+ * @author Takahiro Kotake
+ * @license Teleios Development
+ */
 namespace Hasarius\Utils;
 
+/**
+ * Validater Class
+ *
+ * @package hasarius
+ * @category utility
+ * @author Takahiro Kotake
+ */
 class Validater
 {
     /**
