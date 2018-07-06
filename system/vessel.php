@@ -6,9 +6,9 @@ class Vessel
 {
 
     // Original Text
-    private $source = NULL;
+    private $source = null;
     // ID
-    private $id = NULL;
+    private $id = null;
     // 行番号
     private $line_number = 0;
     // TreeID
@@ -24,12 +24,10 @@ class Vessel
     // 装飾コマンド
     private $decorations = [];
     // テキスト
-    private $text = NULL;
+    private $text = null;
 
-    function __construct(string $line)
+    public function __construct(string $line)
     {
         $this->source = $line;
     }
-
-
 }

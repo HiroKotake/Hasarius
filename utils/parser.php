@@ -29,14 +29,13 @@ class Parser
      * @param string $escape
      * @return array
      */
-    static public function analyze_line(
+    public static function analyzeLine(
         string $line,
         string $command_head = '#',
         string $parameter_delim = ':',
         array $modifiers_key = ['@', '@'],
         string $escape = '\\'
-        ) : array
-    {
+    ): array {
         $line_work = $line;
         $paramaters = [];
         $modifier_command = [];
@@ -51,7 +50,7 @@ class Parser
             $command_name = trim($match_command[0], '# ');
             $line_work = str_replace($match_command[0], '', $line);
             // パラメータ抽出
-            $paramaters_work = self::get_paramaters($line_work, $parameter_delim);
+            $paramaters_work = self::getParamaters($line_work, $parameter_delim);
             // テキスト抽出およびパラメータ解析
             $text = $line_work;
             foreach ($paramaters_work as $param) {
@@ -64,7 +63,7 @@ class Parser
         }
 
         // 修飾コマンド抽出
-        $modifier_command = self::get_modifiers($text, $modifiers_key, $escape);
+        $modifier_command = self::getModifiers($text, $modifiers_key, $escape);
 
         return [
             'command' => $command_name,
@@ -72,8 +71,8 @@ class Parser
             'modifiers' => $modifier_command,
             'text' => $text,
         ];
-
     }
+
     /**
      * 指定された文字列からパラメータを抽出する
      * @param string $line
@@ -81,12 +80,11 @@ class Parser
      * @param string $escape
      * @return array
      */
-    static private function get_paramaters(
+    private static function getParamaters(
         string $line,
         string $parameter_delim = ':',
         string $escape = '\\'
-        ) : array
-    {
+    ): array {
         if ($escape == '\\') {
             $preg = '|.*[^\\\]' . $parameter_delim . '.*\s|U';
         } else {
@@ -104,26 +102,25 @@ class Parser
      * @param string $escape
      * @return array
      */
-    static private function get_modifiers(
+    private static function getModifiers(
         string $line,
         array $modifiers_key = ['@', '@'],
         string $escape = '\\'
-        ) : array
-    {
+    ): array {
         $flag_escape_on = false;
         $flag_modifier_on = false;
         $length = mb_strlen($line);
         $modifiers_command = "";
         $modifiers = [];
 
-        for ($i = 0 ; $i < $length ; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             // エスケープ中か？
             if ($flag_escape_on) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
                 if ($flag_modifier_on) {
                     $modifiers_command .= $line[$i];
                 }
-                $flag_escape_on = FALSE;
+                $flag_escape_on = false;
                 continue;
             }
             // 文中のエスケープ文字か？
@@ -132,14 +129,14 @@ class Parser
                 if ($flag_modifier_on) {
                     $modifiers_command .= $line[$i];
                 }
-                $flag_escape_on = TRUE;
+                $flag_escape_on = true;
                 continue;
             }
 
             // 修飾コマンド開始か？
             if (!$flag_modifier_on && $line[$i] == $modifiers_key[0]) {
                 $modifiers_command = "";
-                $flag_modifier_on = TRUE;
+                $flag_modifier_on = true;
                 $modifiers_command .= $line[$i];
                 continue;
             }
@@ -147,18 +144,14 @@ class Parser
             if ($flag_modifier_on && $line[$i] == $modifiers_key[1]) {
                 $modifiers_command .= $line[$i];
                 $modifiers[] = $modifiers_command;
-                $flag_modifier_on = FALSE;
+                $flag_modifier_on = false;
                 continue;
             }
             // 修飾コマンド中か？
             if ($flag_modifier_on) {
                 $modifiers_command .= $line[$i];
             }
-
         }
-
         return $modifiers;
     }
-
-
 }

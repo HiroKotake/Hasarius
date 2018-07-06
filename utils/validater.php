@@ -24,7 +24,7 @@ class Validater
      * @param  int     $max_length 最大桁数（ディフォルト：0...チェックしない)
      * @return boolean             合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function integer($number, int $max_length = 0): boolean
+    public static function isInteger($number, int $max_length = 0): boolean
     {
         $check_number = str_replace(',', '', $number);
         if ($max_length > 0) {
@@ -43,7 +43,7 @@ class Validater
      * @param  int     $max_decimal_length 少数部最大桁数（ディフォルト：0...チェックしない)
      * @return boolean                     合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function float($number, int $max_integer_length = 0, int $max_decimal_length = 0): boolean
+    public static function isFloat($number, int $max_integer_length = 0, int $max_decimal_length = 0): boolean
     {
         $check_number = str_replace(',', '', $number);
         list($integer_number, $decimal_number) = explode('.', $check_number);
@@ -68,7 +68,7 @@ class Validater
      * @param  integer $max_length 最大文字列長
      * @return boolean             合致する場合は真を、合致しない場合は偽を返す
      */
-    public static function string(string $str, int $max_length = 0): boolean
+    public static function isString(string $str, int $max_length = 0): boolean
     {
         if ($max_length > 0) {
             return (is_string($str) && (strlen($str) <= $max_length));
@@ -84,7 +84,7 @@ class Validater
      * @param  boolean $all_leter_type 大文字小文字を無視して判定するか(ディフォルト：true ... 無視して判定)
      * @return string                  配列に含まれている場合は配列に含まている適合する文字列を返す。ない場合は null を返す
      */
-    public static function in_list(string $str, array &$list, boolean $all_leter_type = true)
+    public static function inList(string $str, array &$list, bool $all_leter_type = true): string
     {
         $result = null;
         if ($all_leter_type) {
@@ -100,5 +100,4 @@ class Validater
         }
         return $result;
     }
-
 }

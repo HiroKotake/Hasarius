@@ -66,7 +66,7 @@ class Genarate
         $this->coloser_stack[] = $item;
     }
 
-    function __construct()
+    public function __construct()
     {
         $this->initialize();
     }
@@ -128,7 +128,7 @@ class Genarate
      * @param  string $source [description]
      * @return bool           [description]
      */
-    function make(string $source) : bool
+    public function make(string $source): bool
     {
         // 設定ファイル読み込み
         $source_path = explode(DIRECTORY_SEPARATOR, $source);
@@ -142,7 +142,7 @@ class Genarate
         // 解析
         try {
             self::analyze($source);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             var_dump($e);
             return false;
         }
@@ -150,7 +150,7 @@ class Genarate
         return true;
     }
 
-    function analyze(string $source, $line_number = 0) : int
+    public function analyze(string $source, $line_number = 0) : int
     {
         try {
             // 解析
@@ -183,8 +183,6 @@ class Genarate
             echo 'Error at line nunber (' . $line_number . '): ' . $line . PHP_EOL;
             throw $e;
         }
-
         return $line_number;
     }
-
 }
