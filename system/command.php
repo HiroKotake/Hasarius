@@ -27,12 +27,16 @@ class Command
     const COMMAND_TYPE_CSS    =  100;
     const COMMAND_TYPE_SCRIPT = 1000;
 
+    // 処理用変数
     private $attribues  = [];
     private $csss       = [];
     private $scripts    = [];
-    private $tab_open   = null;
-    private $tab_close  = null;
-    private $block_type = self::BLOCK_TYPE_ONE_LINE;
+
+    // コマンド挙動確定用変数：以下の変数は継承先コンストラクタ内で設定する必要がある
+    private $tab_open        = null;
+    private $tab_close       = null;
+    private $block_type      = self::BLOCK_TYPE_ONE_LINE;
+    private $command_perpose = null;
 
     // パラメータチェック
     private function subVerifyParamater(string $param_name, $param_value)
