@@ -27,13 +27,12 @@ class Validater
     public static function isInteger($number, int $maxLength = 0): boolean
     {
         $checkNumber = str_replace(',', '', $number);
+        $result = is_numeric($checkNumber); // 最大桁数指定ナシを初期値とする
         if ($maxLength > 0) {
             // 最大桁数指定アリ
-            return (is_numeric($checkNumber) && strlen($checkNumber) <= $maxLength);
-        } else {
-            // 最大桁数指定ナシ
-            return is_numeric($checkNumber);
+            $result = (is_numeric($checkNumber) && strlen($checkNumber) <= $maxLength);
         }
+        return $result;
     }
 
     /**
@@ -49,20 +48,20 @@ class Validater
         int $maxDecimalLength = 0
     ): boolean {
         $checkNumber = str_replace(',', '', $number);
+        $result = is_float($checkNumber);   // 整数部最大桁数指定ナシ、小数部最大桁数指定ナシを初期値とする
+
         list($integerNumber, $decimalNumber) = explode('.', $checkNumber);
-        if ($maxIntegerLength > 0 && $maxDecimalLength > 0) {
-            // 整数部最大桁数指定アリ、小数部最大桁数指定アリ
-            return (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength && strlen($decimalNumber) <= $maxDecimalLength);
-        } elseif ($maxIntegerLength > 0 && $maxDecimalLength == 0) {
+        if ($maxIntegerLength > 0 && $maxDecimalLength == 0) {
             // 整数部最大桁数指定アリ、小数部最大桁数指定ナシ
-            return (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength);
+            $result = (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength);
         } elseif ($maxIntegerLength == 0 && $maxDecimalLength > 0) {
             // 整数部最大桁数指定ナシ、小数部最大桁数指定アリ
-            return (is_float($checkNumber) && strlen($decimalNumber) <= $maxDecimalLength);
+            $result = (is_float($checkNumber) && strlen($decimalNumber) <= $maxDecimalLength);
         } else {
-            // 整数部最大桁数指定ナシ、小数部最大桁数指定ナシ
-            return is_float($checkNumber);
+            // 整数部最大桁数指定アリ、小数部最大桁数指定アリ
+            $result = (is_float($checkNumber) && strlen($integerNumber) <= $maxIntegerLength && strlen($decimalNumber) <= $maxDecimalLength);
         }
+        return $result;
     }
 
     /**
@@ -73,11 +72,11 @@ class Validater
      */
     public static function isString(string $str, int $maxLength = 0): boolean
     {
+        $result = is_string($str);
         if ($maxLength > 0) {
-            return (is_string($str) && (strlen($str) <= $maxLength));
-        } else {
-            return is_string($str);
+            $result = (is_string($str) && (strlen($str) <= $maxLength));
         }
+        return $result;
     }
 
     /**
@@ -89,7 +88,7 @@ class Validater
      */
     public static function inList(string $str, array &$list, bool $allLeterType = true): string
     {
-        $result = null;
+        $result = in_array($str, $list) ? $str : null;
         if ($allLeterType) {
             $str = strtolower($str);
             foreach ($list as $member) {
@@ -98,8 +97,6 @@ class Validater
                     break;
                 }
             }
-        } else {
-            $result = in_array($str, $list) ? $str : null;
         }
         return $result;
     }

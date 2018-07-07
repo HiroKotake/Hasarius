@@ -85,9 +85,8 @@ class Parser
         string $parameterDelim = ':',
         string $escape = '\\'
     ): array {
-        if ($escape == '\\') {
-            $preg = '|.*[^\\\]' . $parameterDelim . '.*\s|U';
-        } else {
+        $preg = '|.*[^\\\]' . $parameterDelim . '.*\s|U';
+        if ($escape != '\\') {
             $preg = '|.*[^' . $escape . ']' . $parameterDelim . '.*\s|U';
         }
         $matches = [];
