@@ -26,11 +26,37 @@ class Command
     const BLOCK_TYPE_SPARATE  = 2;
     const BLOCK_TYPE_BOTH     = 3;
 
+    private $listBlockTypeByString = [
+        "ONE_LINE" => 1,
+        "SPARATE"  => 2,
+        "BOTH"     => 3,
+    ];
+
+    private $listBlockTypeByNumber = [
+        1 => "ONE_LINE",
+        2 => "SPARATE",
+        3 => "BOTH",
+    ];
+
     // コマンド種別
-    const COMMAND_TYPE_SYSTEM =    1;
-    const COMMAND_TYPE_HTML   =   10;
-    const COMMAND_TYPE_CSS    =  100;
-    const COMMAND_TYPE_SCRIPT = 1000;
+    const COMMAND_PERPOSE_SYSTEM = 1;
+    const COMMAND_PERPOSE_HTML   = 2;
+    const COMMAND_PERPOSE_CSS    = 4;
+    const COMMAND_PERPOSE_SCRIPT = 8;
+
+    private $listCommandPerposeByString = [
+        "SYSTEM" => 1,
+        "HTML"   => 2,
+        "CSS"    => 4,
+        "SCRIPT" => 8,
+    ];
+
+    private $listCommandPerposeByNumber = [
+        1 => "SYSTEM",
+        2 => "HTML",
+        4 => "CSS",
+        8 => "SCRIPT",
+    ];
 
     // ドキュメントタイプ種別
     const DOCUMENT_TYPE_HTML4_LOOSE  = 1;
@@ -38,6 +64,25 @@ class Command
     const DOCUMENT_TYPE_HTML4_FRAME  = 3;
     const DOCUMENT_TYPE_XHTML1       = 10;
     const DOCUMENT_TYPE_HTML5        = 20;
+
+    private $listDocumentTypeByString = [
+        "HTML4_LOOSE"  =>  1,
+        "HTML4_STRICT" =>  2,
+        "HTML4_FRAME"  =>  3,
+        "XHTML1"       => 10,
+        "HTML5"        => 20,
+    ];
+
+    private $listDocumentTypeByNumber = [
+         1 => "HTML4_LOOSE",
+         2 => "HTML4_STRICT",
+         3 => "HTML4_FRAME",
+        10 => "XHTML1",
+        20 => "HTML5",
+    ];
+
+    const PARAMETERS_TYPE_TAG = 1;  // パラメータタイプ： HTML TAG
+    const PARAMETERS_TYPE_CSS = 2;  // パラメータタイプ： CSS
 
     // コマンド挙動確定用変数：以下の変数は継承先コンストラクタ内で設定する必要がある
     /**
@@ -61,12 +106,12 @@ class Command
      * コマンドの利用種別
      * @var array|null コマンドの適用先(sytem, html, css, script)
      *                 配列に含まれる可能性のある要素
-     *                 COMMAND_TYPE_SYSTEM(1)       ... システム用コマンド
-     *                 COMMAND_TYPE_HTML(10)        ... HTML用コマンド
-     *                 COMMAND_TYPE_CSS(100)        ... CSS用コマンド
-     *                 COMMAND_TYPE_SCRIPT(1000)    ... Script用コマンド
+     *                 COMMAND_PERPOSE_SYSTEM(1)       ... システム用コマンド
+     *                 COMMAND_PERPOSE_HTML(10)        ... HTML用コマンド
+     *                 COMMAND_PERPOSE_CSS(100)        ... CSS用コマンド
+     *                 COMMAND_PERPOSE_SCRIPT(1000)    ... Script用コマンド
      */
-    protected $commandPerpose        = null;
+    protected $commandPerpose        = [];
     /**
      * コマンド呼び出し用エイリアス
      * @var string|null エイリアス文字列
@@ -82,7 +127,12 @@ class Command
      *                 DOCUMENT_TYPE_XHTML1(10)
      *                 DOCUMENT_TYPE_HTML5(20)
      */
-    protected $possibleDocumentTypes = null;
+    protected $possibleDocumentTypes = [];
+    /**
+     * 現在のドキュメントタイプ
+     * @var int
+     */
+    protected $currentDocumentType = null;
     /**
      * 使用可能なタグの属性リスト
      * @var array|null 使用可能なタグの属性のリスト
@@ -93,6 +143,20 @@ class Command
      * @var array|null 使用可能なCSSの属性のリスト
      */
     protected $possibleCssAttributes = null;
+
+    /**
+     * コンストラクタ
+     * @param string $jsonFile コマンド設定用JSONファイル
+     * @throws Exception 何らかのエラーが発生した場合は例外を発生させる
+     */
+    public function __construct($jsonFile)
+    {
+        try {
+            $this->loadSettingJsonFile($jsonFile);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
     /**
      * 開始タグを設定
@@ -130,11 +194,11 @@ class Command
 
     /**
      * タグの範囲設定を設定
-     * @param int $blockType タグの範囲。BLOCK_TYPE_ONLINE:HTMLファイル出力は閉じタグを含む、BLOCK_TYPE_SPARATE:HTMLファイル出力は閉じタグを含まない。
+     * @param string $blockType タグの範囲。BLOCK_TYPE_ONLINE:HTMLファイル出力は閉じタグを含む、BLOCK_TYPE_SPARATE:HTMLファイル出力は閉じタグを含まない。
      */
-    protected function setBlockType(int $blockType): void
+    protected function setBlockType(string $blockType): void
     {
-        $this->blockType = $blockType;
+        $this->blockType = $this->listBlockTypeByString[$blockType];
     }
     /**
      * タグの範囲設定を取得
@@ -151,7 +215,9 @@ class Command
      */
     protected function setCommandPerpose(array $commandPerposeList): void
     {
-        $this->commandPerpose = $commandPerposeList;
+        foreach ($commandPerposeList as $commandPerpose) {
+            $this->commandPerpose[] = $this->listCommandPerposeByString[$commandPerpose];
+        }
     }
     /**
      * コマンドエイリアスを設定
@@ -176,10 +242,12 @@ class Command
      */
     protected function setPossibleDocumentTypes(array $htmlTypes): void
     {
-        $this->possibleDocumentTypes = $htmlTypes;
+        foreach ($htmlTypes as $type) {
+            $this->possibleDocumentTypes[] = $this->listDocumentTypeByString[$type];
+        }
     }
     /**
-     * 利用可能なドキュメントタイプを取得
+     * 利用可能なドキュメントタイプ(数値)を取得
      * @return array ドキュメントタイプリスト
      */
     public function getPossibleDocumentTypes(): array
@@ -187,13 +255,35 @@ class Command
         return $this->possibleDocumentTypes;
     }
     /**
+     * 利用可能なドキュメントタイプ(文字列)を取得
+     * @return array ドキュメントタイプリスト
+     */
+    public function getPossibleDocumentTypesWithString(): array
+    {
+        $result = [];
+        foreach ($this->possibleDocumentTypes as $type) {
+            $result[] = $this->listDocumentTypeByNumber[$type];
+        }
+        return $result;
+    }
+
+    /**
+     * 利用可能なドキュメントタイプか判定
+     * @param  int  $docType ドキュメントタイプ
+     * @return bool          利用可能ならば真を、利用不可能ならば偽を返す
+     */
+    public function isAbleDocumentType(int $docType): bool
+    {
+        return in_array($docType, $this->possibleDocumentTypes);
+    }
+    /**
      * 利用可能なドキュメントタイプか判定
      * @param  string $docType ドキュメントタイプ文字列
      * @return bool            利用可能ならば真を、利用不可能ならば偽を返す
      */
-    public function isAbleDocumentType(string $docType): bool
+    public function isAbleDocumentTypeByString(string $docType): bool
     {
-        return in_array($docType, $this->possibleDocumentTypes);
+        return in_array($this->listDocumentTypeByNumber[$docType], $this->possibleDocumentTypes);
     }
 
     /**
@@ -239,13 +329,81 @@ class Command
         return $this->possibleCssAttributes;
     }
 
-    // パラメータチェック
-    private function subVerifyParamater(string $paramName, $paramValue)
+    /**
+     * コマンド設定用JSONファイルを読み込み、設定値を格納
+     * @param string $filename コマンド設定用JSONファイル
+     * @throws Exception ファイル存在しない、ファイルが開けない場合に例外を発生
+     */
+    public function loadSettingJsonFile(string $filename): void
     {
+        try {
+            if (!file_exists($filename)) {
+                throw new Exception('File Not Found !! - ' . $filename);
+            }
+            $json = file_get_contents($filename);
+            $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+            $settings = json_decode($json, true);
+            // 以下に設定を読み込む処理を記述
+            $this->setTagOpen($settings["TagOpen"]);
+            $this->setTagClose($settings["TagClose"]);
+            $this->setBlockType($settings["BlockType"]);
+            $this->setCommandPerpose($settings["CommandPerposes"]);
+            $this->setCommandAlias($settings["CommandAlias"]);
+            $this->setPossibleDocumentTypes($settings["PossibleDocumentType"]);
+            $this->setPossibleTagAttributes($settings["PossibleTagAttributes"]);
+            $this->setPossibleCssAttributes($settings["PossibleCssAttributes"]);
+            // json変数を解放
+            unset($json);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
-    public function varifiyParamaters(array $paramaters): boolean
+    // パラメータチェック
+    private function subVerifyParamater(int $target, string $paramName, $paramValue): string
     {
+        $result = "";
+        $lightValue = $this->possibleTagAttributes[$this->currentDocumentType][$paramName];
+        if ($target == self::PARAMETERS_TYPE_CSS) {
+            $lightValue = $this->possibleCssAttributes[$paramName];
+        }
+        // ToDo 属性値が正しい値か確認
+        return $result;
     }
+
+    /**
+     * Tagパラメータが正しく設定されているか確認する
+     * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
+     * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
+     */
+    public function varifiyTagParamaters(array $paramaters): array
+    {
+        $errorList = [];
+        foreach ($paramaters as $key => $value) {
+            $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
+            if (!empty($result)) {
+                $errorList[] = $result;
+            }
+        }
+        return $errorList;
+    }
+
+    /**
+     * CSSパラメータが正しく設定されているか確認する
+     * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
+     * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
+     */
+    public function varifiyCssParamaters(array $paramaters): array
+    {
+        $errorList = [];
+        foreach ($paramaters as $key => $value) {
+            $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_CSS, $key, $value);
+            if (!empty($result)) {
+                $errorList[] = $result;
+            }
+        }
+        return $errorList;
+    }
+
     // 生成後の内容掃き出し
 }

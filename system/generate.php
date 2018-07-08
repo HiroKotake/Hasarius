@@ -109,7 +109,8 @@ class Genarate
                                     . $file . '.php';
                 require_once($commandFileName);
                 // クラス生成
-                $this->commands[$file] = new $file();
+                $className = 'Command' . ucfirst($file);
+                $this->commands[$file] = new $className();
                 $this->commandAlias[$this->commands[$file]->ALIAS] = $file;
             }
         }
@@ -123,6 +124,7 @@ class Genarate
                 require_once(HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . '.php');
                 // クラス生成
                 list($className, $exp) = explode('.', $file);
+                $className = 'Decoration' . ucfirst($className);
                 $this->decorations[$className] = new $className();
                 $this->decorationsAlias[$this->decorations[$className]->ALIAS] = $className;
             }
