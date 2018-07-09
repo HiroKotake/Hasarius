@@ -36,19 +36,22 @@ class Parser
         array $modifiersKey = ['@', '@'],
         string $escape = '\\'
     ): array {
-        $lineWork = $line;
+        // 本文とコメントに分離
+        $separated = self::separateComment($line);
+
+        $lineWork = $separated['body'];
         $paramaters = [];
         $modifierCommand = [];
         $commandName = "";
-        $text = rtrim($line);
+        $text = rtrim($separated['body']);
 
         // コマンドラインか確認
         $matchCommand = null;
-        preg_match('|^' . $commandHead . '.*\s|U', $line, $matchCommand);
+        preg_match('|^' . $commandHead . '.*\s|U', $separated['body'], $matchCommand);
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], '# ');
-            $lineWork = str_replace($matchCommand[0], '', $line);
+            $lineWork = str_replace($matchCommand[0], '', $separated['body']);
             // パラメータ抽出
             $paramatersWork = self::getParamaters($lineWork, $parameterDelim);
             // テキスト抽出およびパラメータ解析
@@ -70,7 +73,29 @@ class Parser
             'paramaters' => $paramaters,
             'modifiers' => $modifierCommand,
             'text' => $text,
+            'comment' => $separated['comment'],
         ];
+    }
+
+    /**
+     * 処理対象行文字列を処理対象文字列とコメント文字列を分離
+     * @param  string $str 処理対象行文字列
+     * @return array       ['body' => 処理対象文字列, 'comment' => コメント文字列] コメントが無い場合には'comment'には空文字が入る
+     */
+    public function separateComment(string $str): array
+    {
+        $preg = '|(.*[^\s])\s*\/\/s*(.*)|u';
+        $matches = null;
+        preg_match($preg, $str, $matches);
+        $result = [
+            'body' => $str,
+            'comment' => "",
+        ];
+        if (count($matches) > 0) {
+            $result['body']    = preg_replace('/\\\\\//', '/', $matches[1]);    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
+            $result['comment'] = $matches[2];
+        }
+        return $result;
     }
 
     /**
@@ -85,11 +110,13 @@ class Parser
         string $parameterDelim = ':',
         string $escape = '\\'
     ): array {
-        $preg = '|.*[^\\\]' . $parameterDelim . '.*\s|U';
+        $preg = '|.*[^\\\]' . $parameterDelim . '"{0,1}.*"{0,1}\s{0,1}|U';  // ToDo 複数の属性が取れない。あと、"で囲った文字列の中に空白が入るケースが想定されていない。
         if ($escape != '\\') {
             $preg = '|.*[^' . $escape . ']' . $parameterDelim . '.*\s|U';
         }
         $matches = [];
+echo PHP_EOL . '[DEBUG] PATTERN => ' . $preg . PHP_EOL;
+echo '[DEBUG] LINE    => "' . $line . '"' . PHP_EOL;
         preg_match_all($preg, $line, $matches, PREG_PATTERN_ORDER);
         return $matches[0];
     }
