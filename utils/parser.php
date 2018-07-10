@@ -32,7 +32,7 @@ class Parser
     public static function analyzeLine(
         string $line,
         string $commandHead = '#',
-        string $parameterDelim = ':',
+        string $parameterDelim = '=',
         array $modifiersKey = ['@', '@'],
         string $escape = '\\'
     ): array {
@@ -50,7 +50,7 @@ class Parser
         preg_match('|^' . $commandHead . '.*\s|U', $separated['body'], $matchCommand);
         if (!empty($matchCommand)) {
             // コマンド確定
-            $commandName = trim($matchCommand[0], '# ');
+            $commandName = trim($matchCommand[0], $commandHead . ' ');
             $lineWork = str_replace($matchCommand[0], '', $separated['body']);
             // パラメータ抽出
             $paramatersWork = self::getParamaters($lineWork, $parameterDelim);
@@ -63,6 +63,8 @@ class Parser
                 $paramaters[$key] = trim($value, '"');
             }
             $text = rtrim($text);
+            // 本文から属性エスケープを除く
+            $text = str_replace($escape . $parameterDelim, $parameterDelim, $text);
         }
 
         // 修飾コマンド抽出
@@ -72,7 +74,7 @@ class Parser
             'command' => $commandName,
             'paramaters' => $paramaters,
             'modifiers' => $modifierCommand,
-            'text' => $text,
+            'text' => ($commandName == "" ? $text : ltrim($text)),
             'comment' => $separated['comment'],
         ];
     }
@@ -93,13 +95,15 @@ class Parser
         ];
         if (count($matches) > 0) {
             $result['body']    = preg_replace('/\\\\\//', '/', $matches[1]);    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
-            $result['comment'] = $matches[2];
+            $result['comment'] = ltrim($matches[2]);
         }
         return $result;
     }
 
     /**
      * 指定された文字列からパラメータを抽出する
+     * 注意）属性値に関しては'"'で囲うこと!!
+     *
      * @param string $line
      * @param string $parameterDelim
      * @param string $escape
@@ -107,16 +111,14 @@ class Parser
      */
     private static function getParamaters(
         string $line,
-        string $parameterDelim = ':',
+        string $parameterDelim = '=',
         string $escape = '\\'
     ): array {
-        $preg = '|.*[^\\\]' . $parameterDelim . '"{0,1}.*"{0,1}\s{0,1}|U';  // ToDo 複数の属性が取れない。あと、"で囲った文字列の中に空白が入るケースが想定されていない。
+        $preg = '|.*[^\\\]' . $parameterDelim . '".*"|U';
         if ($escape != '\\') {
-            $preg = '|.*[^' . $escape . ']' . $parameterDelim . '.*\s|U';
+            $preg = '|.*[^' . $escape . ']' . $parameterDelim . '".*"|U';
         }
         $matches = [];
-echo PHP_EOL . '[DEBUG] PATTERN => ' . $preg . PHP_EOL;
-echo '[DEBUG] LINE    => "' . $line . '"' . PHP_EOL;
         preg_match_all($preg, $line, $matches, PREG_PATTERN_ORDER);
         return $matches[0];
     }
