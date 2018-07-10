@@ -4,7 +4,7 @@
     "BlockType": "SPARATE",
     "CommandPerposes": ["HTML","CSS","SCRIPT"],
     "CommandAlias": "div",
-    "PossibleDocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1","HTML5"],
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1","HTML5"],
     "TagAttributes": {
         "HTML4_LOOSE": {"key":"value"},
         "HTML4_STRICT": {"key":"value"},

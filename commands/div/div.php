@@ -15,7 +15,7 @@ class CommandDiv extends System\Command
 
     public function __construct()
     {
-        $jsonFile = __FILE__;  // コマンド設定用JSONファイルを指定
+        $jsonFile = __DIR__ . DIRECTORY_SEPARATOR . 'div.json';  // コマンド設定用JSONファイルを指定
         parent::__construct($jsonFile);
     }
 }

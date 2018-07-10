@@ -151,9 +151,10 @@ class Command
      */
     public function __construct($jsonFile)
     {
+        $this->currentDocumentType = CURRENT_DOCUMENT_DATA;
         try {
             $this->loadSettingJsonFile($jsonFile);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -202,11 +203,19 @@ class Command
     }
     /**
      * タグの範囲設定を取得
-     * @return int [description]
+     * @return int タグの範囲設定
      */
     public function getBlockType(): int
     {
         return $this->blockType;
+    }
+    /**
+     * タグの範囲設定を文字列として取得
+     * @return string タグの範囲設定文字列
+     */
+    public function getBlockTypeWithString(): string
+    {
+        return $this->listBlockTypeByNumber[$this->blockType];
     }
 
     /**
@@ -219,6 +228,19 @@ class Command
             $this->commandPerpose[] = $this->listCommandPerposeByString[$commandPerpose];
         }
     }
+    /**
+     * コマンドの機能範囲を文字列を含んだ配列にて取得
+     * @return array コマンドの機能範囲を文字列を含んだ配列
+     */
+    public function getCommandPerposeWithString(): array
+    {
+        $list = [];
+        foreach ($this->commandPerpose as $commandPerpose) {
+            $list[] = $this->listCommandPerposeByNumber[$commandPerpose];
+        }
+        return $list;
+    }
+
     /**
      * コマンドエイリアスを設定
      * @param string $alias コマンドエイリアス
@@ -338,7 +360,7 @@ class Command
     {
         try {
             if (!file_exists($filename)) {
-                throw new Exception('File Not Found !! - ' . $filename);
+                throw new \Exception('File Not Found !! - ' . $filename);
             }
             $json = file_get_contents($filename);
             $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
@@ -349,9 +371,9 @@ class Command
             $this->setBlockType($settings["BlockType"]);
             $this->setCommandPerpose($settings["CommandPerposes"]);
             $this->setCommandAlias($settings["CommandAlias"]);
-            $this->setPossibleDocumentTypes($settings["PossibleDocumentType"]);
-            $this->setPossibleTagAttributes($settings["PossibleTagAttributes"]);
-            $this->setPossibleCssAttributes($settings["PossibleCssAttributes"]);
+            $this->setPossibleDocumentTypes($settings["DocumentType"]);
+            $this->setPossibleTagAttributes($settings["TagAttributes"]);
+            $this->setPossibleCssAttributes($settings["CssAttributes"]);
             // json変数を解放
             unset($json);
         } catch (Exception $e) {
