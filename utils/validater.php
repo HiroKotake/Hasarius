@@ -7,7 +7,7 @@
  * @author Takahiro Kotake
  * @license Teleios Development
  */
-namespace Hasarius\Utils;
+namespace Hasarius\utils;
 
 /**
  * Validater Class

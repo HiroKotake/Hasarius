@@ -8,7 +8,7 @@
  * @license Teleios Development
  */
 
-namespace Hasarius\Utils;
+namespace Hasarius\utils;
 
 /**
  * 行解析ユーティリティ

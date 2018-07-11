@@ -10,7 +10,9 @@
 
 namespace Hasarius\system;
 
-use Hasarius\utils as utils;
+use Hasarius\utils as Utils;
+use Hasarius\command as Command;
+use Hasarius\decorate as Decorate;
 
 /**
  * HTML 生成クラス
@@ -19,7 +21,7 @@ use Hasarius\utils as utils;
  * @category system
  * @author Takahiro Kotake
  */
-class Genarate
+class Generate
 {
     /**
      * コマンド保持マップ
@@ -86,32 +88,16 @@ class Genarate
         define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
         define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
-        define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decoration');
-
-        // system 読み込み
-        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'command.php');
-        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'decoration.php');
-        require_one(HASARIUS_SYSTEM_DIR . DIRECTORY_SEPARATOR . 'vessel.php');
-
-        // Utility 読み込み
-        require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'parser.php');
-        require_once(HASARIUS_UTILS_DIR . DIRECTORY_SEPARATOR . 'validater.php');
+        define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
 
         // commands 読み込み
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
         while (false !== ($file = $commandDir->read())) {
-            if ($file != '.' || $file != '..') {
-                // phpファイル読み込み
-                $commandFileName = HASARIUS_COMMANDS_DIR
-                                    . DIRECTORY_SEPARATOR
-                                    . $file
-                                    . DIRECTORY_SEPARATOR
-                                    . $file . '.php';
-                require_once($commandFileName);
+            if (($file != '.' || $file != '..') && is_dir($file)) {
                 // クラス生成
-                $className = 'Command' . ucfirst($file);
+                $className = 'Command\Command' . ucfirst($file);
                 $this->commands[$file] = new $className();
-                $this->commandAlias[$this->commands[$file]->ALIAS] = $file;
+                $this->commandAlias[$this->commands[$file]->getCommandAlias()] = $file;
             }
         }
         $commandDir->close();
@@ -119,14 +105,11 @@ class Genarate
         // dcecoration 読み込み
         $decorationDir = dir(HASARIUS_DECORATION_DIR);
         while (false !== ($file = $decorationDir->read())) {
-            if ($file != '.' || $file != '..') {
-                // phpファイル読み込み
-                require_once(HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . '.php');
+            if (($file != '.' || $file != '..') && is_dir($file)) {
                 // クラス生成
-                list($className, $exp) = explode('.', $file);
-                $className = 'Decoration' . ucfirst($className);
-                $this->decorations[$className] = new $className();
-                $this->decorationsAlias[$this->decorations[$className]->ALIAS] = $className;
+                $className = 'Decorate\Decorate' . ucfirst($file);
+                $this->decorations[$file] = new $className();
+                $this->decorationsAlias[$this->decorations[$file]->getDecorationAlias()] = $file;
             }
         }
         $decorationDir->close();
@@ -172,7 +155,7 @@ class Genarate
             while (($line = fgets($hFile)) !== false) {
                 $lineNumber++;    // 行インデックス更新
                 //  --- 解析
-                $lineParameters = utils\Parser::analyzeLine($line);
+                $lineParameters = Utils\Parser::analyzeLine($line);
                 if ($lineParameters['command'] == 'include') {
                     // --- 外部ソース読み込み
                     $lineNumber = self::analyze($lineParameters['text'], $lineNumber);
@@ -193,5 +176,10 @@ class Genarate
             throw $e;
         }
         return $lineNumber;
+    }
+
+    public function physicalTest(): string
+    {
+        return 'DONE';
     }
 }
