@@ -59,26 +59,38 @@ class Command
     ];
 
     // ドキュメントタイプ種別
-    const DOCUMENT_TYPE_HTML4_LOOSE  = 1;
-    const DOCUMENT_TYPE_HTML4_STRICT = 2;
-    const DOCUMENT_TYPE_HTML4_FRAME  = 3;
-    const DOCUMENT_TYPE_XHTML1       = 10;
-    const DOCUMENT_TYPE_HTML5        = 20;
+    const DOCUMENT_TYPE_HTML4_LOOSE   = 1;
+    const DOCUMENT_TYPE_HTML4_STRICT  = 2;
+    const DOCUMENT_TYPE_HTML4_FRAME   = 3;
+    const DOCUMENT_TYPE_XHTML1_LOOSE  = 10;
+    const DOCUMENT_TYPE_XHTML1_STRICT = 11;
+    const DOCUMENT_TYPE_XHTML1_FRAME  = 12;
+    const DOCUMENT_TYPE_XHTML1_1      = 13;
+    const DOCUMENT_TYPE_HTML5         = 20;
+    const DOCUMENT_TYPE_HTML5_1       = 21;
 
     private $listDocumentTypeByString = [
-        "HTML4_LOOSE"  =>  1,
-        "HTML4_STRICT" =>  2,
-        "HTML4_FRAME"  =>  3,
-        "XHTML1"       => 10,
-        "HTML5"        => 20,
+        "HTML4_LOOSE"   =>  1,
+        "HTML4_STRICT"  =>  2,
+        "HTML4_FRAME"   =>  3,
+        "XHTML1_LOOSE"  => 10,
+        "XHTML1_STRICT" => 11,
+        "XHTML1_FRAME"  => 12,
+        "XHTML1_1"      => 13,
+        "HTML5"         => 20,
+        "HTML5_1"       => 21,
     ];
 
     private $listDocumentTypeByNumber = [
          1 => "HTML4_LOOSE",
          2 => "HTML4_STRICT",
          3 => "HTML4_FRAME",
-        10 => "XHTML1",
+        10 => "XHTML1_LOOSE",
+        11 => "XHTML1_STRICT",
+        12 => "XHTML1_FRAME",
+        13 => "XHTML1_1",
         20 => "HTML5",
+        21 => "HTML5_1",
     ];
 
     const PARAMETERS_TYPE_TAG = 1;  // パラメータタイプ： HTML TAG
