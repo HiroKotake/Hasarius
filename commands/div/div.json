@@ -1,4 +1,5 @@
 {
+    "CommandName": "div",
     "TagOpen": "div",
     "TagClose": "</div>",
     "BlockType": "SPARATE",

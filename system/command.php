@@ -98,6 +98,12 @@ class Command
 
     // コマンド挙動確定用変数：以下の変数は継承先コンストラクタ内で設定する必要がある
     /**
+     * コマンド名
+     * @var string コマンド名
+     */
+    protected $commandName          = null;
+
+    /**
      * 開始タグ文字列
      * @var string|null 開始用のHTMLタグ文字列
      */
@@ -171,6 +177,22 @@ class Command
         }
     }
 
+    /**
+     * コマンド名を設定
+     * @param string $commandName コマンド名
+     */
+    protected function setCommandName(string $commandName): void
+    {
+        $this->commandName = $commandName;
+    }
+    /**
+     * コマンド名を取得
+     * @return string コマンド名
+     */
+    protected function getCommandName(): string
+    {
+        return $this->commandName;
+    }
     /**
      * 開始タグを設定
      * @param string $tag 開始タグの文字列
@@ -378,6 +400,7 @@ class Command
             $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
             $settings = json_decode($json, true);
             // 以下に設定を読み込む処理を記述
+            $this->setCommandName($settings["CommandName"]);
             $this->setTagOpen($settings["TagOpen"]);
             $this->setTagClose($settings["TagClose"]);
             $this->setBlockType($settings["BlockType"]);
@@ -414,9 +437,18 @@ class Command
     {
         $errorList = [];
         foreach ($paramaters as $key => $value) {
-            $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
-            if (!empty($result)) {
-                $errorList[] = $result;
+            if ($key == 'Style') {
+                // CSS
+                $result = $this->varifiyCssParamaters($value);
+                if (!empty($result)) {
+                    array_merge($errorList, $result);
+                }
+            } else {
+                // その他
+                $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
+                if (!empty($result)) {
+                    $errorList[] = $result;
+                }
             }
         }
         return $errorList;
@@ -424,13 +456,19 @@ class Command
 
     /**
      * CSSパラメータが正しく設定されているか確認する
-     * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
+     * @param  string $paramaters 属性名と属性値のペアを含んだ連想配列
      * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
      */
-    public function varifiyCssParamaters(array $paramaters): array
+    public function varifiyCssParamaters(string $paramaters): array
     {
         $errorList = [];
-        foreach ($paramaters as $key => $value) {
+        $paramsWork = explode(';', $paramaters);
+        $params = [];
+        foreach ($paramsWork as $value) {
+            list($key, $val) = explode(':', $value);
+            $params[$key] = $val;
+        }
+        foreach ($params as $key => $value) {
             $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_CSS, $key, $value);
             if (!empty($result)) {
                 $errorList[] = $result;
@@ -439,5 +477,114 @@ class Command
         return $errorList;
     }
 
-    // 生成後の内容掃き出し
+    /**
+     * 設定ファイルを読み込み、文字列を生成
+     * @param  string $id       ID
+     * @param  string $filename 設定ファイル
+     * @return string           加工した文字列
+     */
+    private function makeExtentionString(string $id, string $filename): string
+    {
+        $text = '';
+        try {
+            $hFile = fopen($filename, 'r');
+            while (($line = fgets($hFile)) !== false) {
+                $text .= str_replace("@ID@", $id, rtrim($line)) . PHP_EOL;    // ToDo: 文字エンコードの変換が必要
+            }
+            fclose($hFile);
+        } catch (\Exception $e) {
+            echo '[ERROR] FILE I/O Error !! (' . $filename . ')';
+        }
+    }
+    /**
+     * スクリプト文字列を生成
+     * @param  string $id       ID
+     * @param  string $filename 元となるスクリプトを含んだファイル
+     * @return string           加工したスクリプト文字列
+     */
+    public function makeScriptString(string $id, string $filename = null): string
+    {
+        $script = "";
+        if (empty($filename) || !file_exists($filename)) {
+            // ファイルが存在しない場合はデフォルト値を生成
+            $filename = HASARIUS_COMMANDS_DIR
+                      . DIRECTORY_SEPARATOR
+                      . $this->getCommandName()
+                      . DIRECTORY_SEPARATOR
+                      . $this->getCommandName() . '.jsp';
+        }
+        $script = $this->makeExtentionString($id, $filename);
+        return $script;
+    }
+
+    /**
+     * 独自CSSを生成
+     * @param  string $id       ID
+     * @param  string $filename 元となるCSSを含んだファイル
+     * @return string           加工したCSS文字列
+     */
+    public function makeCssString(string $id, string $filename = null): string
+    {
+        $css = "";
+        if (empty($filename) || !file_exists($filename)) {
+            // ファイルが存在しない場合はデフォルト値を生成
+            $filename = HASARIUS_DECORATION_DIR
+                      . DIRECTORY_SEPARATOR
+                      . $this->getCommandName()
+                      . DIRECTORY_SEPARATOR
+                      . $this->getCommandName() . '.css';
+        }
+        $css = $this->makeExtentionString($id, $filename);
+        return $css;
+    }
+
+    /**
+     * コマンドに対応した文字列変換を実施
+     * - インラインコマンドについてはsystem/Generateで別途に操作を行う
+     * @param  array $parsed Parser経由での行解析結果配列
+     *                          'command' => コマンド名（文字列ののみの場合は空)
+     *                          'paramaters' => コマンドの属性と属性値
+     *                          'modifiers' => インラインコマンドの情報配列
+     *                          'text' => 表示するテキストがある場合はその文字列、無い場合は空文字
+     *                          'comment' => コメント文字列
+     *                          'lineNumber' => 行番号
+     * @return array         操作後の結果を含んだデータの配列
+     *                          (引数の配列に以下の要素を追加する)
+     *                          'id' => コマンドであるならば id を示す文字列を、コマンドでない場合はnull
+     *                          'tagOpen' => コマンドであるならば開始タグを示す文字列を、コマンドでない場合はnull
+     *                          'tagClose' => コマンドであるならば終了タグを示す文字列を、コマンドでない場合はnull
+     *                          'script' => コマンドに必要なスクリプトがある場合はスクリプトを、コマンドで出ない場合はnull
+     *                          'css' => コマンドに独自のCSSがある場合はCSSを、コマンドで出ない場合はnull
+     */
+    public function trancelate(array $parsed): array
+    {
+        // 一応保険としてコマンドの確認を実施
+        if (!empty($parsed['command']) && $this->getCommandName() == $parsed['command']) {
+            // コマンドの場合はID生成(id_ + "行番号")
+            $parsed['id'] = 'id_' . $parsed['lineNumber'];
+            // ToDo: コマンドの属性と属性値の正当性確認
+            $params = $this->varifiyTagParamaters($parsed['paramaters']);
+            // 開始タグ
+            $tagOpen = '<' . $this->getTagOpen();
+            foreach ($params as $key => $value) {
+                $tagOpen . ' ' . $key . '=""' . $value . '"';
+            }
+            $parsed['tagOpen'] = $tagOpen . '>';
+            // 終了タグ（スタック用）
+            $parsed['tagClose'] = $this->getTagClose();
+            // scriptがあるならばそのデータを定義
+            $filename = null;
+            if (array_key_exists('ScriptFile', $parsed['paramaters'])) {
+                $filename = $parsed['paramaters']['ScriptFile'];
+            }
+            $parsed['script'] = $this->makeScriptString($id, $filename);
+            // 独自CSSがあるならばそのデータを定義
+            $filename = null;
+            if (array_key_exists('CssFile', $parsed['paramaters'])) {
+                $filename = $parsed['paramaters']['CssFile'];
+            }
+            $parsed['css'] = $this->makeScriptString($id, $filename);
+        }
+        return $parsed;
+    }
 }

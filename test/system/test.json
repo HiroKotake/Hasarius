@@ -1,4 +1,5 @@
 {
+    "CommandName": "test",
     "TagOpen": "test",
     "TagClose": "</test>",
     "BlockType": "ONE_LINE",

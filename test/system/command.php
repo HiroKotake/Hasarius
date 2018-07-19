@@ -33,6 +33,7 @@ class TestCommand extends TestCase
         } catch (Exception $e) {
             $error = $e;
         }
+        $commandName = 'test';
         $tagOpen = 'test';
         $tagClose = '</test>';
         $blockType = 'ONE_LINE';
@@ -47,6 +48,7 @@ class TestCommand extends TestCase
         ];
         $cssAttributes = ['css_key'=>'css_value'];
 
+        $this->assertEquals($commandName, $test->getCommandName());
         $this->assertEquals($tagOpen, $test->getTagOpen());
         $this->assertEquals($tagClose, $test->getTagClose());
         $this->assertEquals($blockType, $test->getBlockTypeWithString());
@@ -55,7 +57,10 @@ class TestCommand extends TestCase
         $this->assertEquals($documentType, $test->getPossibleDocumentTypesWithString(), 0, 0, true);
         $this->assertEquals($tagAttributes, $test->getPossibleTagAttributes(), 0, 0, true);
         $this->assertEquals($cssAttributes, $test->getPossibleCssAttributes(), 0, 0, true);
+    }
 
+    public function testFailedLoadSettingJsonFile()
+    {
         // 設定ファイルの指定間違い確認
         $testJsonFile = __DIR__ . DIRECTORY_SEPARATOR  . 'this.json';
         $test = null;
