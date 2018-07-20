@@ -189,7 +189,7 @@ class Command
      * コマンド名を取得
      * @return string コマンド名
      */
-    protected function getCommandName(): string
+    public function getCommandName(): string
     {
         return $this->commandName;
     }

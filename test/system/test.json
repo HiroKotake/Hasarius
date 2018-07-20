@@ -5,7 +5,7 @@
     "BlockType": "ONE_LINE",
     "CommandPerposes": ["HTML","CSS","SCRIPT"],
     "CommandAlias": "tst",
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1","HTML5"],
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
     "TagAttributes": {
         "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
         "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},

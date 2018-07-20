@@ -39,7 +39,7 @@ class TestCommand extends TestCase
         $blockType = 'ONE_LINE';
         $commandPerposes = ['HTML','CSS','SCRIPT'];
         $commandAlias = 'tst';
-        $documentType = ['HTML4_LOOSE','HTML4_STRICT','XHTML1','HTML5'];
+        $documentType = ['HTML4_LOOSE','HTML4_STRICT','XHTML1_LOOSE','HTML5','HTML5_1'];
         $tagAttributes = [
             'HTML4_LOOSE' => ['html4_loose_key' => 'html4_loose_value'],
             'HTML4_STRICT' => ['html4_strict_key' => 'html4_strict_value'],
