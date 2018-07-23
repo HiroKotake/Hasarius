@@ -48,6 +48,11 @@ class Generate
      * @var string
      */
     private $closerStack = [];
+    /**
+     * コンテナ
+     * @var array
+     */
+    private $vesselContainer = [];
 
     /**
      * クローズスタックからアイテムを取得
@@ -142,8 +147,17 @@ class Generate
         return true;
     }
 
+    /**
+     * 指定されたHasariusテキストファイルを解析
+     * （再帰呼び出しあり）
+     *
+     * @param  string  $source     Hasariusテキストファイル
+     * @param  integer $lineNumber 開始行番号
+     * @return int                 最終行番号
+     */
     public function analyze(string $source, $lineNumber = 0) : int
     {
+        // STEP 1 : READ LINE
         try {
             // 解析
             if (!file_exists($source)) {
@@ -156,17 +170,18 @@ class Generate
                 $lineNumber++;    // 行インデックス更新
                 //  --- 解析
                 $lineParameters = Utils\Parser::analyzeLine($line);
-                if ($lineParameters['command'] == 'include') {
+                if ($lineParameters->getCommand() == 'include') {
                     // --- 外部ソース読み込み
-                    $lineNumber = self::analyze($lineParameters['text'], $lineNumber);
+                    $lineNumber = self::analyze($lineParameters->getText(), $lineNumber);
                 } else {
-                    //  --- 出力
-                    //  ---- 修飾エイリアス確認
-                    //  ---- 修飾エイリアスになければ実態を確認
-                    //  ---- テキスト置換
                     //  ---- コマンドエイリアス確認
                     //  ---- コマンドエイリアスになければ実態を確認
-                    //  ---- HTML生成
+                    //  ----- コマンド処理
+                    //  ---- 修飾エイリアス確認
+                    //  ---- 修飾エイリアスになければ実態を確認
+                    //  ----- テキスト置換
+                    //  コンテナに格納
+                    $this->vesselContainer[] = $lineParameters;
                 }
             }
             //  - ファイルクローズ

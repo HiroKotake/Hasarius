@@ -18,6 +18,7 @@ class AutoLoader
         }
         $dirsAndFileHead = explode('\\', $class);
         $filename = array_pop($dirsAndFileHead);
+        $headFilename = strtolower($filename);
         $subDir = array_pop($dirsAndFileHead);
         $commandPattern    = '|^Command.*$|';
         $decorationPattern = '|^Decorate.*$|';
@@ -32,20 +33,20 @@ class AutoLoader
             $filename = strtolower(preg_replace('|^Command|', '', $filename));
             $filename = __DIR__ . DIRECTORY_SEPARATOR
                       . 'commands' . DIRECTORY_SEPARATOR
-                      . $filename . DIRECTORY_SEPARATOR
-                      . $filename . '.php';
+                      . $headFilename . DIRECTORY_SEPARATOR
+                      . $headFilename . '.php';
         } elseif (preg_match($decorationPattern, $filename)) {
             // for decoration
             $filename = strtolower(preg_replace('|^Decorate|', '', $filename));
             $filename = __DIR__ . DIRECTORY_SEPARATOR
                       . 'decorations' . DIRECTORY_SEPARATOR
-                      . $filename . DIRECTORY_SEPARATOR
-                      . $filename . '.php';
+                      . $headFilename . DIRECTORY_SEPARATOR
+                      . $headFilename . '.php';
         } elseif (preg_match($utilsPattern, $subDir)) {
             // for utils
             $filename = __DIR__ . DIRECTORY_SEPARATOR
                       . 'utils' . DIRECTORY_SEPARATOR
-                      . strtolower($filename) . '.php';
+                      . $headFilename . '.php';
         }
 
         if (!file_exists($filename)) {

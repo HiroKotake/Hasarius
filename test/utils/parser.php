@@ -1,159 +1,208 @@
 <?php
 
-require_once("../../utils/parser.php");
 use Hasarius\utils\Parser;
+use Hasarius\system\Vessel;
 use PHPUnit\Framework\TestCase;
 
 class TestParser extends TestCase
 {
 
-    public function testAnalyzeLine()
+    public function provideAnalyzeLine()
     {
+        $command = [];
         // コマンド、属性、本文
-        $str = '#div id="test" class="block_left" name="div test" div is block tag.';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '#div id="test" class="block_left" name="div test" div is block tag.',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [],
+                'text' => 'div is block tag.',
+                'comment' => '',
             ],
-            'modifiers' => [],
-            'text' => 'div is block tag.',
-            'comment' => '',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // 属性エスケープ確認：コマンド、属性、本文
-        $str = '#div id="test" class="block_left" name\="div test" div is block tag.';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
+        $command[] = [
+            'source' => '#div id="test" class="block_left" name\="div test" div is block tag.',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                ],
+                'modifiers' => [],
+                'text' => 'name="div test" div is block tag.',
+                'comment' => '',
             ],
-            'modifiers' => [],
-            'text' => 'name="div test" div is block tag.',
-            'comment' => '',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // 本文のみ
-        $str = 'div is block tag.';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => "",
-            'paramaters' => [],
-            'modifiers' => [],
-            'text' => 'div is block tag.',
-            'comment' => '',
+        $command[] = [
+            'source' => 'div is block tag.',
+            'expects' => [
+                'command' => "",
+                'paramaters' => [],
+                'modifiers' => [],
+                'text' => 'div is block tag.',
+                'comment' => '',
+            ],
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // 本文のみ：インラインコマンド付き
-        $str = 'div is @b block tag@.';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => "",
-            'paramaters' => [],
-            'modifiers' => [
-                '@b block tag@'
+        $command[] = [
+            'source' => 'div is @b block tag@.',
+            'expects' => [
+                'command' => "",
+                'paramaters' => [],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => 'div is @b block tag@.',
+                'comment' => '',
             ],
-            'text' => 'div is @b block tag@.',
-            'comment' => '',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // コマンド、属性、本文(インラインコマンド付き)
-        $str = '#div id="test" class="block_left" name="div test" div is @b block tag@.';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '#div id="test" class="block_left" name="div test" div is @b block tag@.',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => 'div is @b block tag@.',
+                'comment' => '',
             ],
-            'modifiers' => [
-                '@b block tag@'
-            ],
-            'text' => 'div is @b block tag@.',
-            'comment' => '',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // コマンド、属性、本文(インラインコマンド付き)、コメント
-        $str = '#div id="test" class="block_left" name="div test" div is @b block tag@. // Test Case Comment';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '#div id="test" class="block_left" name="div test" div is @b block tag@. // Test Case Comment',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => 'div is @b block tag@.',
+                'comment' => 'Test Case Comment',
             ],
-            'modifiers' => [
-                '@b block tag@'
-            ],
-            'text' => 'div is @b block tag@.',
-            'comment' => 'Test Case Comment',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // コマンド、属性、本文(インラインコマンド付き、コメントエスケープを含む)、コメント
-        $str = '#div id="test" class="block_left" name="div test" \/\/ div is @b block tag@. // Test Case Comment';
-        $result = Parser::analyzeLine($str);
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '#div id="test" class="block_left" name="div test" \/\/ div is @b block tag@. // Test Case Comment',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => '// div is @b block tag@.',
+                'comment' => 'Test Case Comment',
             ],
-            'modifiers' => [
-                '@b block tag@'
-            ],
-            'text' => '// div is @b block tag@.',
-            'comment' => 'Test Case Comment',
+            'commandHead' => null,
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // コマンド開始文字変更('#'->'&')：コマンド、属性、本文(インラインコマンド付き、コメントエスケープを含む)、コメント
-        $str = '&div id="test" class="block_left" name="div test" \/\/ div is @b block tag@. // Test Case Comment';
-        $result = Parser::analyzeLine($str, '&');
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '&div id="test" class="block_left" name="div test" \/\/ div is @b block tag@. // Test Case Comment',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => '// div is @b block tag@.',
+                'comment' => 'Test Case Comment',
             ],
-            'modifiers' => [
-                '@b block tag@'
-            ],
-            'text' => '// div is @b block tag@.',
-            'comment' => 'Test Case Comment',
+            'commandHead' => '&',
+            'attributeDelime' => null,
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
 
         // コマンド開始文字変更('#'->'&')、属性区切り文字変更('='->':')：コマンド、属性、本文(インラインコマンド付き、コメントエスケープを含む)、コメント
-        $str = '&div id:"test" class:"block_left" name:"div test" \/\/ div is @b block tag@. // Test Case Comment';
-        $result = Parser::analyzeLine($str, '&', ':');
-        $compareData = [
-            'command' => 'div',
-            'paramaters' => [
-                'id' => 'test',
-                'class' => 'block_left',
-                'name' => 'div test'
+        $command[] = [
+            'source' => '&div id:"test" class:"block_left" name:"div test" \/\/ div is @b block tag@. // Test Case Comment',
+            'expects' => [
+                'command' => 'div',
+                'paramaters' => [
+                    'id' => 'test',
+                    'class' => 'block_left',
+                    'name' => 'div test'
+                ],
+                'modifiers' => [
+                    '@b block tag@'
+                ],
+                'text' => '// div is @b block tag@.',
+                'comment' => 'Test Case Comment',
             ],
-            'modifiers' => [
-                '@b block tag@'
-            ],
-            'text' => '// div is @b block tag@.',
-            'comment' => 'Test Case Comment',
+            'commandHead' => '&',
+            'attributeDelime' => ':',
         ];
-        $this->assertEquals($compareData, $result, 0, 0, true);   // 配列の順序を意識しないで比較
+        return $command;
+    }
+    /** @dataProvider provideAnalyzeLine */
+    public function testAnalyzeLine($source, $expects, $commandHead, $attributeDelime)
+    {
+        if (empty($commandHead)) {
+            $vessel = Parser::analyzeLine($source);
+        } else {
+            if (empty($attributeDelime)) {
+                $vessel = Parser::analyzeLine($source, $commandHead);
+            } else {
+                $vessel = Parser::analyzeLine($source, $commandHead, $attributeDelime);
+            }
+        }
+
+        if (array_key_exists('command', $expects)) {
+            $this->assertEquals($vessel->getCommand(), $expects['command']);
+        }
+        if (array_key_exists('paramaters', $expects)) {
+            $this->assertEquals($vessel->getParamaters(), $expects['paramaters']);
+        }
+        if (array_key_exists('modifiers', $expects)) {
+            $this->assertEquals($vessel->getModifiers(), $expects['modifiers']);
+        }
+        if (array_key_exists('text', $expects)) {
+            $this->assertEquals($vessel->getText(), $expects['text']);
+        }
+        if (array_key_exists('comment', $expects)) {
+            $this->assertEquals($vessel->getComment(), $expects['comment']);
+        }
     }
 }

@@ -11,6 +11,7 @@
 namespace Hasarius\system;
 
 use Hasarius\utils as Utils;
+use Hasarius\system\Vessel;
 
 /**
  * コマンド基底クラス
@@ -96,6 +97,11 @@ class Command
     const PARAMETERS_TYPE_TAG = 1;  // パラメータタイプ： HTML TAG
     const PARAMETERS_TYPE_CSS = 2;  // パラメータタイプ： CSS
 
+    // スクリプトの配置先
+    const SCRIPT_PLACE_TYPE_FILE = "FILE";  // ファイル
+    const SCRIPT_PLACE_TYPE_HEAD = "HEAD";  // ヘッダ部
+    const SCRIPT_PLACE_TYPE_BODY = "BODY";  // ボディ部
+
     // コマンド挙動確定用変数：以下の変数は継承先コンストラクタ内で設定する必要がある
     /**
      * コマンド名
@@ -161,6 +167,11 @@ class Command
      * @var array|null 使用可能なCSSの属性のリスト
      */
     protected $possibleCssAttributes = null;
+    /**
+     * スクリプトの配置先
+     * @var string
+     */
+    protected $scriptSetType;
 
     /**
      * コンストラクタ
@@ -478,25 +489,6 @@ class Command
     }
 
     /**
-     * 設定ファイルを読み込み、文字列を生成
-     * @param  string $id       ID
-     * @param  string $filename 設定ファイル
-     * @return string           加工した文字列
-     */
-    private function makeExtentionString(string $id, string $filename): string
-    {
-        $text = '';
-        try {
-            $hFile = fopen($filename, 'r');
-            while (($line = fgets($hFile)) !== false) {
-                $text .= str_replace("@ID@", $id, rtrim($line)) . PHP_EOL;    // ToDo: 文字エンコードの変換が必要
-            }
-            fclose($hFile);
-        } catch (\Exception $e) {
-            echo '[ERROR] FILE I/O Error !! (' . $filename . ')';
-        }
-    }
-    /**
      * スクリプト文字列を生成
      * @param  string $id       ID
      * @param  string $filename 元となるスクリプトを含んだファイル
@@ -504,7 +496,7 @@ class Command
      */
     public function makeScriptString(string $id, string $filename = null): string
     {
-        $script = "";
+        $script = [];
         if (empty($filename) || !file_exists($filename)) {
             // ファイルが存在しない場合はデフォルト値を生成
             $filename = HASARIUS_COMMANDS_DIR
@@ -513,7 +505,16 @@ class Command
                       . DIRECTORY_SEPARATOR
                       . $this->getCommandName() . '.jsp';
         }
-        $script = $this->makeExtentionString($id, $filename);
+        // 内容読み込み
+        try {
+            $hFile = fopen($filename, 'r');
+            while (($line = fgets($hFile)) !== false) {
+                $script[] = str_replace("@ID@", $id, rtrim($line)) . PHP_EOL;    // ToDo: 文字エンコードの変換が必要
+            }
+            fclose($hFile);
+        } catch (\Exception $e) {
+            echo '[ERROR] FILE I/O Error !! (' . $filename . ')';
+        }
         return $script;
     }
 
@@ -534,57 +535,66 @@ class Command
                       . DIRECTORY_SEPARATOR
                       . $this->getCommandName() . '.css';
         }
-        $css = $this->makeExtentionString($id, $filename);
+        // 内容読み込み
+        try {
+            $hFile = fopen($filename, 'r');
+            while (($line = fgets($hFile)) !== false) {
+                $css .= str_replace("@ID@", $id, rtrim($line)) . PHP_EOL;    // ToDo: 文字エンコードの変換が必要
+            }
+            fclose($hFile);
+        } catch (\Exception $e) {
+            echo '[ERROR] FILE I/O Error !! (' . $filename . ')';
+        }
         return $css;
     }
 
     /**
      * コマンドに対応した文字列変換を実施
      * - インラインコマンドについてはsystem/Generateで別途に操作を行う
-     * @param  array $parsed Parser経由での行解析結果配列
+     * @param  Vessel $parsed Parser経由での行解析結果配列
      *                          'command' => コマンド名（文字列ののみの場合は空)
      *                          'paramaters' => コマンドの属性と属性値
      *                          'modifiers' => インラインコマンドの情報配列
      *                          'text' => 表示するテキストがある場合はその文字列、無い場合は空文字
      *                          'comment' => コメント文字列
      *                          'lineNumber' => 行番号
-     * @return array         操作後の結果を含んだデータの配列
-     *                          (引数の配列に以下の要素を追加する)
+     *                          (操作後以下の要素を追加する)
      *                          'id' => コマンドであるならば id を示す文字列を、コマンドでない場合はnull
      *                          'tagOpen' => コマンドであるならば開始タグを示す文字列を、コマンドでない場合はnull
      *                          'tagClose' => コマンドであるならば終了タグを示す文字列を、コマンドでない場合はnull
      *                          'script' => コマンドに必要なスクリプトがある場合はスクリプトを、コマンドで出ない場合はnull
      *                          'css' => コマンドに独自のCSSがある場合はCSSを、コマンドで出ない場合はnull
      */
-    public function trancelate(array $parsed): array
+    public function trancelate(Vessel &$parsed): void
     {
+        // コマンドの場合はID生成(id_ + "行番号")
+        $parsed->setId('id_' . $parsed['lineNumber']);
+
         // 一応保険としてコマンドの確認を実施
-        if (!empty($parsed['command']) && $this->getCommandName() == $parsed['command']) {
-            // コマンドの場合はID生成(id_ + "行番号")
-            $parsed['id'] = 'id_' . $parsed['lineNumber'];
+        if (!empty($parsed->getCommand()) && $this->getCommandName() == $parsed->getCommand()) {
             // ToDo: コマンドの属性と属性値の正当性確認
-            $params = $this->varifiyTagParamaters($parsed['paramaters']);
+            $parserParamaters = $parsed->getParamaters();
+            $params = $this->varifiytagparamaters($parserParamaters);
             // 開始タグ
             $tagOpen = '<' . $this->getTagOpen();
             foreach ($params as $key => $value) {
-                $tagOpen . ' ' . $key . '=""' . $value . '"';
+                $tagOpen . ' ' . $key . '="' . $value . '"';
             }
-            $parsed['tagOpen'] = $tagOpen . '>';
+            $parsed->setTagOpen($tagOpen . '>');
             // 終了タグ（スタック用）
-            $parsed['tagClose'] = $this->getTagClose();
+            $parsed->setTagClose($this->getTagClose());
             // scriptがあるならばそのデータを定義
             $filename = null;
-            if (array_key_exists('ScriptFile', $parsed['paramaters'])) {
-                $filename = $parsed['paramaters']['ScriptFile'];
+            if (array_key_exists('ScriptFile', $parserParamaters)) {
+                $filename = $parserParamaters['ScriptFile'];
             }
-            $parsed['script'] = $this->makeScriptString($id, $filename);
+            $parsed->setScript($this->makeScriptString($id, $filename));
             // 独自CSSがあるならばそのデータを定義
             $filename = null;
-            if (array_key_exists('CssFile', $parsed['paramaters'])) {
-                $filename = $parsed['paramaters']['CssFile'];
+            if (array_key_exists('CssFile', $parserParamaters)) {
+                $filename = $parserParamaters['CssFile'];
             }
-            $parsed['css'] = $this->makeScriptString($id, $filename);
+            $parsed->setCss($this->makeScriptString($id, $filename));
         }
-        return $parsed;
     }
 }

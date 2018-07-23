@@ -10,6 +10,8 @@
 
 namespace Hasarius\utils;
 
+use Hasarius\system\Vessel;
+
 /**
  * 行解析ユーティリティ
  *
@@ -27,7 +29,7 @@ class Parser
      * @param string $parameterDelim
      * @param array $modifiersKey
      * @param string $escape
-     * @return array
+     * @return Vessel
      */
     public static function analyzeLine(
         string $line,
@@ -35,7 +37,7 @@ class Parser
         string $parameterDelim = '=',
         array $modifiersKey = ['@', '@'],
         string $escape = '\\'
-    ): array {
+    ): Vessel {
         // 本文とコメントに分離
         $separated = self::separateComment($line);
 
@@ -47,7 +49,7 @@ class Parser
 
         // コマンドラインか確認
         $matchCommand = null;
-        preg_match('|^' . $commandHead . '.*\s|U', $separated['body'], $matchCommand);
+        preg_match('/^' . $commandHead . '.*\s/U', $separated['body'], $matchCommand);
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], $commandHead . ' ');
@@ -69,14 +71,13 @@ class Parser
 
         // 修飾コマンド抽出
         $modifierCommand = self::getModifiers($text, $modifiersKey, $escape);
-
-        return [
-            'command' => $commandName,
-            'paramaters' => $paramaters,
-            'modifiers' => $modifierCommand,
-            'text' => ($commandName == "" ? $text : ltrim($text)),
-            'comment' => $separated['comment'],
-        ];
+        $vessel = new Vessel();
+        $vessel->setCommand($commandName);
+        $vessel->setParamaters($paramaters);
+        $vessel->setModifiers($modifierCommand);
+        $vessel->setText(($commandName == "" ? $text : ltrim($text)));
+        $vessel->setComment($separated['comment']);
+        return $vessel;
     }
 
     /**

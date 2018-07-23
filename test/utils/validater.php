@@ -1,6 +1,5 @@
 <?php
 
-require_once("../../utils/validater.php");
 use Hasarius\utils\Validater;
 use PHPUnit\Framework\TestCase;
 

@@ -1,0 +1,12 @@
+<phpunit bootstrap="./bootstrap.php">
+    <testsuites>
+        <testsuite name="system">
+            <file>./system/command.php</file>
+            <file>./system/vessel.php</file>
+        </testsuite>
+        <testsuite name="utils">
+            <file>./utils/parser.php</file>
+            <file>./utils/validater.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
