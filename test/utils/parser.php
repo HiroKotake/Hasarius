@@ -205,4 +205,81 @@ class TestParser extends TestCase
             $this->assertEquals($vessel->getComment(), $expects['comment']);
         }
     }
+
+    public function provideAnalyzeModifier()
+    {
+        $command = [];
+
+        // 本文
+        $command[] = [
+            'source' => '@b Bold Text@',
+            'expects' => [
+                'command' => 'b',
+                'params'  => null,
+                'text'    => 'Bold Text',
+            ],
+        ];
+
+        // 本文, パラメータx1
+        $command[] = [
+            'source' => '@b font="MS_Gothic" Bold Text@',
+            'expects' => [
+                'command' => 'b',
+                'params'  => [
+                    "font" => "MS Gothic"
+                ],
+                'text'    => 'Bold Text',
+            ],
+        ];
+
+        // 本文, パラメータx2
+        $command[] = [
+            'source' => '@b font="MS_Gothic" size="16px" Bold Text@',
+            'expects' => [
+                'command' => 'b',
+                'params'  => [
+                    "font" => "MS Gothic",
+                    "size" => "16px",
+                ],
+                'text'    => 'Bold Text',
+            ],
+        ];
+
+        // 本文, パラメータx3 (属性値にスペースが含まれる場合は"_"(アンダーバー)で代用する)
+        $command[] = [
+            'source' => '@b font="MS_Gothic" size="16px" style="padding:_5_5_5_5;_margin:_10_10_10_10" Bold Text@',
+            'expects' => [
+                'command' => 'b',
+                'params'  => [
+                    "font" => "MS Gothic",
+                    "size" => "16px",
+                    "style" => "padding: 5 5 5 5; margin: 10 10 10 10",
+                ],
+                'text'    => 'Bold Text',
+            ],
+        ];
+
+        // 本文, パラメータx3 (属性値にスペースが含まれる場合は"_"(アンダーバー)で代用する)("ではなく'で囲む)
+        $command[] = [
+            'source' => "@b font='MS_Gothic' size='16px' style='padding:_5_5_5_5;_margin:_10_10_10_10' Bold Text@",
+            'expects' => [
+                'command' => 'b',
+                'params'  => [
+                    "font" => "MS Gothic",
+                    "size" => "16px",
+                    "style" => "padding: 5 5 5 5; margin: 10 10 10 10",
+                ],
+                'text'    => 'Bold Text',
+            ],
+        ];
+
+        return $command;
+    }
+
+    /** @dataProvider provideAnalyzeModifier */
+    public function testAnalyzeModifier($source, $expects)
+    {
+        $result = Parser::analyzeModifier($source);
+        $this->assertEquals($result, $expects);
+    }
 }

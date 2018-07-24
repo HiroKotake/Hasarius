@@ -183,4 +183,41 @@ class Parser
         }
         return $modifiers;
     }
+
+    /**
+     * 修飾コマンド解析
+     * @param  string $modifiers 修飾コマンド文字列
+     * @return array             解析結果を格納した連想配列
+     *                           [
+     *                              'command' => コマンド名文字列,
+     *                              'params'  => 属性と属性値の文字列の配列
+     *                              'text'    => 表示する文字列
+     *                           ]
+     */
+    public static function analyzeModifier(string $modifiers): array
+    {
+        $pattern = '/^@(\S+)\s((\S+=\S+\s)*)(.*)@$/u';
+        $matches = null;
+        preg_match_all($pattern, $modifiers, $matches);
+        $command = $matches[1][0];
+        $paramString = $matches[2][0];
+        $paramMatches = null;
+        $params = null;
+        if (!empty($paramString)) {
+            preg_match_all('/\S+=\S+/u', $paramString, $paramMatches);
+            $params = [];
+            foreach ($paramMatches[0] as $attribute) {
+                list($key, $value) = explode("=", $attribute);
+                $value = str_replace("_", " ", trim($value, "\"'"));
+                $params[$key] = $value;
+            }
+        }
+        $text = array_pop($matches);
+        $text = $text[0];
+        return [
+            'command' => $command,
+            'params'  => $params,
+            'text'    => $text,
+        ];
+    }
 }

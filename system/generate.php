@@ -55,6 +55,23 @@ class Generate
     private $vesselContainer = [];
 
     /**
+     * Decoratetion用スクリプトコンテナ
+     * @var array
+     */
+    private $decorateScript = [
+        'fileReady' => [],
+        'file'      => [],
+        'headReady' => [],
+        'head'      => [],
+    ];
+
+    /**
+     * Decoratetion用スタイルシートコンテナ
+     * @var [type]
+     */
+    private $decorateCss = [];
+
+    /**
      * クローズスタックからアイテムを取得
      * @return string アイテム
      */
@@ -134,13 +151,18 @@ class Generate
         if (!file_exists($makeConfigFile)) {
             $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.cfg';
         }
-        require_once($makeConfigFile);
+        require_once($makeConfigFile);  // ToDo: jsonファイルに変更したい
 
-        // 解析
+        // HTML生成
         try {
-            self::analyze($source);
+            // 解析
+            $this->analyze($source);
+            // 構築
+            $this->transform();
+            // ファイル出力
+            $this->genarate();
         } catch (Exception $e) {
-            var_dump($e);
+            echo $e->getMessage();
             return false;
         }
 
@@ -174,12 +196,48 @@ class Generate
                     // --- 外部ソース読み込み
                     $lineNumber = self::analyze($lineParameters->getText(), $lineNumber);
                 } else {
+                    $command = $lineParameters->getCommand();
                     //  ---- コマンドエイリアス確認
+                    if (in_array($command, $this->commandAlias)) {
+                        $command = $this->commandAlias[$command];
+                    }
                     //  ---- コマンドエイリアスになければ実態を確認
+                    if (!in_array($command, $this->commands)) {
+                        throw new Exception("[ERROR" . $lineNumber . "] Not Defined Command !! (" . $command . ")");
+                    }
                     //  ----- コマンド処理
-                    //  ---- 修飾エイリアス確認
-                    //  ---- 修飾エイリアスになければ実態を確認
-                    //  ----- テキスト置換
+                    $this->commands[$command]->trancelate($lineParameters);
+                    // 修飾コマンド
+                    $subIndex = 0;
+                    foreach ($lineParameters->getModifiers() as $decorate) {
+                        //  ---- 修飾コマンド解析
+                        $decorateCommand = Util/Parser::analyzeModifier($decorate);
+                        //  ---- インデックス設定
+                        $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
+                        //  ---- 修飾エイリアス確認
+                        if (in_array($decorateCommand['command'], $this->decorationsAlias)) {
+                            $decorateCommand['command'] = $this->decorationsAlias[$decorateCommand['command']];
+                        }
+                        //  ---- 修飾エイリアスになければ実態を確認
+                        if (!in_array($decorateCommand['command'], $this->decorations)) {
+                            throw new Exception("[ERROR:" . $lineNumber . "] Not Defined Command !! (" . $decorateCommand['command'] . ")");
+                        }
+                        //  ----- テキスト置換
+                        $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorateCommand);
+                        $lineParameters->setText(str_replace($decorate, $replaceData['text'], $lineParameters->getText()));
+                        //  ------ Script
+                        if (!empty($replaceData['script'])) {
+                            foreach ($replaceData['script'] as $key => $value) {
+                                $this->decorateScript[$key] = array_merge($this->decorateScript[$key], $value);
+                            }
+                        }
+                        //  ------ CSS
+                        if (!empty($replaceData['css'])) {
+                            $this->decorateCss[] = $replaceData['css'];
+                        }
+                        // サブインデックス更新
+                        $subIndex += 1;
+                    }
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
                 }
@@ -191,6 +249,25 @@ class Generate
             throw $e;
         }
         return $lineNumber;
+    }
+
+    /**
+     * analyzeの結果を受けて、そのデータをHTML作成のために分散、収束を行う
+     */
+    public function transform(): void
+    {
+    }
+
+    /**
+     * transformの結果を受けて、HTMLファイルを作成する
+     */
+    public function genarate(): void
+    {
+    }
+
+    public function getVesselContainer(): array
+    {
+        return $this->vesselContainer;
     }
 
     public function physicalTest(): string
