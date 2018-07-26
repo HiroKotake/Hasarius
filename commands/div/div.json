@@ -2,7 +2,7 @@
     "CommandName": "div",
     "TagOpen": "div",
     "TagClose": "</div>",
-    "BlockType": "SPARATE",
+    "BlockType": "BLOCK",
     "CommandPerposes": ["HTML","CSS","SCRIPT"],
     "CommandAlias": "div",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1","HTML5"],

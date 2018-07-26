@@ -1,10 +1,10 @@
 {
-    "CommandName": "test",
-    "TagOpen": "test",
-    "TagClose": "</test>",
+    "CommandName": "dtest",
+    "TagOpen": "dtest",
+    "TagClose": "</dtest>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "tst",
+    "CommandPerposes": ["HTML","CSS"],
+    "CommandAlias": "dtst",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
     "TagAttributes": {
         "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},

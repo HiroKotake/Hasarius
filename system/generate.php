@@ -55,10 +55,10 @@ class Generate
     private $vesselContainer = [];
 
     /**
-     * Decoratetion用スクリプトコンテナ
+     * スクリプトコンテナ
      * @var array
      */
-    private $decorateScript = [
+    private $scriptStack = [
         'fileReady' => [],
         'file'      => [],
         'headReady' => [],
@@ -66,31 +66,22 @@ class Generate
     ];
 
     /**
-     * Decoratetion用スタイルシートコンテナ
-     * @var [type]
+     * スタイルシートコンテナ
+     * @var array
      */
-    private $decorateCss = [];
+    private $cssStack = [];
 
     /**
-     * クローズスタックからアイテムを取得
-     * @return string アイテム
+     * 現在のインデント数
+     * @var int
      */
-    private function popc():string
-    {
-        if (empty($this->closerStack)) {
-            return null;
-        }
-        return array_pop($this->closerStack);
-    }
+    private $currentIndent = 1; // BODYタグは自動生成となるので、スタートは１から。
 
     /**
-     * クローズスタックにアイテムを積む
-     * @param string $item アイテム
+     * ドキュメント生成ワーク
+     * @var array
      */
-    private function pushc(string $item): void
-    {
-        $this->closerStack[] = $item;
-    }
+    private $documentWork = [];
 
     public function __construct()
     {
@@ -190,11 +181,16 @@ class Generate
             //  -- 行読み込み
             while (($line = fgets($hFile)) !== false) {
                 $lineNumber++;    // 行インデックス更新
+                // ToDo: 文字エンコード変換
                 //  --- 解析
                 $lineParameters = Utils\Parser::analyzeLine($line);
                 if ($lineParameters->getCommand() == 'include') {
                     // --- 外部ソース読み込み
                     $lineNumber = self::analyze($lineParameters->getText(), $lineNumber);
+                } elseif (is_numeric($lineParameters->getCommand())) {
+                    // --- システムコマンド系
+                    //  コンテナに格納
+                    $this->vesselContainer[] = $lineParameters;
                 } else {
                     $command = $lineParameters->getCommand();
                     //  ---- コマンドエイリアス確認
@@ -228,12 +224,12 @@ class Generate
                         //  ------ Script
                         if (!empty($replaceData['script'])) {
                             foreach ($replaceData['script'] as $key => $value) {
-                                $this->decorateScript[$key] = array_merge($this->decorateScript[$key], $value);
+                                $this->scriptStack[$key] = array_merge($this->scriptStack[$key], $value);
                             }
                         }
                         //  ------ CSS
                         if (!empty($replaceData['css'])) {
-                            $this->decorateCss[] = $replaceData['css'];
+                            $this->cssStack[] = $replaceData['css'];
                         }
                         // サブインデックス更新
                         $subIndex += 1;
@@ -256,6 +252,27 @@ class Generate
      */
     public function transform(): void
     {
+        foreach ($this->vesselContainer as $vessel) {
+            // スクリプト抽出
+            $workScript = $vessel->getScript();
+            if (!empty($workScript)) {
+                foreach ($workScript as $key => $val) {
+                    $this->scriptStack[$key] = array_merge($this->scriptStack[$key], $val);
+                }
+            }
+            // CSS抽出
+            $workCss = $vessel->getCss();
+            if (!empty($workCss)) {
+                $this->cssStack[] = $workCss;
+            }
+            // ブロックコマンド抽出
+            $vessel->setIndent($this->currentIndent);
+            if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
+                array_push($this->closerStack, $vessel->getTagClose());
+                // インデント数
+                $this->currentIndent += 1;
+            }
+        }
     }
 
     /**
@@ -263,6 +280,82 @@ class Generate
      */
     public function genarate(): void
     {
+        // スクリプトファイルを生成
+        $this->subGenarateScriptFile();
+        // CSSファイルを生成
+        $this->subGenarateCssFile();
+        // 設定からヘッダ部を生成
+        $this->subGenarateHead();
+        // BODY部を生成
+        $this->subGenarateBody();
+    }
+
+    private function subGenarateScriptFile(): void
+    {
+    }
+
+    private function subGenarateCssFile(): void
+    {
+    }
+
+    private function subGenarateHead(): void
+    {
+        // 設定からヘッダ部(設定ファイルによる部分のみ)を生成
+        // 設定からヘッダ部(コマンドにより生成されたスクリプト,CSS)を生成
+    }
+
+    private function subGenarateBody(): void
+    {
+        foreach ($this->vesselContainer as $vessel) {
+            // コメント存在確認
+            // * 設定ファイルによりコメント表示がONならばコメントテキストを追加する
+            $comment = "";
+            if (SHOW_COMMENT && !empty($vessel->getComment())) {
+                $comment = ' <!-- ' . $vessel->getComment() . ' -->';
+            }
+            // ブロッククローズ
+            if ($vessel->getCommand() == Parser::SYSTEM_BLOCK_CLOSE) {
+                // 終了タグをスタックから取り込む
+                $closeTag = array_pop($this->closerStack);
+                $this->documentWork[] = $closeTag;
+                continue;
+            }
+            // 空行
+            if ($vessel->getCommand() == Parser::SYSTEM_EMPTY_LINE) {
+                $this->documentWork[] = PHP_EOL;
+                continue;
+            }
+            // 通常
+            // - スクリプト対応
+            $scriptCheck = $vessel->getScript();
+            if (!empty($scriptCheck['body'])) {
+                $this->documentWork = array_merge($this->documentWork, $scriptCheck['body']);
+            }
+            // - タグの内容
+            switch ($vessel->getBlockType) {
+                case BaseTag::BLOCK_TYPE_INLINE:
+                    $this->documentWork[] = '<' . $vessel->getTagOpen()
+                                    . ' ' . $vessel->getVerifiedAttributes() . '>'
+                                    . $vessel->getText()
+                                    . $vessel->getTagClose()
+                                    . $comment
+                                    . PHP_EOL;
+                    break;
+                case BaseTag::BLOCK_TYPE_BLOCK:
+                    $this->documentWork[] = '<' . $vessel->getTagOpen()
+                                          . ' ' . $vessel->getVerifiedAttributes() . '>'
+                                          . $comment
+                                          . PHP_EOL;
+                    break;
+                case BaseTag::BLOCK_TYPE_BATCH:
+                    $this->documentWork = array_merge($this->documentWork, $vessel->getBatch());
+                    break;
+                case BaseTag::BLOCK_TYPE_NONE:
+                default:
+                    $this->documentWork[] = $vessel->getText() . PHP_EOL;
+                    break;
+            }
+        }
     }
 
     public function getVesselContainer(): array

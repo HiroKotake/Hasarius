@@ -17,7 +17,8 @@ class TestVessel extends TestCase
             ['id', 'id_100'],
             ['tagOpen', 'test'],
             ['tagClose', '</test>'],
-            ['css', 'css string']
+            ['css', 'css string'],
+            ['blockType', 1],
         ];
     }
 

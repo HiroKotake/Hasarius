@@ -20,9 +20,6 @@ class TestCommand extends TestCase
 
     public function testLoadSettingJsonFile()
     {
-        // (ダミー) 作成するDocument Type を設定
-        define('CURRENT_DOCUMENT_DATA', 'HTML4_LOOSE');
-
         // コマンド設定ファイルの読み込み確認
         $testJsonFile = __DIR__ . DIRECTORY_SEPARATOR  . 'test.json';
         $test = null;
@@ -35,7 +32,7 @@ class TestCommand extends TestCase
         $commandName = 'test';
         $tagOpen = 'test';
         $tagClose = '</test>';
-        $blockType = 'ONE_LINE';
+        $blockType = 'INLINE';
         $commandPerposes = ['HTML','CSS','SCRIPT'];
         $commandAlias = 'tst';
         $documentType = ['HTML4_LOOSE','HTML4_STRICT','XHTML1_LOOSE','HTML5','HTML5_1'];

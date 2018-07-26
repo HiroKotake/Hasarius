@@ -5,12 +5,12 @@
  */
 namespace Hasarius\commands;
 
-use Hasarius\system as System;
+use Hasarius\system\Command;
 
 /**
  * divタグクラス
  */
-class CommandDiv extends System\Command
+class CommandDiv extends Command
 {
 
     public function __construct()

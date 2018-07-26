@@ -21,21 +21,24 @@ use Hasarius\utils as Utils;
  */
 class BaseTag
 {
-    // 影響範囲
-    const BLOCK_TYPE_ONE_LINE = 1;
-    const BLOCK_TYPE_SPARATE  = 2;
-    const BLOCK_TYPE_BOTH     = 3;
+    // 影響範囲 (command, decorationの各クラスはどれか一つしかブロックタイプを取ることしかできない)
+    const BLOCK_TYPE_NONE   = 0;    // テキストオンリーの場合のみ使用
+    const BLOCK_TYPE_INLINE = 1;    // 一行で終了するコマンド
+    const BLOCK_TYPE_BLOCK  = 2;    // 複数行にまたがって記述され間に別のコマンドがある場合に指定するコマンド
+    const BLOCK_TYPE_BATCH  = 3;   // 間に何も挟まず、外部ソース等を読み込んだりして動作するコマンド
 
     private $listBlockTypeByString = [
-        "ONE_LINE" => 1,
-        "SPARATE"  => 2,
-        "BOTH"     => 3,
+        "NONE"   => 0,
+        "INLINE" => 1,
+        "BLOCK"  => 2,
+        "BATCH"  => 3,
     ];
 
     private $listBlockTypeByNumber = [
-        1 => "ONE_LINE",
-        2 => "SPARATE",
-        3 => "BOTH",
+        0 => "NONE",
+        1 => "INLINE",
+        2 => "BLOCK",
+        3 => "BATCH",
     ];
 
     // コマンド種別
@@ -122,11 +125,11 @@ class BaseTag
     protected $tagClose              = null;
     /**
      * 範囲タイプ
-     * @var int 範囲指定 BLOCK_TYPE_ONLINE(1)    ... インラインタグ
-     *                  BLOCK_TYPE_SPARATE(2)   ... 複数のタグを含んだ範囲で閉じる
+     * @var int 範囲指定 BLOCK_TYPE_INLINE(1)    ... インラインタグ
+     *                  BLOCK_TYPE_BLOCK(2)     ... 複数のタグを含んだ範囲で閉じる
      *                  BLOCK_TYPE_BOTH(3)      ... インライン、範囲の両方
      */
-    protected $blockType             = self::BLOCK_TYPE_ONE_LINE;
+    protected $blockType             = self::BLOCK_TYPE_INLINE;
     /**
      * コマンドの利用種別
      * @var array|null コマンドの適用先(sytem, html, css, script)
@@ -241,7 +244,7 @@ class BaseTag
 
     /**
      * タグの範囲設定を設定
-     * @param string $blockType タグの範囲。BLOCK_TYPE_ONLINE:HTMLファイル出力は閉じタグを含む、BLOCK_TYPE_SPARATE:HTMLファイル出力は閉じタグを含まない。
+     * @param string $blockType タグの範囲。BLOCK_TYPE_INLINE:HTMLファイル出力は閉じタグを含む、BLOCK_TYPE_BLOCK:HTMLファイル出力は閉じタグを含まない。
      */
     protected function setBlockType(string $blockType): void
     {
@@ -429,6 +432,8 @@ class BaseTag
     }
 
     // パラメータチェック
+    // - パラメータ名チェック
+    // - パラメータ値チェック
     private function subVerifyParamater(int $target, string $paramName, $paramValue): string
     {
         $result = "";
@@ -447,23 +452,23 @@ class BaseTag
      */
     public function varifiyTagParamaters(array $paramaters): array
     {
-        $errorList = [];
+        $result = [];
         foreach ($paramaters as $key => $value) {
             if ($key == 'Style') {
                 // CSS
-                $result = $this->varifiyCssParamaters($value);
-                if (!empty($result)) {
-                    array_merge($errorList, $result);
+                $verified = $this->varifiyCssParamaters($value);
+                if (!empty($verified)) {
+                    array_merge($errorList, $verified);
                 }
             } else {
                 // その他
-                $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
-                if (!empty($result)) {
-                    $errorList[] = $result;
+                $verified = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
+                if (!empty($verified)) {
+                    $errorList[] = $verified;
                 }
             }
         }
-        return $errorList;
+        return $result;
     }
 
     /**
@@ -473,7 +478,7 @@ class BaseTag
      */
     public function varifiyCssParamaters(string $paramaters): array
     {
-        $errorList = [];
+        $result = [];
         $paramsWork = explode(';', $paramaters);
         $params = [];
         foreach ($paramsWork as $value) {
@@ -481,12 +486,12 @@ class BaseTag
             $params[$key] = $val;
         }
         foreach ($params as $key => $value) {
-            $result = $this->subVerifyParamater(self::PARAMETERS_TYPE_CSS, $key, $value);
-            if (!empty($result)) {
-                $errorList[] = $result;
+            $verified = $this->subVerifyParamater(self::PARAMETERS_TYPE_CSS, $key, $value);
+            if (!empty($verified)) {
+                $result[] = $verified;
             }
         }
-        return $errorList;
+        return $result;
     }
 
     /**

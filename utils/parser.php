@@ -21,6 +21,10 @@ use Hasarius\system\Vessel;
  */
 class Parser
 {
+    // システムコマンド定義
+    const SYSTEM_COMMENT_LINE = 10000;
+    const SYSTEM_EMPTY_LINE   = 10001;
+    const SYSTEM_BLOCK_CLOSE  = 10002;
 
     /**
      * 文字列を解析する
@@ -46,13 +50,38 @@ class Parser
         $modifierCommand = [];
         $commandName = "";
         $text = rtrim($separated['body']);
+        $vessel = new Vessel();
+
+        // コメント行か確認
+        if (strlen(trim($separated['body'])) == 0 && mb_strlen($separated['comment']) > 0) {
+            $vessel->setCommand(self::SYSTEM_COMMENT_LINE);
+            $vessel->setComment($separated['comment']);
+            return $vessel;
+        }
+
+        // 空白行か確認
+        if (strlen(trim($separated['body'])) == 0 && mb_strlen($separated['comment']) == 0) {
+            $vessel->setCommand(self::SYSTEM_EMPTY_LINE);
+            return $vessel;
+        }
+
+        // ブロッククロースか確認
+        $blockClose = $commandHead . $commandHead;
+        if ($separated['body'] == $blockClose) {
+            $vessel->setCommand(self::SYSTEM_BLOCK_CLOSE);
+            $vessel->setComment($separated['comment']);
+            return $vessel;
+        }
 
         // コマンドラインか確認
         $matchCommand = null;
-        preg_match('/^' . $commandHead . '.*\s/U', $separated['body'], $matchCommand);
+        preg_match('/^' . $commandHead . '.*\s/U', ltrim($separated['body']), $matchCommand);
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], $commandHead . ' ');
+            if ($commandName == $commandHead) {
+                $commandName = "BLOCK_CLOSE";
+            }
             $lineWork = str_replace($matchCommand[0], '', $separated['body']);
             // パラメータ抽出
             $paramatersWork = self::getParamaters($lineWork, $parameterDelim);
@@ -71,7 +100,6 @@ class Parser
 
         // 修飾コマンド抽出
         $modifierCommand = self::getModifiers($text, $modifiersKey, $escape);
-        $vessel = new Vessel();
         $vessel->setCommand($commandName);
         $vessel->setParamaters($paramaters);
         $vessel->setModifiers($modifierCommand);
@@ -87,13 +115,28 @@ class Parser
      */
     public function separateComment(string $str): array
     {
-        $preg = '|(.*[^\s])\s*\/\/s*(.*)|u';
-        $matches = null;
-        preg_match($preg, $str, $matches);
+        // 返り値初期化
         $result = [
-            'body' => $str,
+            'body' => $str,             // コマンド指定無、本文のみ
             'comment' => "",
         ];
+        // コメント行対応
+        if (preg_match('/^\/\/.*/', ltrim($str)) == 1) {
+            $result['body'] = "";
+            $result['comment'] = trim(preg_replace('/^\/\//', '', trim($str)));    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
+            return $result;
+        }
+        // 空白行対応
+        $checkWhiteSpace = preg_replace('/(\s|　)/', '', $str);
+        if (strlen($checkWhiteSpace) == 0) {
+            $result['body'] = "";
+            return $result;
+        }
+
+        // 通常コマンド対応
+        $preg = '/(.*[^\s])\s*\/\/s*(.*)/u';
+        $matches = null;
+        preg_match($preg, $str, $matches);
         if (count($matches) > 0) {
             $result['body']    = preg_replace('/\\\\\//', '/', $matches[1]);    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
             $result['comment'] = ltrim($matches[2]);
