@@ -1,0 +1,25 @@
+{
+    "SCRIPT": {
+        "type": "map",
+        "value": {
+            "None": {
+                "HEAD_READY": {
+                    "Open": "Windows.onLoad = function() {",
+                    "Close": "}"
+                }
+            },
+            "JQuery": {
+                "HEAD_READY": {
+                    "Open": "$(function)(){",
+                    "Close": "});"
+                }
+            }
+        }
+    },
+    "SCRIPT_FILE": {
+        "value": "ScriptFile"
+    },
+    "CSS_FILE": {
+        "value": "CssFile"
+    }
+}

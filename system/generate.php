@@ -24,6 +24,11 @@ use Hasarius\decorate as Decorate;
 class Generate
 {
     /**
+     * 設定値を格納
+     * @var array
+     */
+    private $config = [];
+    /**
      * コマンド保持マップ
      * @var array
      */
@@ -83,7 +88,7 @@ class Generate
      */
     private $documentWork = [];
 
-    public function __construct()
+    public function __construct(string $configFile = null)
     {
         $this->initialize();
     }
@@ -91,8 +96,11 @@ class Generate
     /**
      * 初期設定実施
      */
-    private function initialize() : void
+    private function initialize(string $configFile = null) : void
     {
+        // 定数値読み込み
+        MakeConst::load();
+
         // directory解析
         $dirMap = explode(DIRECTORY_SEPARATOR, __DIR__);
         array_pop($dirMap);
@@ -102,6 +110,16 @@ class Generate
         define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
         define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
+
+        // 設定読み込み
+        $configFile = $configFile ?? HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'make_default.json';
+        if (!file_exists($configFile)) {
+            echo "Can't Find Config file !! - (" . $configFile . ")". PHP_EOL;
+            return;
+        }
+        $json = file_get_contents($configFile);
+        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $this->config = json_decode($json, true);
 
         // commands 読み込み
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
@@ -146,6 +164,7 @@ class Generate
 
         // HTML生成
         try {
+            // ToDo: プリプロセス処理を追加（定数対応、変数対応、プリプロセス用バッチコマンド対応)
             // 解析
             $this->analyze($source);
             // 構築

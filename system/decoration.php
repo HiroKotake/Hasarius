@@ -35,6 +35,7 @@ class Decoration extends BaseTag
      *                          'script'  => スクリプトを格納した連想配列
      *                          'css'     => CSSを格納した連想配列
      *                       ]
+     * @throws Exception テンプレートファイルが存在しない場合に例外を発生
      */
     public function trancelate(array $params): array
     {
@@ -59,12 +60,20 @@ class Decoration extends BaseTag
         $filename = null;
         if (array_key_exists('ScriptFile', $params['params'])) {
             $filename = $params['params']['ScriptFile'];
+            // ファイルが存在しない場合は例外発生
+            if (!file_existx($filename)) {
+                throw new Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
+            }
         }
         $result['script'] = $this->makeScriptString($result['id'], HASARIUS_DECORATION_DIR, $filename);
         // CSS対応
         $filename = null;
         if (array_key_exists('CssFile', $params['params'])) {
             $filename = $params['params']['CssFile'];
+            // ファイルが存在しない場合は例外発生
+            if (!file_existx($filename)) {
+                throw new Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
+            }
         }
         $result['css'] = $this->makeCssString($result['id'], HASARIUS_DECORATION_DIR, $filename);
 

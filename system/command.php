@@ -38,6 +38,7 @@ class Command extends BaseTag
      *                          'tagClose' => コマンドであるならば終了タグを示す文字列を、コマンドでない場合はnull
      *                          'script' => コマンドに必要なスクリプトがある場合はスクリプトを、コマンドで出ない場合はnull
      *                          'css' => コマンドに独自のCSSがある場合はCSSを、コマンドで出ない場合はnull
+     * @throws Exception テンプレートファイルが存在しない場合に例外を発生
      */
     public function trancelate(Vessel &$parsed): void
     {
@@ -63,12 +64,20 @@ class Command extends BaseTag
             $filename = null;
             if (array_key_exists('ScriptFile', $parserParamaters)) {
                 $filename = $parserParamaters['ScriptFile'];
+                // ファイルが存在しない場合は例外発生
+                if (!file_existx($filename)) {
+                    throw new Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
+                }
             }
             $parsed->setScript($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
             // 独自CSSがあるならばそのデータを定義
             $filename = null;
             if (array_key_exists('CssFile', $parserParamaters)) {
                 $filename = $parserParamaters['CssFile'];
+                // ファイルが存在しない場合は例外発生
+                if (!file_exists($filename)) {
+                    throw new Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
+                }
             }
             $parsed->setCss($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
         }

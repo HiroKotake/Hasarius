@@ -4,6 +4,7 @@
             <file>./system/command.php</file>
             <file>./system/vessel.php</file>
             <file>./system/decoration.php</file>
+            <file>./system/makeconst.php</file>
         </testsuite>
         <testsuite name="utils">
             <file>./utils/parser.php</file>
