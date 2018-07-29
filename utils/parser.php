@@ -2,8 +2,8 @@
 /**
  * parser.php
  *
- * @package hasarius
- * @category utility
+ * @package Hasarius
+ * @category utils
  * @author Takahiro Kotake
  * @license Teleios Development
  */

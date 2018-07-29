@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\system;
 
 use Hasarius\system\Vessel;
 use PHPUnit\Framework\TestCase;

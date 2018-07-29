@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\utils;
 
 use Hasarius\utils\Validater;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ class TestValidater extends TestCase
         $testResult = Validater::isFloat(123.45);
         $this->assertEquals(true, $testResult);
 
-        $testResult = Validater::isFloat(123.45,3,2);
+        $testResult = Validater::isFloat(123.45, 3, 2);
         $this->assertEquals(true, $testResult);
 
         $testResult = Validater::isFloat('12.3.45');
@@ -34,21 +35,20 @@ class TestValidater extends TestCase
         $testResult = Validater::isFloat('12C.45');
         $this->assertEquals(false, $testResult);
 
-        $testResult = Validater::isFloat(123.45,1,1);
+        $testResult = Validater::isFloat(123.45, 1, 1);
         $this->assertEquals(false, $testResult);
 
-        $testResult = Validater::isFloat(3.4,1,1);
+        $testResult = Validater::isFloat(3.4, 1, 1);
         $this->assertEquals(true, $testResult);
 
-        $testResult = Validater::isFloat(3.4,1);
+        $testResult = Validater::isFloat(3.4, 1);
         $this->assertEquals(true, $testResult);
 
-        $testResult = Validater::isFloat(23.4,1);
+        $testResult = Validater::isFloat(23.4, 1);
         $this->assertEquals(false, $testResult);
 
-        $testResult = Validater::isFloat(123.4,0,1);
+        $testResult = Validater::isFloat(123.4, 0, 1);
         $this->assertEquals(true, $testResult);
-
     }
 
     public function testIsSting(): void
@@ -87,6 +87,5 @@ class TestValidater extends TestCase
 
         $testResult = Validater::inList('pineapple', $testArray);
         $this->assertNull($testResult);
-
     }
 }

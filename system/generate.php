@@ -2,7 +2,7 @@
 /**
  * genarate.php
  *
- * @package hasarius
+ * @package Hasarius
  * @category system
  * @author Takahiro Kotake
  * @license Teleios Development
@@ -88,7 +88,7 @@ class Generate
      */
     private $documentWork = [];
 
-    public function __construct(string $configFile = null)
+    public function __construct()
     {
         $this->initialize();
     }
@@ -96,7 +96,7 @@ class Generate
     /**
      * 初期設定実施
      */
-    private function initialize(string $configFile = null) : void
+    private function initialize() : void
     {
         // 定数値読み込み
         MakeConst::load();
@@ -110,16 +110,6 @@ class Generate
         define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
         define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
-
-        // 設定読み込み
-        $configFile = $configFile ?? HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'make_default.json';
-        if (!file_exists($configFile)) {
-            echo "Can't Find Config file !! - (" . $configFile . ")". PHP_EOL;
-            return;
-        }
-        $json = file_get_contents($configFile);
-        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $this->config = json_decode($json, true);
 
         // commands 読み込み
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
@@ -148,19 +138,21 @@ class Generate
 
     /**
      * HTMLファイル生成
-     * @param  string $source [description]
-     * @return bool           [description]
+     * @param  string $source 元ファイル
+     * @return bool           成功時には真を、失敗時に偽を返す
      */
     public function make(string $source): bool
     {
         // 設定ファイル読み込み
         $sourcePath = explode(DIRECTORY_SEPARATOR, $source);
         array_pop($sourcePath);
-        $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.cfg';
+        $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
-            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.cfg';
+            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.json';
         }
-        require_once($makeConfigFile);  // ToDo: jsonファイルに変更したい
+        $json = file_get_contents($makeConfigFile);
+        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $this->config = json_decode($json, true);
 
         // HTML生成
         try {
@@ -171,7 +163,7 @@ class Generate
             $this->transform();
             // ファイル出力
             $this->genarate();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
             return false;
         }
@@ -218,7 +210,7 @@ class Generate
                     }
                     //  ---- コマンドエイリアスになければ実態を確認
                     if (!in_array($command, $this->commands)) {
-                        throw new Exception("[ERROR" . $lineNumber . "] Not Defined Command !! (" . $command . ")");
+                        throw new \Exception("[ERROR" . $lineNumber . "] Not Defined Command !! (" . $command . ")");
                     }
                     //  ----- コマンド処理
                     $this->commands[$command]->trancelate($lineParameters);
@@ -235,7 +227,7 @@ class Generate
                         }
                         //  ---- 修飾エイリアスになければ実態を確認
                         if (!in_array($decorateCommand['command'], $this->decorations)) {
-                            throw new Exception("[ERROR:" . $lineNumber . "] Not Defined Command !! (" . $decorateCommand['command'] . ")");
+                            throw new \Exception("[ERROR:" . $lineNumber . "] Not Defined Command !! (" . $decorateCommand['command'] . ")");
                         }
                         //  ----- テキスト置換
                         $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorateCommand);
@@ -259,7 +251,7 @@ class Generate
             }
             //  - ファイルクローズ
             fclose($hFile);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo 'Error at line nunber (' . $lineNumber . '): ' . $line . PHP_EOL;
             throw $e;
         }
@@ -300,29 +292,89 @@ class Generate
     public function genarate(): void
     {
         // スクリプトファイルを生成
-        $this->subGenarateScriptFile();
+        $scriptFileName = $this->subGenarateScriptFile();
         // CSSファイルを生成
-        $this->subGenarateCssFile();
+        $cssFileName = $this->subGenarateCssFile();
         // 設定からヘッダ部を生成
-        $this->subGenarateHead();
+        $this->subGenarateHead($scriptFileName, $cssFileName);
         // BODY部を生成
         $this->subGenarateBody();
+        // HTMLファイル出力
+        $fileName = DESTINATION . DIRECTORY_SEPARATOR . TARGET_NAME . '.html';
+        $hFile = fopen($fileName, 'w');
+        foreach ($this->documentWork as $line) {
+            fwrite($hFile, $line . PHP_EOL);
+        }
+        fclose($hFile);
     }
 
-    private function subGenarateScriptFile(): void
+    private function subGenarateScriptFile(): string
     {
+        $scriptFileName = "";
+        if (!empty($this->scriptStack['FILE']) || !empty($this->scriptStack['FILE_READY'])) {
+            $scriptFileName = DESTINATION . DIRECTORY_SEPARATOR . TARGET_NAME . '.js';
+            $hFile = fopen($scriptFileName, "w");
+
+            // 初期起動用スクリプト定義
+            if (!empty($this->scriptStack['FILE_READY'])) {
+                $scriptOpen  = "";
+                $scriptClose = "";
+                switch (SCRIPT_FRAMEWORK) {
+                    case 'JQuery':
+                        $scriptOpen  = SCRIPT['JQuery']['READY']['Open'];
+                        $scriptClose = SCRIPT['JQuery']['READY']['Close'];
+                        break;
+                    case 'None':
+                    default:
+                        $scriptOpen  = SCRIPT['None']['READY']['Open'];
+                        $scriptClose = SCRIPT['None']['READY']['Close'];
+                        break;
+                }
+            }
+
+            // 初期起動用スクリプト書き出し
+            fwrite($hFile, $scriptOpen . PHP_EOL);
+            foreach ($this->scriptStack['FILE_READY'] as $line) {
+                fwrite($hFile, $line . PHP_EOL);
+            }
+            fwrite($hFile, $scriptClose . PHP_EOL);
+
+            // JavaScript通常関数書き出し
+            foreach ($this->scriptStack['FILE'] as $line) {
+                fwrite($hFile, $line . PHP_EOL);
+            }
+            fclose($hFile);
+        }
+        return $scriptFileName;
     }
 
-    private function subGenarateCssFile(): void
+    private function subGenarateCssFile(): string
     {
+        $cssFileName = "";
+        if (!empty($this->cssStack)) {
+            $cssFileName = DESTINATION . DIRECTORY_SEPARATOR . TARGET_NAME . '.css';
+            $hFile = fopen($cssFileName, 'w');
+            foreach ($this->cssStack as $line) {
+                fwrite($hFile, $line . PHP_EOL);
+            }
+            fclose($hFile);
+        }
+        return $cssFileName;
     }
 
-    private function subGenarateHead(): void
+    private function subGenarateHead(string $scriptFile, string $cssFile): void
     {
         // 設定からヘッダ部(設定ファイルによる部分のみ)を生成
+        $this->documentWork[] = '<html>';
+        $this->documentWork[] = '    <head>';
+
         // 設定からヘッダ部(コマンドにより生成されたスクリプト,CSS)を生成
+        $this->documentWork[] = '        <script type="text/javascript" src="' .$scriptFile . '"></script>';        // ToDo: 設定として個別の排出先指定が可能なようにする
+        $this->documentWork[] = '        <link rel="stylesheet" type="text/css" href="' . $cssFile . '"></style>';  // ToDo: 設定として個別の排出先指定が可能なようにする
+        $this->documentWork[] = '    </head>';
     }
 
+    // ToDo: インデントは無視している
     private function subGenarateBody(): void
     {
         foreach ($this->vesselContainer as $vessel) {
@@ -335,8 +387,8 @@ class Generate
             // ブロッククローズ
             if ($vessel->getCommand() == Parser::SYSTEM_BLOCK_CLOSE) {
                 // 終了タグをスタックから取り込む
-                $closeTag = array_pop($this->closerStack);
-                $this->documentWork[] = $closeTag;
+                $closeVessel = array_pop($this->closerStack);
+                $this->documentWork[] = $closeVessel;
                 continue;
             }
             // 空行
@@ -357,24 +409,34 @@ class Generate
                                     . ' ' . $vessel->getVerifiedAttributes() . '>'
                                     . $vessel->getText()
                                     . $vessel->getTagClose()
-                                    . $comment
-                                    . PHP_EOL;
+                                    . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
                     $this->documentWork[] = '<' . $vessel->getTagOpen()
                                           . ' ' . $vessel->getVerifiedAttributes() . '>'
-                                          . $comment
-                                          . PHP_EOL;
+                                          . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BATCH:
                     $this->documentWork = array_merge($this->documentWork, $vessel->getBatch());
                     break;
                 case BaseTag::BLOCK_TYPE_NONE:
                 default:
-                    $this->documentWork[] = $vessel->getText() . PHP_EOL;
+                    $this->documentWork[] = $vessel->getText();
                     break;
             }
         }
+
+        // BODY用スクリプト
+        if (!empty($this->scriptStack['BODY'])) {
+            $this->documentWork[] = '<script>';
+            foreach ($this->scriptStack['BODY'] as $line) {
+                $this->documentWork[] = $line . PHP_EOL;
+            }
+            $this->documentWork[] = '</script>';
+        }
+
+        $this->documentWork[] = '    </body>';
+        $this->documentWork[] = '</html>';
     }
 
     public function getVesselContainer(): array

@@ -1,25 +1,31 @@
 {
     "SCRIPT": {
-        "type": "map",
-        "value": {
-            "None": {
-                "HEAD_READY": {
-                    "Open": "Windows.onLoad = function() {",
-                    "Close": "}"
-                }
-            },
-            "JQuery": {
-                "HEAD_READY": {
-                    "Open": "$(function)(){",
-                    "Close": "});"
-                }
+        "None": {
+            "READY": {
+                "Open": "Windows.onLoad = function() {",
+                "Close": "}"
+            }
+        },
+        "JQuery": {
+            "READY": {
+                "Open": "$(function)(){",
+                "Close": "});"
             }
         }
     },
-    "SCRIPT_FILE": {
-        "value": "ScriptFile"
+    "SCRIPT_FILE": "ScriptFile",
+    "CSS_FILE": "CssFile",
+    "TAG_ATTRIBUTES": {
+        "id": {
+            "alias": "id",
+            "type": "string"
+        }
     },
-    "CSS_FILE": {
-        "value": "CssFile"
+    "CSS_ATTRIBUTES": {
+        "width": {
+            "alias": "w",
+            "type": "numeric",
+            "subtype": ["numeric", "px", "percent"]
+        }
     }
 }

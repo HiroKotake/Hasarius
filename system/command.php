@@ -2,7 +2,7 @@
 /**
  * command.php
  *
- * @package hasarius
+ * @package Hasarius
  * @category system
  * @author Takahiro Kotake
  * @license Teleios Development
@@ -66,7 +66,7 @@ class Command extends BaseTag
                 $filename = $parserParamaters['ScriptFile'];
                 // ファイルが存在しない場合は例外発生
                 if (!file_existx($filename)) {
-                    throw new Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
+                    throw new \Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
                 }
             }
             $parsed->setScript($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
@@ -76,7 +76,7 @@ class Command extends BaseTag
                 $filename = $parserParamaters['CssFile'];
                 // ファイルが存在しない場合は例外発生
                 if (!file_exists($filename)) {
-                    throw new Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
+                    throw new \Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
                 }
             }
             $parsed->setCss($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));

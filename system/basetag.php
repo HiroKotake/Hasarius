@@ -2,7 +2,7 @@
 /**
  * basetag.php
  *
- * @package hasarius
+ * @package Hasarius
  * @category system
  * @author Takahiro Kotake
  * @license Teleios Development
@@ -170,7 +170,7 @@ class BaseTag
      * 使用可能なCSSの属性リスト
      * @var array|null 使用可能なCSSの属性のリスト
      */
-    protected $possibleCssAttributes = null;
+    protected $possibleCustomAttributes = null;
     /**
      * スクリプトの配置先
      * @var string
@@ -387,17 +387,17 @@ class BaseTag
      * 利用可能なCSSの属性のリストを取得
      * @param array $attributes 利用可能なCSSの属性のリスト
      */
-    protected function setPossibleCssAttributes(array $attributes): void
+    protected function setPossibleCustomAttributes(array $attributes): void
     {
-        $this->possibleCssAttributes = $attributes;
+        $this->possibleCustomAttributes = $attributes;
     }
     /**
      * 利用可能なCSSの属性のリストを取得
      * @return array 利用可能なCSSの属性のリスト
      */
-    public function getPossibleCssAttributes(): array
+    public function getPossibleCustomAttributes(): array
     {
-        return $this->possibleCssAttributes;
+        return $this->possibleCustomAttributes;
     }
 
     /**
@@ -414,6 +414,7 @@ class BaseTag
             $json = file_get_contents($filename);
             $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
             $settings = json_decode($json, true);
+
             // 以下に設定を読み込む処理を記述
             $this->setCommandName($settings["CommandName"]);
             $this->setTagOpen($settings["TagOpen"]);
@@ -423,52 +424,73 @@ class BaseTag
             $this->setCommandAlias($settings["CommandAlias"]);
             $this->setPossibleDocumentTypes($settings["DocumentType"]);
             $this->setPossibleTagAttributes($settings["TagAttributes"]);
-            $this->setPossibleCssAttributes($settings["CssAttributes"]);
+            $this->setPossibleCustomAttributes($settings["CustomAttributes"]);
             // json変数を解放
             unset($json);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    private function subVerifyParamater(array $condition, $value): bool
+    {
+        // 正規表現用パターン生成
+        $pattern = null;
+        switch ($condition["type"]) {
+            case "numeric":
+                $pattern = "/^\d*\.?\d*$/u";
+                $work = "";
+                foreach ($condition["subtype"] as $val) {
+                    $work .= $val . "|";
+                }
+                if (strlen($work) > 0) {
+                    $pattern = "/\d*\.?\d*(" . rtrim($work, '|') . ")/u";
+                }
+                break;
+            case "string":
+                $pattern = "/.*/u";
+                break;
+        }
+        // パターンチェック
+        return preg_match($pattern, $value) > 0 ? true : false;
     }
 
     // パラメータチェック
     // - パラメータ名チェック
     // - パラメータ値チェック
-    private function subVerifyParamater(int $target, string $paramName, $paramValue): string
+    private function subVerifyTagParamater(array $info, $paramValue): bool
     {
-        $result = "";
-        $lightValue = $this->possibleTagAttributes[$this->currentDocumentType][$paramName];
-        if ($target == self::PARAMETERS_TYPE_CSS) {
-            $lightValue = $this->possibleCssAttributes[$paramName];
-        }
-        // ToDo 属性値が正しい値か確認
-        return $result;
+        return $this->subVerifyParamater($info, $paramValue);
     }
 
-    /**
-     * Tagパラメータが正しく設定されているか確認する
-     * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
-     * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
-     */
-    public function varifiyTagParamaters(array $paramaters): array
+    private function subVerifyCssParamater(string $paramName, $paramValue): bool
     {
-        $result = [];
-        foreach ($paramaters as $key => $value) {
-            if ($key == 'Style') {
-                // CSS
-                $verified = $this->varifiyCssParamaters($value);
-                if (!empty($verified)) {
-                    array_merge($errorList, $verified);
-                }
-            } else {
-                // その他
-                $verified = $this->subVerifyParamater(self::PARAMETERS_TYPE_TAG, $key, $value);
-                if (!empty($verified)) {
-                    $errorList[] = $verified;
-                }
+        if (!array_key_exists($paramName, CSS_ATTRIBUTES)) {
+            return false;
+        }
+        return $this->subVerifyParamater(CSS_ATTRIBUTES[$paramName], $paramValue);
+    }
+
+    private function attributeExist(string $name): array
+    {
+        if (array_key_exists($name, TAG_ATTRIBUTES)) {
+            return TAG_ATTRIBUTE[$name];
+        }
+        if (array_key_exists($name, $this->possibleCustomAttributes)) {
+            return $this->possibleCustomAttributes[$name];
+        }
+        foreach (TAG_ATTRIBUTES as $value) {
+            if ($value['alias'] == $name) {
+                return $value;
             }
         }
-        return $result;
+        foreach ($this->possibleCustomAttributes as $value) {
+            if ($value['alias'] == $name) {
+                return $value;
+            }
+        }
+
+        return [];
     }
 
     /**
@@ -486,9 +508,40 @@ class BaseTag
             $params[$key] = $val;
         }
         foreach ($params as $key => $value) {
-            $verified = $this->subVerifyParamater(self::PARAMETERS_TYPE_CSS, $key, $value);
-            if (!empty($verified)) {
-                $result[] = $verified;
+            if (!$this->subVerifyCssParamater($key, $value)) {
+                $result[] = "CSS Attribute value is wrong !! [" . $key . " => " . $value . "]";
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Tagパラメータが正しく設定されているか確認する
+     * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
+     * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
+     */
+    public function varifiyTagParamaters(array $paramaters): array
+    {
+        $result = [];
+        foreach ($paramaters as $key => $value) {
+            // 属性名チェック
+            $info = $this->attributeExist($key);
+            if (empty($info)) {
+                $result[] = "TAG Attribute is not exists !! [" . $key . "]";
+                continue;
+            }
+            // 属性値チェック
+            if ($key == 'Style') {
+                // CSS Attribute
+                $verified = $this->varifiyCssParamaters($value);
+                if (!empty($verified)) {
+                    $result = array_merge($result, $verified);
+                }
+            } else {
+                // Tag Attribute
+                if (!$this->subVerifyTagParamater($info, $value)) {
+                    $result[] = "TAG Attribute value is wrong !! [" . $key . " => " . $value . "]";
+                }
             }
         }
         return $result;

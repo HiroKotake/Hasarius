@@ -1,7 +1,11 @@
 <?php
 /**
  * div.php
- * @var [type]
+ *
+ * @package Hasarius
+ * @category commands
+ * @author Takahiro Kotake
+ * @license Teleios Development
  */
 namespace Hasarius\commands;
 

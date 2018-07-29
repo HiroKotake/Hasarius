@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\system;
 
 use Hasarius\system\Command;
 use PHPUnit\Framework\TestCase;
@@ -23,11 +24,13 @@ class TestCommand extends TestCase
         // コマンド設定ファイルの読み込み確認
         $testJsonFile = __DIR__ . DIRECTORY_SEPARATOR  . 'test.json';
         $test = null;
-        $error = null;
         try {
             $test = new Test($testJsonFile);
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (\Exception $e) {
+            echo PHP_EOL;
+            echo "[ERROR] ". $e->getMessage() . PHP_EOL;
+            echo PHP_EOL;
+            return;
         }
         $commandName = 'test';
         $tagOpen = 'test';
@@ -42,7 +45,12 @@ class TestCommand extends TestCase
             'XHTML1' => ['xhtml1_key' => 'xhtml1_value'],
             'HTML5' => ['html5_key' => 'html5_value'],
         ];
-        $cssAttributes = ['css_key'=>'css_value'];
+        $customAttributes = [
+            "custom_key" => [
+                "alias" => "ckey",
+                "type" => "string"
+            ]
+        ];
 
         $this->assertEquals($commandName, $test->getCommandName());
         $this->assertEquals($tagOpen, $test->getTagOpen());
@@ -52,7 +60,7 @@ class TestCommand extends TestCase
         $this->assertEquals($commandAlias, $test->getCommandAlias());
         $this->assertEquals($documentType, $test->getPossibleDocumentTypesWithString(), 0, 0, true);
         $this->assertEquals($tagAttributes, $test->getPossibleTagAttributes(), 0, 0, true);
-        $this->assertEquals($cssAttributes, $test->getPossibleCssAttributes(), 0, 0, true);
+        $this->assertEquals($customAttributes, $test->getPossibleCustomAttributes(), 0, 0, true);
     }
 
     public function testFailedLoadSettingJsonFile()
@@ -60,12 +68,10 @@ class TestCommand extends TestCase
         // 設定ファイルの指定間違い確認
         $testJsonFile = __DIR__ . DIRECTORY_SEPARATOR  . 'this.json';
         $test = null;
-        $error = null;
         try {
             $test = new Test($testJsonFile);
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (\Exception $e) {
+            $this->assertEquals('File Not Found !! - ' . $testJsonFile, $e->getMessage());
         }
-        $this->assertNotNull($error);
     }
 }

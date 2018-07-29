@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\system;
 
 use Hasarius\system\MakeConst;
 use PHPUnit\Framework\TestCase;
@@ -12,23 +13,38 @@ class TestMakeConst extends TestCase
 
         $script = [
             "None" => [
-                "HEAD_READY" => [
+                "READY" => [
                     "Open" => "Windows.onLoad = function() {",
                     "Close" => "}"
                 ]
             ],
             "JQuery" => [
-                "HEAD_READY" => [
+                "READY" => [
                     "Open" => "$(function)(){",
                     "Close" => "});"
                 ]
             ]
         ];
-        $script_file = "ScriptFile";
-        $css_file = "CssFile";
+        $scriptFile = "ScriptFile";
+        $cssFile = "CssFile";
+        $tagAttributes = [
+            "id" => [
+                "alias" => "id",
+                "type" => "string"
+            ]
+        ];
+        $cssAttributes = [
+            "width" => [
+                "alias" => "w",
+                "type" => "numeric",
+                "subtype" => ["numeric", "px", "percent"]
+            ]
+        ];
 
         $this->assertEquals(SCRIPT, $script);
-        $this->assertEquals(SCRIPT_FILE, $script_file);
-        $this->assertEquals(CSS_FILE, $css_file);
+        $this->assertEquals(SCRIPT_FILE, $scriptFile);
+        $this->assertEquals(CSS_FILE, $cssFile);
+        $this->assertEquals(TAG_ATTRIBUTES, $tagAttributes);
+        $this->assertEquals(CSS_ATTRIBUTES, $cssAttributes);
     }
 }

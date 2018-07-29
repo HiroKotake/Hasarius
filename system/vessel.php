@@ -1,4 +1,12 @@
 <?php
+/**
+ * vessel.php
+ *
+ * @package Hasarius
+ * @category system
+ * @author Takahiro Kotake
+ * @license Teleios Development
+ */
 
 namespace Hasarius\system;
 
@@ -60,10 +68,5 @@ class Vessel
                 $this->attributes[$valName][$arguments[0]] = $arguments[1];
                 break;
         }
-    }
-
-    public function getStartLine(): string
-    {
-
     }
 }

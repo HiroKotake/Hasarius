@@ -12,7 +12,10 @@
         "XHTML1": {"xhtml1_key":"xhtml1_value"},
         "HTML5": {"html5_key":"html5_value"}
     },
-    "CssAttributes": {
-        "css_key":"css_value"
+    "CustomAttributes": {
+        "custom_key": {
+            "alias": "ckey",
+            "type": "string"
+        }
     }
 }

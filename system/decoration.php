@@ -2,7 +2,7 @@
 /**
  * command.php
  *
- * @package hasarius
+ * @package Hasarius
  * @category system
  * @author Takahiro Kotake
  * @license Teleios Development
@@ -62,7 +62,7 @@ class Decoration extends BaseTag
             $filename = $params['params']['ScriptFile'];
             // ファイルが存在しない場合は例外発生
             if (!file_existx($filename)) {
-                throw new Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
+                throw new \Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
             }
         }
         $result['script'] = $this->makeScriptString($result['id'], HASARIUS_DECORATION_DIR, $filename);
@@ -72,7 +72,7 @@ class Decoration extends BaseTag
             $filename = $params['params']['CssFile'];
             // ファイルが存在しない場合は例外発生
             if (!file_existx($filename)) {
-                throw new Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
+                throw new \Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
             }
         }
         $result['css'] = $this->makeCssString($result['id'], HASARIUS_DECORATION_DIR, $filename);

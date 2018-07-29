@@ -7,12 +7,14 @@
     "CommandAlias": "div",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1","HTML5"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"key":"value"},
-        "HTML4_STRICT": {"key":"value"},
-        "XHTML1": {"key":"value"},
-        "HTML5": {"key":"value"}
+        "HTML4_LOOSE": ["id","name","float"],
+        "HTML4_STRICT": ["id","name","float"],
+        "XHTML1": ["id","name","float"],
+        "HTML5": ["id","name","float"]
     },
-    "CssAttributes": {
-        "key":"value"
+    "CustomAttributes": {
+        "key": {
+            "type": ["value"]
+        }
     }
 }

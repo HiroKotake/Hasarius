@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\system;
 
 use Hasarius\system\Decoration;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ class TestDecoration extends TestCase
         $error = null;
         try {
             $test = new Dtest($testJsonFile);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $error = $e;
         }
         $commandName = 'dtest';
@@ -41,7 +42,7 @@ class TestDecoration extends TestCase
             'XHTML1' => ['xhtml1_key' => 'xhtml1_value'],
             'HTML5' => ['html5_key' => 'html5_value'],
         ];
-        $cssAttributes = ['css_key'=>'css_value'];
+        $customAttributes = ['css_key'=>'css_value'];
 
         $this->assertEquals($commandName, $test->getCommandName());
         $this->assertEquals($tagOpen, $test->getTagOpen());
@@ -51,7 +52,7 @@ class TestDecoration extends TestCase
         $this->assertEquals($commandAlias, $test->getCommandAlias());
         $this->assertEquals($documentType, $test->getPossibleDocumentTypesWithString(), 0, 0, true);
         $this->assertEquals($tagAttributes, $test->getPossibleTagAttributes(), 0, 0, true);
-        $this->assertEquals($cssAttributes, $test->getPossibleCssAttributes(), 0, 0, true);
+        $this->assertEquals($customAttributes, $test->getPossibleCustomAttributes(), 0, 0, true);
     }
 
     public function testFailedLoadSettingJsonFile()
@@ -59,13 +60,11 @@ class TestDecoration extends TestCase
         // 設定ファイルの指定間違い確認
         $testJsonFile = __DIR__ . DIRECTORY_SEPARATOR  . 'this.json';
         $test = null;
-        $error = null;
         try {
             $test = new Test($testJsonFile);
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (\Exception $e) {
+            $this->assertEquals('File Not Found !! - ' . $testJsonFile, $e->getMessage());
         }
-        $this->assertNotNull($error);
     }
 
 }

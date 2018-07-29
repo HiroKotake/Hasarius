@@ -50,7 +50,7 @@ class AutoLoader
         }
 
         if (!file_exists($filename)) {
-            throw new \Exception('[ERROR] Class File Not Found !! (' . $class . ')');
+            throw new \Exception('[ERROR] Autoloader - Class File Not Found !! (' . $class . ')');
         }
         require $filename;
     }

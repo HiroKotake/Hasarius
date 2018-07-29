@@ -1,4 +1,5 @@
 <?php
+namespace Hasarius\test\utils;
 
 use Hasarius\utils\Parser;
 use Hasarius\system\Vessel;
