@@ -19,6 +19,7 @@ class Vessel
         'modifiers'          => [],
         'text'               => "",
         'comment'            => "",
+        'subCommand'         => false,
         // For Genarater
         'lineNumber'         => 0,
         'indent'             => 0,  // インデントの回数を設定
@@ -68,5 +69,14 @@ class Vessel
                 $this->attributes[$valName][$arguments[0]] = $arguments[1];
                 break;
         }
+    }
+
+    /**
+     * サブコマンドか確認
+     * @return bool サブコマンドの場合は真を、サブコマンドでない場合は偽を返す
+     */
+    public function isSubCommand(): bool
+    {
+        return $this->attributes['subCommand'];
     }
 }

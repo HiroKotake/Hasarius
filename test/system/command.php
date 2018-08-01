@@ -51,6 +51,11 @@ class TestCommand extends TestCase
                 "type" => "string"
             ]
         ];
+        $subCommand = [
+            ["Symbol" => "+", "DefaultAttrs" => [], "Description" => "行指定"],
+            ["Symbol" => "!", "DefaultAttrs" => [], "Description" => "見出しカラム指定"],
+            ["Symbol" => "|", "DefaultAttrs" => [], "Description" => "カラム指定"],
+        ];
 
         $this->assertEquals($commandName, $test->getCommandName());
         $this->assertEquals($tagOpen, $test->getTagOpen());
@@ -61,6 +66,7 @@ class TestCommand extends TestCase
         $this->assertEquals($documentType, $test->getPossibleDocumentTypesWithString(), 0, 0, true);
         $this->assertEquals($tagAttributes, $test->getPossibleTagAttributes(), 0, 0, true);
         $this->assertEquals($customAttributes, $test->getPossibleCustomAttributes(), 0, 0, true);
+        $this->assertEquals($subCommand, $test->getSubCommand(), 0, 0, true);
     }
 
     public function testFailedLoadSettingJsonFile()

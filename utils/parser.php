@@ -29,19 +29,41 @@ class Parser
     /**
      * 文字列を解析する
      * @param string $line
+     * @param array  $subCommand
      * @param string $commandHead
      * @param string $parameterDelim
      * @param array $modifiersKey
      * @param string $escape
-     * @return Vessel
+     * @return Vessel|null      サブコマンドの場合はnullを返し、それ以外はVesselオブジェクトを返す
      */
     public static function analyzeLine(
         string $line,
+        array  $subCommand = [],
         string $commandHead = '#',
         string $parameterDelim = '=',
         array $modifiersKey = ['@', '@'],
         string $escape = '\\'
     ): Vessel {
+
+        $vessel = new Vessel();
+
+        // サブコマンドか確認
+        if (!empty($subCommand)) {
+            $subCommandPat = null;
+            foreach ($subCommand as $scom) {
+                $subCommandPat .= "|" . preg_quote($scom['symbol']);
+            }
+            $subCommandPat = "/^\s*([" . ltrim($subCommandPat, "|") . "])\s*(.*)$/";
+            $subCommandMatch = null;
+            $flagSubCommantMatch = preg_match($subCommandPat, $line, $subCommandMatch);
+            if ($flagSubCommantMatch) {
+                $vessel->setCommand($subCommandMatch[1]);
+                $vessel->setSubCommand(true);
+                $vessel->setText($subCommandMatch[2]);
+                return $vessel;
+            }
+        }
+
         // 本文とコメントに分離
         $separated = self::separateComment($line);
 
@@ -50,7 +72,6 @@ class Parser
         $modifierCommand = [];
         $commandName = "";
         $text = rtrim($separated['body']);
-        $vessel = new Vessel();
 
         // コメント行か確認
         if (strlen(trim($separated['body'])) == 0 && mb_strlen($separated['comment']) > 0) {
@@ -262,5 +283,108 @@ class Parser
             'params'  => $params,
             'text'    => $text,
         ];
+    }
+
+    /**
+     * 引数で指定された文字列からファイルと子マントを取り出す
+     * @param  string $source 文字列
+     * @return array          [
+     *                          "filename" => <ファイル名>,      ファイル指定に該当した場合はファイル文字列、該当しない場合は null
+     *                          "comment"  => <コメント文字列>   コメント指定に該当した場合はコメント文字列、該当しない場合は null
+     *                        ]
+     */
+    public static function getIncludeFile($source): array
+    {
+        $result = [
+            "filename" => null,
+            "comment" => null
+        ];
+        $match = null;
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $source = preg_quote($source, '\\');
+        }
+        $flagMatch = preg_match('/^@include\s*(\S*)\s*(\/)*\s*(.*)$/u', $source, $match);
+        if ($flagMatch) {
+            $result["filename"] = $match[1];
+            $result["comment"]  = $match[3];
+            if (preg_match('/^\/{2,}\s*.*$/u', trim($match[1]))) {
+                // ファイル指定がない場合例外発生
+                throw new \Exception("File is not mention !!");
+            }
+            if (!file_exists($match[1])) {
+                throw new \Exception("File not exists !! -> (" . $match[1] . ")");
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * 引数で指定された文字列が、変数定義である場合に、変数名、変数値、コメントに分解する
+     * @param  string  $source 解析する文字列
+     * @return array          [
+     *                          "varName"  => <変数名>   変数定義である場合には変数名、そうでない場合は null
+     *                          "varValue" => <変数値>   変数定義である場合には変数値、そうでない場合は null
+     *                          "comment"  => <コメント> 変数定義でかつコメントが指定されている場合はコメント文字列、そうでない場合は null
+     *                        ]
+     * @throws Exception 定義方法が間違っている場合に例外が発生
+     */
+    public static function getValiable(string $source): array
+    {
+        $result = [
+            "varName"  => null,
+            "varValue" => null,
+            "comment"  => null
+        ];
+        $pat = '/^@var\s*(.*)$/u';
+        $match = null;
+        $flagMatch = preg_match($pat, $source, $match);
+        if ($flagMatch) {
+            // 一度'='で分離する
+            $tempArr = explode('=', $match[1]);
+            $result["varName"] = trim(array_shift($tempArr));
+            if (!empty($tempArr)) {
+                // 変数名だけシフトしたあと'='で連結する
+                $entity = implode('=', $tempArr);
+                // 変数値とコメントを抽出する
+                $valuePat = '/\/+/u';
+                $valueMatch = preg_split($valuePat, $entity);
+                // 変数値をセット
+                $result["varValue"] = trim(array_shift($valueMatch));
+                // 変数値がセットできない場合は例外発生
+                if (empty($result["varValue"])) {
+                    throw new \Exception("Valiable define error !! (Defined = '" . $source . "')");
+                }
+                // $entity から変数値を取り除く
+                $tempComment = trim(str_replace($result["varValue"], '', $entity));
+                // コメント開始文字列をその直後の半角空白文字を除き、コメントとしてセット
+                $result['comment'] = \preg_replace('/\/*\s*/u', '', $tempComment);
+            } else {
+                // 変数値がセットできない場合は例外発生
+                throw new \Exception("Valiable define error !! (Defined = '" . $source . "')");
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * 配列データに存在する変数がテキストに存在する場合に置換処理を実施する
+     * @param  array  $variables 変数データを格納した連想配列
+     * @param  string $source    置換する対象の文字列
+     * @return string            置換する変数があった場合には置換を行ったテキスト、なかった場合は元テキスト
+     */
+    public function replaceVariable(array $variables, string $source): string
+    {
+        if (empty($variables)) {
+            // $variableが空配列の場合は、置換処理をせずに元の文字列を返す
+            return $source;
+        }
+
+        $search = [];
+        $replace = [];
+        foreach ($variables as $valName => $valInfo) {
+            $search[]  = '$' . $valName . '$';
+            $replace[] = $valInfo['varValue'];
+        }
+        return str_replace($search, $replace, $source);
     }
 }

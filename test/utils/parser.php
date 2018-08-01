@@ -25,6 +25,7 @@ class TestParser extends TestCase
                 'text' => 'div is block tag.',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -42,6 +43,7 @@ class TestParser extends TestCase
                 'text' => 'name="div test" div is block tag.',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -56,6 +58,7 @@ class TestParser extends TestCase
                 'text' => 'div is block tag.',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -72,6 +75,7 @@ class TestParser extends TestCase
                 'text' => 'div is @b block tag@.',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -92,6 +96,7 @@ class TestParser extends TestCase
                 'text' => 'div is @b block tag@.',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -112,6 +117,7 @@ class TestParser extends TestCase
                 'text' => 'div is @b block tag@.',
                 'comment' => 'Test Case Comment',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -132,6 +138,7 @@ class TestParser extends TestCase
                 'text' => '// div is @b block tag@.',
                 'comment' => 'Test Case Comment',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -152,6 +159,7 @@ class TestParser extends TestCase
                 'text' => '// div is @b block tag@.',
                 'comment' => 'Test Case Comment',
             ],
+            'subCommand' => [],
             'commandHead' => '&',
             'attributeDelime' => null,
         ];
@@ -172,6 +180,7 @@ class TestParser extends TestCase
                 'text' => '// div is @b block tag@.',
                 'comment' => 'Test Case Comment',
             ],
+            'subCommand' => [],
             'commandHead' => '&',
             'attributeDelime' => ':',
         ];
@@ -186,6 +195,7 @@ class TestParser extends TestCase
                 'text' => '',
                 'comment' => 'Block Close',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -200,6 +210,7 @@ class TestParser extends TestCase
                 'text' => '',
                 'comment' => 'Block Close',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -214,6 +225,7 @@ class TestParser extends TestCase
                 'text' => '',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
@@ -228,24 +240,26 @@ class TestParser extends TestCase
                 'text' => '',
                 'comment' => '',
             ],
+            'subCommand' => [],
             'commandHead' => null,
             'attributeDelime' => null,
         ];
+
 
         return $command;
     }
 
     /** @dataProvider provideAnalyzeLine */
-    public function testAnalyzeLine($source, $expects, $commandHead, $attributeDelime)
+    public function testAnalyzeLine($source, $expects, $subCommand, $commandHead, $attributeDelime)
     {
-        if (empty($commandHead)) {
+        if (empty($subCommand) && empty($commandHead) && empty($attributeDelime)) {
             $vessel = Parser::analyzeLine($source);
+        } else if (!empty($subCommand) && empty($commandHead) && empty($attributeDelime)) {
+            $vessel = Parser::analyzeLine($source, $subCommand);
+        } else if (!empty($commandHead) && empty($attributeDelime)) {
+            $vessel = Parser::analyzeLine($source, $subCommand, $commandHead);
         } else {
-            if (empty($attributeDelime)) {
-                $vessel = Parser::analyzeLine($source, $commandHead);
-            } else {
-                $vessel = Parser::analyzeLine($source, $commandHead, $attributeDelime);
-            }
+            $vessel = Parser::analyzeLine($source, $subCommand, $commandHead, $attributeDelime);
         }
 
         if (array_key_exists('command', $expects)) {
@@ -262,6 +276,242 @@ class TestParser extends TestCase
         }
         if (array_key_exists('comment', $expects)) {
             $this->assertEquals($vessel->getComment(), $expects['comment']);
+        }
+    }
+
+    public function provideAnalyzeLineSubCommand()
+    {
+        $command = [];
+
+        // サブコマンド
+        $command[] = [
+            'source' => "| test",
+            'expects' => [
+                'command' => "|",
+                'text' => "test",
+                'comment' => '',
+            ],
+            'subCommand' => [["symbol" => "|", "DefaultAttrs" => [], "Description" => "カラム指定"]],
+        ];
+
+        // サブコマンド
+        $command[] = [
+            'source' => "| test",
+            'expects' => [
+                'command' => "|",
+                'text' => "test",
+                'comment' => '',
+            ],
+            'subCommand' => [
+                ["symbol" => "!", "DefaultAttrs" => [], "Description" => "見出しカラム指定"],
+                ["symbol" => "|", "DefaultAttrs" => [], "Description" => "カラム指定"]
+            ],
+        ];
+
+        // サブコマンド
+        $command[] = [
+            'source' => "! test",
+            'expects' => [
+                'command' => "!",
+                'text' => "test",
+                'comment' => '',
+            ],
+            'subCommand' => [
+                ["symbol" => "+", "DefaultAttrs" => [], "Description" => "行指定"],
+                ["symbol" => "!", "DefaultAttrs" => [], "Description" => "見出しカラム指定"],
+                ["symbol" => "|", "DefaultAttrs" => [], "Description" => "カラム指定"]
+            ],
+        ];
+
+        return $command;
+    }
+
+    /** @dataProvider provideAnalyzeLineSubCommand */
+    public function testAnalyzeLineSubCommand($source, $expects, $subCommand)
+    {
+        $result = Parser::analyzeLine($source, $subCommand);
+        $this->assertEquals($result->isSubCommand(), true);
+        $this->assertEquals($result->getCommand(), $expects["command"]);
+        $this->assertEquals($result->getText(), $expects["text"]);
+    }
+
+    public function provideGetIncludeFile()
+    {
+        $params = [];
+
+        // ファイルインクルードチェック：　ファイル名のみ
+        $params[] = [
+            'source' => '@include ' . __DIR__ . DIRECTORY_SEPARATOR . 'validater.php',
+            'expects' => [
+                'filename' => __DIR__ . DIRECTORY_SEPARATOR . 'validater.php',
+                'comment' => null
+            ]
+        ];
+
+        // ファイルインクルードチェック：　ファイル名のみ、コメント付き
+        $params[] = [
+            'source' => '@include ' . __DIR__ . DIRECTORY_SEPARATOR . 'validater.php // ホゲ',
+            'expects' => [
+                'filename' => __DIR__ . DIRECTORY_SEPARATOR . 'validater.php',
+                'comment' => 'ホゲ'
+            ]
+        ];
+
+        return $params;
+    }
+
+    /** @dataProvider provideGetIncludeFile */
+    public function testGetIncludeFile($source, $expects)
+    {
+        $result = Parser::getIncludeFile($source);
+        $this->assertEquals($result, $expects);
+    }
+
+    public function provideExceptionGetIncludeFile()
+    {
+        $params = [];
+
+        // ファイルインクルード例外チェック：　ファイル名なし
+        $params[] = [
+            'source' => '@include // コメント',
+            'errMsg' => 'File is not mention !!'
+        ];
+
+        // ファイルインクルードチェック：　ファイル名のみ、コメント付き
+        $params[] = [
+            'source' => '@include /dir/hoge/hoge.txt // ホゲ',
+            'errMsg' => 'File not exists !! -> (/dir/hoge/hoge.txt)'
+        ];
+
+        return $params;
+    }
+
+    /** @dataProvider provideExceptionGetIncludeFile */
+    public function testExceptionGetIncludeFile($source, $errMsg)
+    {
+        try {
+            Parser::getIncludeFile($source);
+        } catch (\Exception $e) {
+            $this->assertEquals($e->getMessage(), $errMsg);
+        }
+    }
+
+    public function provideGetValiable()
+    {
+        $params = [];
+
+        // 変数定義チェック：　変数名、変数値
+        $params[] = [
+            'source' => '@var v=123',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "123",
+                "comment"  => null,
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値
+        $params[] = [
+            'source' => '@var v = 123',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "123",
+                "comment"  => null,
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値, コメント
+        $params[] = [
+            'source' => '@var v=123 // コメント',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "123",
+                "comment"  => "コメント",
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値, コメント
+        $params[] = [
+            'source' => '@var v= 123 // コメント',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "123",
+                "comment"  => "コメント",
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値, コメント
+        $params[] = [
+            'source' => '@var v =123 // コメント',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "123",
+                "comment"  => "コメント",
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値(カッコで括り空白文字あり), コメント
+        $params[] = [
+            'source' => '@var v="test code" // コメント',
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "\"test code\"",
+                "comment"  => "コメント",
+            ],
+        ];
+
+        // 変数定義チェック：　変数名、変数値(カッコで括り空白文字あり), コメント
+        $params[] = [
+            'source' => "@var v='test=code' // コメント",
+            'expecs' => [
+                "varName"  => "v",
+                "varValue" => "'test=code'",
+                "comment"  => "コメント",
+            ],
+        ];
+
+        return $params;
+    }
+
+    /** @dataProvider provideGetValiable */
+    public function testGetValiable($source, $expects)
+    {
+        $result = Parser::getValiable($source);
+        $this->assertEquals($result, $expects);
+    }
+
+    public function provideExceptionGetValiable()
+    {
+        $params = [];
+
+        // 変数定義エラーチェック：　変数名、コメント
+        $params[] = [
+            'source' => "@var v // コメント",
+            'errMsg' => "Valiable define error !! (Defined = '@var v // コメント')"
+        ];
+
+        // 変数定義エラーチェック：　変数名、コメント イコールあり
+        $params[] = [
+            'source' => "@var v = // コメント",
+            'errMsg' => "Valiable define error !! (Defined = '@var v = // コメント')"
+        ];
+
+        // 変数定義エラーチェック：　変数名、コメント
+        $params[] = [
+            'source' => "@var // コメント",
+            'errMsg' => "Valiable define error !! (Defined = '@var // コメント')"
+        ];
+
+        return $params;
+    }
+
+    /** @dataProvider provideExceptionGetValiable */
+    public function testExceptionGetValiable($source, $errMsg)
+    {
+        try {
+            Parser::getValiable($source);
+        } catch (\Exception $e) {
+            $this->assertEquals($e->getMessage(), $errMsg);
         }
     }
 }

@@ -66,7 +66,7 @@ class Command extends BaseTag
                 $filename = $parserParamaters['ScriptFile'];
                 // ファイルが存在しない場合は例外発生
                 if (!file_existx($filename)) {
-                    throw new \Exception("[ERROR] Script template file is not exists !! (" . $filename . ")");
+                    throw new \Exception("Script template file is not exists !! (" . $filename . ")");
                 }
             }
             $parsed->setScript($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
@@ -76,10 +76,21 @@ class Command extends BaseTag
                 $filename = $parserParamaters['CssFile'];
                 // ファイルが存在しない場合は例外発生
                 if (!file_exists($filename)) {
-                    throw new \Exception("[ERROR] CSS template file is not exists !! (" . $filename . ")");
+                    throw new \Exception("CSS template file is not exists !! (" . $filename . ")");
                 }
             }
             $parsed->setCss($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
         }
+    }
+
+    /**
+     * 次行以降でコマンドに付随した処理を継続して設定したい場合に継承先クラスで定義する
+     * 処理の結果については $line->setBatch() で設定する
+     * @param Vessel $line [description]
+     * @throws Exception なんらかのエラー時に例外を発生させる
+     */
+    public function execSubCommand(Vessel &$line): void
+    {
+        throw new \Exception("Irregular Call !!  (Command Name = " . $line->getCommand() . ")");
     }
 }

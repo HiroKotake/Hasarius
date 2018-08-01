@@ -11,6 +11,7 @@
 namespace Hasarius\system;
 
 use Hasarius\utils as Utils;
+use Hasarius\preprocess as Preprocess;
 use Hasarius\command as Command;
 use Hasarius\decorate as Decorate;
 
@@ -28,6 +29,16 @@ class Generate
      * @var array
      */
     private $config = [];
+    /**
+     * プリプロセスコマンド保持マップ
+     * @var array
+     */
+    private $preprocessCommand = [];
+    /**
+     * プリプロセスコマンドエイリアス保持マップ
+     * @var array
+     */
+    private $preprocessCommandAlias = [];
     /**
      * コマンド保持マップ
      * @var array
@@ -53,6 +64,11 @@ class Generate
      * @var string
      */
     private $closerStack = [];
+    /**
+     * 現在有効なサブコマンド
+     * @var array
+     */
+    private $currentSubCommand = [];
     /**
      * コンテナ
      * @var array
@@ -106,10 +122,23 @@ class Generate
         array_pop($dirMap);
         $baseDir = implode(DIRECTORY_SEPARATOR, $dirMap);
         define('HASARIUS_BASE_DIR', $baseDir);
+        define('HASARIUS_PREPROCESS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'preprocess');
         define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
         define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
         define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
         define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
+
+        // preprocess 読み込み
+        $commandDir = dir(HASARIUS_PREPROCESS_DIR);
+        while (false !== ($file = $commandDir->read())) {
+            if (($file != '.' || $file != '..') && is_dir($file)) {
+                // クラス生成
+                $className = 'Preprocess\Preprocess' . ucfirst($file);
+                $this->preprocessCommand[$file] = new $className();
+                $this->preprocessCommandAlias[$this->preprocessCommand[$file]->getCommandAlias()] = $file;
+            }
+        }
+        $commandDir->close();
 
         // commands 読み込み
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
@@ -130,7 +159,7 @@ class Generate
                 // クラス生成
                 $className = 'Decorate\Decorate' . ucfirst($file);
                 $this->decorations[$file] = new $className();
-                $this->decorationsAlias[$this->decorations[$file]->getDecorationAlias()] = $file;
+                $this->decorationsAlias[$this->decorations[$file]->getCommandAlias()] = $file;
             }
         }
         $decorationDir->close();
@@ -157,8 +186,10 @@ class Generate
         // HTML生成
         try {
             // ToDo: プリプロセス処理を追加（定数対応、変数対応、プリプロセス用バッチコマンド対応)
+            // プリプロセス
+            $lines = $this->preprocess($source);
             // 解析
-            $this->analyze($source);
+            $this->analyze($lines);
             // 構築
             $this->transform();
             // ファイル出力
@@ -172,36 +203,101 @@ class Generate
     }
 
     /**
-     * 指定されたHasariusテキストファイルを解析
-     * （再帰呼び出しあり）
-     *
-     * @param  string  $source     Hasariusテキストファイル
-     * @param  integer $lineNumber 開始行番号
-     * @return int                 最終行番号
+     * ファイルを読み込み事前準備を実施する
+     * @param  string $source ソースファイル
+     * @return array          事前準備完了後のデータ配列
      */
-    public function analyze(string $source, $lineNumber = 0) : int
+    public function preprocess(string $source): array
     {
-        // STEP 1 : READ LINE
+        $lineNumber = 1;
+        $lines = [];
+        $variables = [];
+        $sourceInfo = explode($source, DIRECTORY_SEPARATOR);
+        $filename = array_pop($sourceInfo);
         try {
-            // 解析
+            // ファイル存在確認
             if (!file_exists($source)) {
                 throw new \Exception("[ERROR] FILE NOT EXISTS !!", 1);
             }
-            //  - ファイルオープン
+            // ファイルオープン
             $hFile = fopen($source, 'r');
-            //  -- 行読み込み
+            // 行読み込み
             while (($line = fgets($hFile)) !== false) {
-                $lineNumber++;    // 行インデックス更新
+                // 変数置き換え
+                if (empty($variables)) {
+                    // 変数定義がある場合に置き換え処理を実施
+                    $line = Parser::replaceVariable($variables, $line);
+                }
+                // 外部ソースチェック & 読み込み
+                $match = null;
+                $checkedSource = Parser::getIncludeFile($source);
+                if (!empty($checkedSource["filename"])) {
+                    $lines = array_merge($lines, $this->preprocess($checkedSource["filename"]));
+                    continue;
+                }
+                // 変数対応
+                $match = null;
+                $tempVar = Parser::getValiable($source);
+                if (array_key_exists($tempVar['valName'], $variables)) {
+                    throw new \Exception("Deplicate variable error !!");
+                }
+                if (!empty($tempVar['valName'])) {
+                    $variables[$tempVar['valName']] = $tempVar;
+                    continue;
+                }
+                // 特殊コマンド対応
+                $vessel = Parser::analyzeLine($line, '@', '=');
+                if (!empty($vessel->getCommand())) {
+                    $batch = $vessel->getBatch();
+                    foreach ($batch as $batchLine) {
+                        $line[] = [
+                            'filename' => $filename,
+                            'filefullpath' => $source,
+                            'lineNumber' => $lineNumber,
+                            'lineText' => $batchLine,
+                        ];
+                    }
+                    continue;
+                }
+                // ライン読み込み
+                $lines[] = [
+                    'filename' => $filename,
+                    'filefullpath' => $source,
+                    'lineNumber' => $lineNumber,
+                    'lineText' => $line,
+                ];
+                $lineNumber++;
+            }
+            // ファイルクローズ
+            fclose($hFile);
+        } catch (\Exception $e) {
+            throw new Exception('[ERROR:PREPROCESS] ' . $filename . ':' . $lineNumber . ' - ' . $e->getMessage(), 1);
+        }
+        return $lines;
+    }
+
+    /**
+     * 指定されたHasariusテキストファイルを解析
+     * （再帰呼び出しあり）
+     *
+     * @param  array $source     プリプロセスを経由して作成されたデータ配列
+     */
+    public function analyze(array $source) : int
+    {
+        // STEP 1 : READ LINE
+        try {
+            //  -- 行読み込み
+            foreach ($source as $line) {
                 // ToDo: 文字エンコード変換
                 //  --- 解析
-                $lineParameters = Utils\Parser::analyzeLine($line);
-                if ($lineParameters->getCommand() == 'include') {
-                    // --- 外部ソース読み込み
-                    $lineNumber = self::analyze($lineParameters->getText(), $lineNumber);
-                } elseif (is_numeric($lineParameters->getCommand())) {
+                $lineParameters = Utils\Parser::analyzeLine($line['lineText'], $this->currentSubCommand->getSubCommand());
+                if (is_numeric($lineParameters->getCommand())) {
                     // --- システムコマンド系
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
+                } elseif ($lineParameters->isSubCommand()) {
+                    // サブコマンド指定 -> 親コマンドに処理を任せる
+                    $this->commands[$this->currentSubCommand->getCommand()]->execSubCommand($lineParameters);
                 } else {
                     $command = $lineParameters->getCommand();
                     //  ---- コマンドエイリアス確認
@@ -210,7 +306,7 @@ class Generate
                     }
                     //  ---- コマンドエイリアスになければ実態を確認
                     if (!in_array($command, $this->commands)) {
-                        throw new \Exception("[ERROR" . $lineNumber . "] Not Defined Command !! (" . $command . ")");
+                        throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
                     }
                     //  ----- コマンド処理
                     $this->commands[$command]->trancelate($lineParameters);
@@ -227,7 +323,7 @@ class Generate
                         }
                         //  ---- 修飾エイリアスになければ実態を確認
                         if (!in_array($decorateCommand['command'], $this->decorations)) {
-                            throw new \Exception("[ERROR:" . $lineNumber . "] Not Defined Command !! (" . $decorateCommand['command'] . ")");
+                            throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
                         }
                         //  ----- テキスト置換
                         $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorateCommand);
@@ -249,13 +345,9 @@ class Generate
                     $this->vesselContainer[] = $lineParameters;
                 }
             }
-            //  - ファイルクローズ
-            fclose($hFile);
         } catch (\Exception $e) {
-            echo 'Error at line nunber (' . $lineNumber . '): ' . $line . PHP_EOL;
-            throw $e;
+            throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . $e->getMessage());
         }
-        return $lineNumber;
     }
 
     /**
@@ -279,7 +371,9 @@ class Generate
             // ブロックコマンド抽出
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
-                array_push($this->closerStack, $vessel->getTagClose());
+                // 現在のサブコマンドを設定する
+                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand());
+                array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
                 $this->currentIndent += 1;
             }
@@ -388,7 +482,11 @@ class Generate
             if ($vessel->getCommand() == Parser::SYSTEM_BLOCK_CLOSE) {
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
-                $this->documentWork[] = $closeVessel;
+                $this->documentWork[] = $closeVessel->getCloseTag();
+                if (!empty($closeVessel->getSubCommand())) {
+                    // サブコマンド指定があった場合は、現在のサブコマンドを更新
+                    $this->currentSubCommand = new CloserInfo($closeVessel->getTagClose(), $closeVessel->getSubCommand());
+                }
                 continue;
             }
             // 空行

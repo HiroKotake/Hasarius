@@ -20,6 +20,7 @@ class AutoLoader
         $filename = array_pop($dirsAndFileHead);
         $headFilename = strtolower($filename);
         $subDir = array_pop($dirsAndFileHead);
+        $preprocessPattern = '|^Preprocess.*$|';
         $commandPattern    = '|^Command.*$|';
         $decorationPattern = '|^Decorate.*$|';
         $utilsPattern      = '|^utils$|';
@@ -28,7 +29,14 @@ class AutoLoader
         $filename = __DIR__ . DIRECTORY_SEPARATOR
                   . 'system' . DIRECTORY_SEPARATOR
                   . strtolower($filename) . '.php';
-        if (preg_match($commandPattern, $filename)) {
+        if (preg_match($preprocessPattern, $filename)) {
+            // for preprocess
+            $filename = strtolower(preg_replace('|^Preprocess|', '', $filename));
+            $filename = __DIR__ . DIRECTORY_SEPARATOR
+                      . 'preprocess' . DIRECTORY_SEPARATOR
+                      . $headFilename . DIRECTORY_SEPARATOR
+                      . $headFilename . '.php';
+        } elseif (preg_match($commandPattern, $filename)) {
             // for command
             $filename = strtolower(preg_replace('|^Command|', '', $filename));
             $filename = __DIR__ . DIRECTORY_SEPARATOR

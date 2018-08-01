@@ -17,5 +17,22 @@
             "alias": "ckey",
             "type": "string"
         }
-    }
+    },
+    "SubCommand": [
+        {
+            "Symbol": "+",
+            "DefaultAttrs": {},
+            "Description": "行指定"
+        },
+        {
+            "Symbol": "!",
+            "DefaultAttrs": {},
+            "Description": "見出しカラム指定"
+        },
+        {
+            "Symbol": "|",
+            "DefaultAttrs": {},
+            "Description": "カラム指定"
+        }
+    ]
 }

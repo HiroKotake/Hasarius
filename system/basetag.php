@@ -172,6 +172,11 @@ class BaseTag
      */
     protected $possibleCustomAttributes = null;
     /**
+     * サブコマンドデータのリスト
+     * @var array|null サブコマンドに関するデータのリスト
+     */
+    protected $subCommand = [];
+    /**
      * スクリプトの配置先
      * @var string
      */
@@ -401,6 +406,23 @@ class BaseTag
     }
 
     /**
+     * サブコマンドデータを設定
+     * @param array $subCommand サブコマンドデータリスト
+     */
+    public function setSubCommand(array $subCommand): void
+    {
+        $this->subCommand = $subCommand;
+    }
+    /**
+     * サブコマンドデータを取得
+     * @return array サブコマンドデータリスト
+     */
+    public function getSubCommand(): array
+    {
+        return $this->subCommand;
+    }
+
+    /**
      * コマンド設定用JSONファイルを読み込み、設定値を格納
      * @param string $filename コマンド設定用JSONファイル
      * @throws Exception ファイル存在しない、ファイルが開けない場合に例外を発生
@@ -424,7 +446,12 @@ class BaseTag
             $this->setCommandAlias($settings["CommandAlias"]);
             $this->setPossibleDocumentTypes($settings["DocumentType"]);
             $this->setPossibleTagAttributes($settings["TagAttributes"]);
-            $this->setPossibleCustomAttributes($settings["CustomAttributes"]);
+            if (array_key_exists("CustomAttributes", $settings)) {
+                $this->setPossibleCustomAttributes($settings["CustomAttributes"]);
+            }
+            if (array_key_exists("SubCommand", $settings)) {
+                $this->setSubCommand($settings["SubCommand"]);
+            }
             // json変数を解放
             unset($json);
         } catch (\Exception $e) {
