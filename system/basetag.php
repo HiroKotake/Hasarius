@@ -22,22 +22,25 @@ use Hasarius\utils as Utils;
 class BaseTag
 {
     // 影響範囲 (command, decorationの各クラスはどれか一つしかブロックタイプを取ることしかできない)
-    const BLOCK_TYPE_NONE   = 0;    // テキストオンリーの場合のみ使用
-    const BLOCK_TYPE_INLINE = 1;    // 一行で終了するコマンド
-    const BLOCK_TYPE_BLOCK  = 2;    // 複数行にまたがって記述され間に別のコマンドがある場合に指定するコマンド
-    const BLOCK_TYPE_BATCH  = 3;   // 間に何も挟まず、外部ソース等を読み込んだりして動作するコマンド
+    const BLOCK_TYPE_NONE    = 0;    // テキストオンリーの場合のみ使用
+    const BLOCK_TYPE_INLINE  = 1;    // 一行のテキストの中の任意の文字列でで終了するコマンド
+    const BLOCK_TYPE_BLOCK   = 2;    // 複数行にまたがって記述され間に別のコマンドがある場合に指定するコマンド
+    const BLOCK_TYPE_ONELINE = 3;    // 一行で完了するブロックコマンド
+    const BLOCK_TYPE_BATCH   = 4;   // 間に何も挟まず、外部ソース等を読み込んだりして動作するコマンド
 
     private $listBlockTypeByString = [
         "NONE"   => 0,
         "INLINE" => 1,
         "BLOCK"  => 2,
-        "BATCH"  => 3,
+        "ONLINE" => 3,
+        "BATCH"  => 4,
     ];
 
     private $listBlockTypeByNumber = [
         0 => "NONE",
         1 => "INLINE",
         2 => "BLOCK",
+        3 => "ONELINE",
         3 => "BATCH",
     ];
 

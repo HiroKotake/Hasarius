@@ -1,0 +1,18 @@
+{
+    "CommandName": "dtest",
+    "TagOpen": "dtest",
+    "TagClose": "</dtest>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML","CSS"],
+    "CommandAlias": "dtst",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
+    "TagAttributes": {
+        "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
+        "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
+        "XHTML1": {"xhtml1_key":"xhtml1_value"},
+        "HTML5": {"html5_key":"html5_value"}
+    },
+    "CustomAttributes": {
+        "css_key":"css_value"
+    }
+}

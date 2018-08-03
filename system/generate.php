@@ -145,16 +145,15 @@ class Generate
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
         while (false !== ($file = $commandDir->read())) {
             if (($file != '.' || $file != '..') && is_dir($file)) {
-                $preFilename = HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file;
+                $filepath = HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR;
                 // クラス生成
-                if (file_exists($preFilename . '.php')) {
+                if (file_exists($filepath . $file . '.php')) {
                     // PHPファイルの定義がある場合
-                    $className = 'Command\Command' . ucfirst($file);
                     $className = 'Command\Command' . ucfirst($file);
                     $this->commands[$file] = new $className();
                 } else {
                     // JSONファイル定義が主体
-                    $this->commands[$file] = new Command($preFilename . '.json');
+                    $this->commands[$file] = new Command($filepath . 'define.json');
                 }
                 $this->commandAlias[$this->commands[$file]->getCommandAlias()] = $file;
             }
@@ -165,15 +164,15 @@ class Generate
         $decorationDir = dir(HASARIUS_DECORATION_DIR);
         while (false !== ($file = $decorationDir->read())) {
             if (($file != '.' || $file != '..') && is_dir($file)) {
-                $preFilename = HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file;
+                $filepath = HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR;
                 // クラス生成
-                if (file_exists($preFilename . '.php')) {
+                if (file_exists($filepath . $file . '.php')) {
                     // PHPファイルの定義がある場合
                     $className = 'Decorate\Decorate' . ucfirst($file);
                     $this->decorations[$file] = new $className();
                 } else {
                     // JSONファイル定義が主体
-                    $this->decorations[$file] = new $className($preFilename . '.json');
+                    $this->decorations[$file] = new $className($filepath . 'define.json');
                 }
                 $this->decorationsAlias[$this->decorations[$file]->getCommandAlias()] = $file;
             }
