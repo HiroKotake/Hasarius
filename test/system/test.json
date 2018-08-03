@@ -18,6 +18,7 @@
             "type": "string"
         }
     },
+    "AutoIndent": 0,
     "SubCommand": [
         {
             "Symbol": "+",

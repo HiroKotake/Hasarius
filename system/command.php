@@ -44,6 +44,8 @@ class Command extends BaseTag
     {
         // コマンドの場合はID生成(id_ + "行番号")
         $parsed->setId('id_' . $parsed['lineNumber']);
+        // 自動インデント設定
+        $parsed->setAutoIndent($this->isAutoIndent());
 
         // 一応保険としてコマンドの確認を実施
         if (!empty($parsed->getCommand()) && $this->getCommandName() == $parsed->getCommand()) {

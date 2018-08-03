@@ -68,7 +68,7 @@ class Generate
      * 現在有効なサブコマンド
      * @var array
      */
-    private $currentSubCommand = [];
+    private $currentSubCommand = null;
     /**
      * コンテナ
      * @var array
@@ -106,6 +106,7 @@ class Generate
 
     public function __construct()
     {
+        $this->currentSubCommand = new CloseInfo();
         $this->initialize();
     }
 
@@ -144,9 +145,17 @@ class Generate
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
         while (false !== ($file = $commandDir->read())) {
             if (($file != '.' || $file != '..') && is_dir($file)) {
+                $preFilename = HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file;
                 // クラス生成
-                $className = 'Command\Command' . ucfirst($file);
-                $this->commands[$file] = new $className();
+                if (file_exists($preFilename . '.php')) {
+                    // PHPファイルの定義がある場合
+                    $className = 'Command\Command' . ucfirst($file);
+                    $className = 'Command\Command' . ucfirst($file);
+                    $this->commands[$file] = new $className();
+                } else {
+                    // JSONファイル定義が主体
+                    $this->commands[$file] = new Command($preFilename . '.json');
+                }
                 $this->commandAlias[$this->commands[$file]->getCommandAlias()] = $file;
             }
         }
@@ -156,9 +165,16 @@ class Generate
         $decorationDir = dir(HASARIUS_DECORATION_DIR);
         while (false !== ($file = $decorationDir->read())) {
             if (($file != '.' || $file != '..') && is_dir($file)) {
+                $preFilename = HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $file;
                 // クラス生成
-                $className = 'Decorate\Decorate' . ucfirst($file);
-                $this->decorations[$file] = new $className();
+                if (file_exists($preFilename . '.php')) {
+                    // PHPファイルの定義がある場合
+                    $className = 'Decorate\Decorate' . ucfirst($file);
+                    $this->decorations[$file] = new $className();
+                } else {
+                    // JSONファイル定義が主体
+                    $this->decorations[$file] = new $className($preFilename . '.json');
+                }
                 $this->decorationsAlias[$this->decorations[$file]->getCommandAlias()] = $file;
             }
         }
@@ -372,7 +388,7 @@ class Generate
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
                 // 現在のサブコマンドを設定する
-                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand());
+                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand(), $vessel->getAutoIndent());
                 array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
                 $this->currentIndent += 1;
@@ -472,6 +488,10 @@ class Generate
     private function subGenarateBody(): void
     {
         foreach ($this->vesselContainer as $vessel) {
+            // インデント分生成
+            if ($vessel->getAutoIndent()) {
+                $indentText = Utils\indentRepeat($vessel->getIndent());
+            }
             // コメント存在確認
             // * 設定ファイルによりコメント表示がONならばコメントテキストを追加する
             $comment = "";
@@ -482,7 +502,7 @@ class Generate
             if ($vessel->getCommand() == Parser::SYSTEM_BLOCK_CLOSE) {
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
-                $this->documentWork[] = $closeVessel->getCloseTag();
+                $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
                 if (!empty($closeVessel->getSubCommand())) {
                     // サブコマンド指定があった場合は、現在のサブコマンドを更新
                     $this->currentSubCommand = new CloserInfo($closeVessel->getTagClose(), $closeVessel->getSubCommand());
@@ -503,14 +523,16 @@ class Generate
             // - タグの内容
             switch ($vessel->getBlockType) {
                 case BaseTag::BLOCK_TYPE_INLINE:
-                    $this->documentWork[] = '<' . $vessel->getTagOpen()
+                    $this->documentWork[] = $indentText
+                                    . '<' . $vessel->getTagOpen()
                                     . ' ' . $vessel->getVerifiedAttributes() . '>'
                                     . $vessel->getText()
                                     . $vessel->getTagClose()
                                     . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
-                    $this->documentWork[] = '<' . $vessel->getTagOpen()
+                    $this->documentWork[] = $indentText
+                                          . '<' . $vessel->getTagOpen()
                                           . ' ' . $vessel->getVerifiedAttributes() . '>'
                                           . $comment;
                     break;
@@ -519,7 +541,7 @@ class Generate
                     break;
                 case BaseTag::BLOCK_TYPE_NONE:
                 default:
-                    $this->documentWork[] = $vessel->getText();
+                    $this->documentWork[] = $indentText . $vessel->getText();
                     break;
             }
         }

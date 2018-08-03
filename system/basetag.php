@@ -172,6 +172,11 @@ class BaseTag
      */
     protected $possibleCustomAttributes = null;
     /**
+     * 自動インデントを使用する
+     * @var int
+     */
+    protected $autoIndent = 1;
+    /**
      * サブコマンドデータのリスト
      * @var array|null サブコマンドに関するデータのリスト
      */
@@ -406,6 +411,23 @@ class BaseTag
     }
 
     /**
+     * 自動インデントの使用を設定する
+     * @param int $flag 0:使用しない、1:使用する
+     */
+    public function setAutoIndent(int $flag): void
+    {
+        $this->autoIndent = $flag;
+    }
+    /**
+     * 自動インデントを使用するか
+     * @return bool ture:使用する、false:使用しない
+     */
+    public function isAutoIndent(): bool
+    {
+        return ($this->autoIndent != 0);
+    }
+
+    /**
      * サブコマンドデータを設定
      * @param array $subCommand サブコマンドデータリスト
      */
@@ -448,6 +470,9 @@ class BaseTag
             $this->setPossibleTagAttributes($settings["TagAttributes"]);
             if (array_key_exists("CustomAttributes", $settings)) {
                 $this->setPossibleCustomAttributes($settings["CustomAttributes"]);
+            }
+            if (array_key_exists("AutoIndent", $settings)) {
+                $this->setAutoIndent($settings["AutoIndent"]);
             }
             if (array_key_exists("SubCommand", $settings)) {
                 $this->setSubCommand($settings["SubCommand"]);

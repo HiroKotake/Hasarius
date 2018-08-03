@@ -31,6 +31,7 @@ class Vessel
         'verifiedAttribute'  => "", // 属性をまとめたテキスト
         'script'             => [],
         'css'                => "",
+        'autoIndent'         => true,
         // For Command(Batch)
         'batch'              => [],
     ];
