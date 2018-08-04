@@ -468,7 +468,9 @@ class BaseTag
             $this->setTagClose($settings["TagClose"]);
             $this->setBlockType($settings["BlockType"]);
             $this->setCommandPerpose($settings["CommandPerposes"]);
-            $this->setCommandAlias($settings["CommandAlias"]);
+            if (array_key_exists("CommandAlias", $settings) && strlen($settings["CommandAlias"]) > 0) {
+                $this->setCommandAlias($settings["CommandAlias"]);
+            }
             $this->setPossibleDocumentTypes($settings["DocumentType"]);
             $this->setPossibleTagAttributes($settings["TagAttributes"]);
             if (array_key_exists("CustomAttributes", $settings)) {
@@ -487,6 +489,8 @@ class BaseTag
         }
     }
 
+    // ToDo: チェック用のパターンが多くなるので考慮が必要 -> パターンをキーとした配列に載せて正規表現のパターンを取るようにすればいいかも
+    // ToDo: 定義パターンから漏れたケースの場合は指定されている文字そのものを比較する
     private function subVerifyParamater(array $condition, $value): bool
     {
         // 正規表現用パターン生成
@@ -539,6 +543,7 @@ class BaseTag
                 return $value;
             }
         }
+        // ToDo: カスタム属性では再度ドキュメントタイプをチェックする必要が発生したので改修が必要
         foreach ($this->possibleCustomAttributes as $value) {
             if ($value['alias'] == $name) {
                 return $value;

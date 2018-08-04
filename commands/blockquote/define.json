@@ -1,39 +1,20 @@
 {
-    "CommandName": "address",
-    "TagOpen": "address",
-    "TagClose": "</address>",
+    "CommandName": "blockquote",
+    "TagOpen": "blockquote",
+    "TagClose": "</blockquote>",
     "BlockType": "BLOCK",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "tst",
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "bq",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
-        "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
-        "XHTML1": {"xhtml1_key":"xhtml1_value"},
-        "HTML5": {"html5_key":"html5_value"}
-    },
-    "CustomAttributes": {
-        "custom_key": {
-            "alias": "ckey",
-            "type": "string"
-        }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "行指定"
-        },
-        {
-            "Symbol": "!",
-            "DefaultAttrs": {},
-            "Description": "見出しカラム指定"
-        },
-        {
-            "Symbol": "|",
-            "DefaultAttrs": {},
-            "Description": "カラム指定"
-        }
-    ]
+        "HTML4_LOOSE": {"cite":"URI"},
+        "HTML4_STRICT": {"cite":"URI"},
+        "HTML4_FRAME": {"cite":"URI"},
+        "XHTML1_LOOSE": {"cite":"URI"},
+        "XHTML1_STRICT": {"cite":"URI"},
+        "XHTML1_FRAME": {"cite":"URI"},
+        "XHTML1_1": {"cite":"URI"},
+        "HTML5": {"cite":"URI"},
+        "HTML5_1": {"cite":"URI"}
+    }
 }

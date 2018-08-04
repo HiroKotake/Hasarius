@@ -1,16 +1,21 @@
 {
-    "CommandName": "address",
-    "TagOpen": "address",
-    "TagClose": "</address>",
+    "CommandName": "sample",
+    "TagOpen": "sample",
+    "TagClose": "</sample>",
     "BlockType": "BLOCK",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "tst",
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
+    "CommandPerposes": ["HTML", "CSS", "SCRIPT", "BATCH"],
+    "CommandAlias": "samp",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
         "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
         "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
-        "XHTML1": {"xhtml1_key":"xhtml1_value"},
-        "HTML5": {"html5_key":"html5_value"}
+        "HTML4_FRAME": {"html4_loose_key":"html4_loose_value"},
+        "XHTML1_LOOSE": {"xhtml1_key":"xhtml1_value"},
+        "XHTML1_STRICT": {"xhtml1_key":"xhtml1_value"},
+        "XHTML1_FRAME": {"xhtml1_key":"xhtml1_value"},
+        "XHTML1_1": {"xhtml1_key":"xhtml1_value"},
+        "HTML5": {"html5_key":"html5_value"},
+        "HTML5_1": {"html5_key":"html5_value"}
     },
     "CustomAttributes": {
         "custom_key": {

@@ -1,39 +1,65 @@
 {
-    "CommandName": "test",
-    "TagOpen": "test",
-    "TagClose": "</test>",
-    "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "tst",
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
+    "CommandName": "colgroup",
+    "TagOpen": "colgroup",
+    "TagClose": "</colgroup>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "colg",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
-        "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
-        "XHTML1": {"xhtml1_key":"xhtml1_value"},
-        "HTML5": {"html5_key":"html5_value"}
+        "HTML4_LOOSE": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT",
+            "align":"SIDE_LMRJC",
+            "valign":"SIDE_TMB1BL",
+            "char":"STRING",
+            "charoff":"NZ_PCT"
+        },
+        "HTML4_STRICT": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT",
+            "align":"SIDE_LMRJC",
+            "valign":"SIDE_TMB1BL",
+            "char":"STRING",
+            "charoff":"NZ_PCT"
+        },
+        "HTML4_FRAME": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT",
+            "align":"SIDE_LMRJC",
+            "valign":"SIDE_TMB1BL",
+            "char":"STRING",
+            "charoff":"NZ_PCT"
+        },
+        "XHTML1_LOOSE": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT"
+        },
+        "XHTML1_STRICT": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT"
+        },
+        "XHTML1_FRAME": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT"
+        },
+        "XHTML1_1": {
+            "span":"NZ",
+            "width":"NZ_PCT_RLT"
+        },
+        "HTML5": {"span":"NZ"},
+        "HTML5_1": {"span":"NZ"}
     },
     "CustomAttributes": {
-        "custom_key": {
-            "alias": "ckey",
-            "type": "string"
-        }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "行指定"
+        "cellalign": {
+            "alias": "calign",
+            "type": "SIDE_TRBL",
+            "DocumentType": ["XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1"]
         },
-        {
-            "Symbol": "!",
-            "DefaultAttrs": {},
-            "Description": "見出しカラム指定"
-        },
-        {
-            "Symbol": "|",
-            "DefaultAttrs": {},
-            "Description": "カラム指定"
+        "cellvalign": {
+            "alias": "cvalign",
+            "type": "SIDE_TMBBL",
+            "DocumentType": ["XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1"]
         }
-    ]
+    }
 }
