@@ -1,90 +1,284 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "iframe",
+    "TagOpen": "iframe",
+    "TagClose": "</iframe>",
     "BlockType": "BLOCK",
+    "CommandAlias": "ifrm",
     "CommandPerposes": ["HTML"],
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME","HTML5","HTML5_1"],
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "action": {
-                "Priority": "REQUIRED",
+            "src": {
+                "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "URI"
-            }
-        },
-        "HTML4_STRICT": {
-            "method": {
+            },
+            "longdesc": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
             }
         },
         "HTML4_FRAME": {
-            "accept": {
+            "src": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
             }
         },
         "XHTML1_LOOSE": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
             "name": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
-            }
-        },
-        "XHTML1_STRICT": {
-            "enctype": {
+            },
+            "width": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-sample-urlencoded|multipart\/sample-data|text\/plain){0,1}$/"
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
             }
         },
         "XHTML1_FRAME": {
-            "target": {
+            "src": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "WINDOW"
-            }
-        },
-        "XHTML1_1": {
-            "accept": {
+                "Value": "URI"
+            },
+            "longdesc": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
             }
         },
         "HTML5": {
-            "autocomplete": {
+            "src": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "ON_OFF"
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "srcdoc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
             }
         },
         "HTML5_1": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
             "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "srcdoc": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
             }
         }
     },
-    "CustomAttributes": {
-        "require": {
-            "Type": "NAME_ONLY",
-            "AttributeName": "novalidate",
-            "Alias": "must",
-            "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
-        }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "入力項目指定"
-        }
-    ]
+    "AutoIndent": 0
 }

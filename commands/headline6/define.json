@@ -1,0 +1,57 @@
+{
+    "CommandName": "headline1",
+    "TagOpen": "h6",
+    "TagClose": "</h6>",
+    "BlockType": "ONELINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "h6",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "HTML4_STRICT": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "HTML4_FRAME": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "XHTML1_STRICT": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "XHTML1_FRAME": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJ"
+            }
+        },
+        "XHTML1_1": {},
+        "HTML5": {},
+        "HTML5_1": {}
+    },
+    "AutoIndent": 0
+}

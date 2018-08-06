@@ -1,90 +1,94 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "frame",
+    "TagOpen": "frame",
+    "TagClose": "</frame>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
     "TagAttributes": {
-        "HTML4_LOOSE": {
-            "action": {
-                "Priority": "REQUIRED",
+        "HTML4_FRAME": {
+            "src": {
+                "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "URI"
-            }
-        },
-        "HTML4_STRICT": {
-            "method": {
-                "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
-            }
-        },
-        "HTML4_FRAME": {
-            "accept": {
+            },
+            "longdesc": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
-            }
-        },
-        "XHTML1_LOOSE": {
+                "Value": "URI"
+            },
             "name": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
-            }
-        },
-        "XHTML1_STRICT": {
-            "enctype": {
+            },
+            "scrolling": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-sample-urlencoded|multipart\/sample-data|text\/plain){0,1}$/"
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
             }
         },
         "XHTML1_FRAME": {
-            "target": {
+            "src": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "WINDOW"
-            }
-        },
-        "XHTML1_1": {
-            "accept": {
+                "Value": "URI"
+            },
+            "longdesc": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
-            }
-        },
-        "HTML5": {
-            "autocomplete": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "ON_OFF"
-            }
-        },
-        "HTML5_1": {
+                "Value": "URI"
+            },
             "name": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(yes|no|auto)$/"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(0|1)$/"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
             }
         }
     },
     "CustomAttributes": {
-        "require": {
+        "noresize": {
             "Type": "NAME_ONLY",
-            "AttributeName": "novalidate",
-            "Alias": "must",
+            "AttributeName": "noresize",
+            "Alias": "resize",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
+            "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"]
         }
     },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "入力項目指定"
-        }
-    ]
+    "AutoIndent": 0
 }

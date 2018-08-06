@@ -34,7 +34,7 @@ class BaseTag
         "INLINE" => 1,
         "BLOCK"  => 2,
         "BOTH"   => 3,
-        "ONLINE" => 4,
+        "ONELINE" => 4,
         "BATCH"  => 5,
     ];
 

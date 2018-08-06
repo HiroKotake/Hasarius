@@ -331,7 +331,7 @@
         }
     },
     "CustomAttributes": {
-        "novalidate": {
+        "validate": {
             "Type": "NAME_ONLY",
             "AttributeName": "novalidate",
             "Alias": "noval",
