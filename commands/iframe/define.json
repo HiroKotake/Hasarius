@@ -6,6 +6,22 @@
     "CommandAlias": "ifrm",
     "CommandPerposes": ["HTML"],
     "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title"],
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"],
+        "HTML5": ["style", "class", "id", "title"],
+        "HTML5_1": ["style", "class", "id", "title"]
+    },
+    "EventAttribute": {
+        "HTML4_LOOSE": [],
+        "HTML4_FRAME": [],
+        "XHTML1_LOOSE": [],
+        "XHTML1_FRAME": [],
+        "HTML5": [],
+        "HTML5_1": []
+    },
     "TagAttributes": {
         "HTML4_LOOSE": {
             "src": {

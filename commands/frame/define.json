@@ -5,6 +5,14 @@
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
     "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"]
+    },
+    "EventAttribute": {
+        "HTML4_FRAME": [],
+        "XHTML1_FRAME": []
+    },
     "TagAttributes": {
         "HTML4_FRAME": {
             "src": {

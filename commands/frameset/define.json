@@ -6,6 +6,14 @@
     "CommandAlias": "fset",
     "CommandPerposes": ["HTML"],
     "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"]
+    },
+    "EventAttribute": {
+        "HTML4_FRAME": ["onload", "onunload"],
+        "XHTML1_FRAME": ["onload", "onunload"]
+    },
     "TagAttributes": {
         "HTML4_FRAME": {
             "cols": {

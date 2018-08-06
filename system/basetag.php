@@ -168,6 +168,16 @@ class BaseTag
      */
     protected $currentDocumentType = null;
     /**
+     * 使用可能な一般タグの属性リスト
+     * @var array|null 使用可能な一般タグの属性のリスト
+     */
+    protected $possibleGlobalAttributes = null;
+    /**
+     * 使用可能なタグのイベント属性リスト
+     * @var array|null 使用可能なタグのイベント属性のリスト
+     */
+    protected $possibleEventAttributes = null;
+    /**
      * 使用可能なタグの属性リスト
      * @var array|null 使用可能なタグの属性のリスト
      */
@@ -374,6 +384,40 @@ class BaseTag
     }
 
     /**
+     * 利用可能なタグの一般属性を設定
+     * @param array $attributes 利用可能なタグの一般属性のリスト
+     */
+    protected function setPossibleGlobalAttributes(array $attributes): void
+    {
+        $this->possibleGlobalAttributes = $attributes;
+    }
+    /**
+     * 利用可能なタグの一般属性を取得
+     * @return array $attributes 利用可能なタグの一般属性のリスト
+     */
+    public function getPossibleGlobalAttributes(): array
+    {
+        return $this->possibleGlobalAttributes;
+    }
+
+    /**
+     * 利用可能なタグのイベント属性を設定
+     * @param array $attributes 利用可能なタグのイベント属性のリスト
+     */
+    protected function setPossibleEventAttributes(array $attributes): void
+    {
+        $this->possibleEventAttributes = $attributes;
+    }
+    /**
+     * 利用可能なタグのイベント属性を取得
+     * @return array $attributes 利用可能なタグのイベント属性のリスト
+     */
+    public function getPossibleEventAttributes(): array
+    {
+        return $this->possibleEventAttributes;
+    }
+
+    /**
      * 利用可能なタグの属性を設定
      * @param array $attributes 利用可能なタグのリスト
      */
@@ -473,6 +517,12 @@ class BaseTag
             $this->setCommandPerpose($settings["CommandPerposes"]);
             if (array_key_exists("CommandAlias", $settings) && strlen($settings["CommandAlias"]) > 0) {
                 $this->setCommandAlias($settings["CommandAlias"]);
+            }
+            if (array_key_exists("GlobalAttributes", $settings)) {
+                $this->setPossibleGlobalAttributes($settings["GlobalAttributes"]);
+            }
+            if (array_key_exists("EventAttributes", $settings)) {
+                $this->setPossibleEventAttributes($settings["EventAttributes"]);
             }
             $this->setPossibleDocumentTypes($settings["DocumentType"]);
             $this->setPossibleTagAttributes($settings["TagAttributes"]);
