@@ -1,26 +1,342 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "form",
+    "TagOpen": "form",
+    "TagClose": "</form>",
     "BlockType": "BLOCK",
-    "CommandPerposes": ["HTML", "CSS", "SCRIPT", "BATCH"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
-        "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
-        "HTML4_FRAME": {"html4_loose_key":"html4_loose_value"},
-        "XHTML1_LOOSE": {"xhtml1_key":"xhtml1_value"},
-        "XHTML1_STRICT": {"xhtml1_key":"xhtml1_value"},
-        "XHTML1_FRAME": {"xhtml1_key":"xhtml1_value"},
-        "XHTML1_1": {"xhtml1_key":"xhtml1_value"},
-        "HTML5": {"html5_key":"html5_value"},
-        "HTML5_1": {"html5_key":"html5_value"}
+        "HTML4_LOOSE": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML4_STRICT": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML4_FRAME": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_STRICT": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "XHTML1_FRAME": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_1": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "HTML5": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF"
+            }
+        },
+        "HTML5_1": {
+            "action": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "method": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(get|post)$/i"
+            },
+            "enctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+            },
+            "accept-charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "accept": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF"
+            }
+        }
     },
     "CustomAttributes": {
-        "custom_key": {
-            "alias": "ckey",
-            "type": "string"
+        "novalidate": {
+            "Type": "NAME_ONLY",
+            "AttributeName": "novalidate",
+            "Alias": "noval",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
         }
     },
     "AutoIndent": 0,
@@ -28,17 +344,7 @@
         {
             "Symbol": "+",
             "DefaultAttrs": {},
-            "Description": "行指定"
-        },
-        {
-            "Symbol": "!",
-            "DefaultAttrs": {},
-            "Description": "見出しカラム指定"
-        },
-        {
-            "Symbol": "|",
-            "DefaultAttrs": {},
-            "Description": "カラム指定"
+            "Description": "入力項目指定"
         }
     ]
 }

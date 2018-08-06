@@ -25,23 +25,26 @@ class BaseTag
     const BLOCK_TYPE_NONE    = 0;    // テキストオンリーの場合のみ使用
     const BLOCK_TYPE_INLINE  = 1;    // 一行のテキストの中の任意の文字列でで終了するコマンド
     const BLOCK_TYPE_BLOCK   = 2;    // 複数行にまたがって記述され間に別のコマンドがある場合に指定するコマンド
-    const BLOCK_TYPE_ONELINE = 3;    // 一行で完了するブロックコマンド
-    const BLOCK_TYPE_BATCH   = 4;   // 間に何も挟まず、外部ソース等を読み込んだりして動作するコマンド
+    const BLOCK_TYPE_BOTH    = 3;    // ブロックもしくはインラインの両方で使用できるコマンド
+    const BLOCK_TYPE_ONELINE = 4;    // 一行で完了するブロックコマンド
+    const BLOCK_TYPE_BATCH   = 5;   // 間に何も挟まず、外部ソース等を読み込んだりして動作するコマンド
 
     private $listBlockTypeByString = [
         "NONE"   => 0,
         "INLINE" => 1,
         "BLOCK"  => 2,
-        "ONLINE" => 3,
-        "BATCH"  => 4,
+        "BOTH"   => 3,
+        "ONLINE" => 4,
+        "BATCH"  => 5,
     ];
 
     private $listBlockTypeByNumber = [
         0 => "NONE",
         1 => "INLINE",
         2 => "BLOCK",
-        3 => "ONELINE",
-        3 => "BATCH",
+        3 => "BOTH",
+        4 => "ONELINE",
+        5 => "BATCH",
     ];
 
     // コマンド種別

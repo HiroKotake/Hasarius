@@ -1,16 +1,35 @@
 {
-    "CommandName": "dtest",
-    "TagOpen": "dtest",
-    "TagClose": "</dtest>",
+    "CommandName": "sample",
+    "TagOpen": "sample",
+    "TagClose": "</sample>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS"],
-    "CommandAlias": "dtst",
-    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","XHTML1_LOOSE","HTML5","HTML5_1"],
+    "CommandPerposes": ["HTML","CSS","SCRIPT"],
+    "CommandAlias": "samp",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"html4_loose_key":"html4_loose_value"},
-        "HTML4_STRICT": {"html4_strict_key":"html4_strict_value"},
-        "XHTML1": {"xhtml1_key":"xhtml1_value"},
-        "HTML5": {"html5_key":"html5_value"}
+        "HTML4_LOOSE": {
+            "AttributeName": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "HTML4_STRICT": {
+        },
+        "HTML4_FRAME": {
+        },
+        "XHTML1_LOOSE": {
+        },
+        "XHTML1_STRICT": {
+        },
+        "XHTML1_FRAME": {
+        },
+        "XHTML1_1": {
+        },
+        "HTML5": {
+        },
+        "HTML5_1": {
+        }
     },
     "CustomAttributes": {
         "css_key":"css_value"

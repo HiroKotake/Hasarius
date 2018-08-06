@@ -9,9 +9,21 @@
         "HTML4_LOOSE": {},
         "HTML4_STRICT": {},
         "HTML4_FRAME": {},
-        "XHTML1_LOOSE": {"compact":"compact"},
+        "XHTML1_LOOSE": {
+            "compact":{
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^compact$/"
+            }
+        },
         "XHTML1_STRICT": {},
-        "XHTML1_FRAME": {"compact":"compact"},
+        "XHTML1_FRAME": {
+            "compact":{
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^compact$/"
+            }
+        },
         "XHTML1_1": {},
         "HTML5": {},
         "HTML5_1": {}

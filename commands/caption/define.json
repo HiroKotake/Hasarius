@@ -7,13 +7,70 @@
     "CommandAlias": "capt",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "TagAttributes": {
-        "HTML4_LOOSE": {"align":"SIDE_TRBL", "valign":"SIDE_TB"},
-        "HTML4_STRICT": {"align":"SIDE_TRBL", "valign":"SIDE_TB"},
-        "HTML4_FRAME": {"align":"SIDE_TRBL", "valign":"SIDE_TB"},
-        "XHTML1_LOOSE": {"align":"SIDE_LF"},
-        "XHTML1_STRICT": {"align":"SIDE_LF"},
-        "XHTML1_FRAME": {"align":"SIDE_LF"},
-        "XHTML1_1": {"align":"SIDE_LF"},
+        "HTML4_LOOSE": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TB"
+            }
+        },
+        "HTML4_STRICT": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TB"
+            }
+        },
+        "HTML4_FRAME": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TB"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "aligin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LF"
+            }
+        },
+        "XHTML1_STRICT": {
+            "aligin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LF"
+            }
+        },
+        "XHTML1_FRAME": {
+            "aligin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LF"
+            }
+        },
+        "XHTML1_1": {
+            "aligin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LF"
+            }
+        },
         "HTML5": {},
         "HTML5_1": {}
     }
