@@ -1,0 +1,24 @@
+{
+    "CommandName": "figure",
+    "TagOpen": "figure",
+    "TagClose": "</figure>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "figure",
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5": ["id"],
+        "HTML5_1": ["id"]
+    },
+    "EventAttribute": {
+        "HTML5": [],
+        "HTML5_1": []
+    },
+    "TagAttributes": {
+        "HTML5": {
+        },
+        "HTML5_1": {
+        }
+    }
+}

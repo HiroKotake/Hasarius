@@ -1,10 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "horizontally",
+    "TagOpen": "hr",
+    "TagClose": "</hr>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "hr",
+    "ParentElement": "ALONE",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,21 +31,86 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
-                "Priority": "OPTION",
+            "size": {
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMR"
             }
         },
         "HTML4_STRICT": {
         },
         "HTML4_FRAME": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMR"
+            }
         },
         "XHTML1_LOOSE": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMR"
+            },
+            "noshade": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^noshade$/i"
+            }
         },
         "XHTML1_STRICT": {
         },
         "XHTML1_FRAME": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMR"
+            },
+            "noshade": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^noshade$/i"
+            }
         },
         "XHTML1_1": {
         },
@@ -54,6 +120,12 @@
         }
     },
     "CustomAttributes": {
-        "css_key":"css_value"
+        "noshade": {
+            "Type": "NAME_ONLY",
+            "AttributeName": "noshade",
+            "Alias": "noshade",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_FRAME"]
+        }
     }
 }

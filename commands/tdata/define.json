@@ -4,6 +4,7 @@
     "TagClose": "</td>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "CommandAlias": "td",
     "ParentElement": "table",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
@@ -68,7 +69,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -135,7 +136,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -202,7 +203,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -269,7 +270,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -341,7 +342,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -393,7 +394,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -465,7 +466,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             },
             "scope": {
                 "Priority": "OPTION",
@@ -492,7 +493,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             }
         },
         "HTML5_1": {
@@ -509,7 +510,7 @@
             "headers": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "IDS"
+                "Value": "STRING"
             }
         }
     },

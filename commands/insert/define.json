@@ -4,6 +4,7 @@
     "TagClose": "</ins>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "CommandAlias": "ins",
     "ParentElement": "fieldset",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {

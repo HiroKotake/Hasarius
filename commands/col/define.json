@@ -1,10 +1,10 @@
 {
-    "CommandName": "thead",
-    "TagOpen": "thead",
-    "TagClose": "</thead>",
+    "CommandName": "col",
+    "TagOpen": "col",
+    "TagClose": "</col>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
-    "ParentElement": "table",
+    "ParentElement": "colgroup,table",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,6 +30,16 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -48,10 +58,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "HTML4_STRICT": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -70,10 +90,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "HTML4_FRAME": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -92,10 +122,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "XHTML1_LOOSE": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -114,10 +154,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "XHTML1_STRICT": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -136,10 +186,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "XHTML1_FRAME": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -158,10 +218,20 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "XHTML1_1": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT_RLT"
+            },
             "align": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
@@ -180,12 +250,22 @@
             "charoff": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NC_PCT"
+                "Value": "NZ_PCT"
             }
         },
         "HTML5": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            }
         },
         "HTML5_1": {
+            "span": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            }
         }
     }
 }

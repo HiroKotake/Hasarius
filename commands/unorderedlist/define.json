@@ -1,11 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "unorderedlist",
+    "TagOpen": "ul",
+    "TagClose": "</ul>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
-    "CommandAlias": "samp",
-    "ParentElement": "ORIGIN|<ParentTagName>",
+    "CommandAlias": "ul",
+    "ParentElement": "ORIGIN",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -31,84 +31,66 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "action": {
-                "Priority": "REQUIRED",
+            "type": {
+                "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "URI"
+                "Value": "LIST_SYMBOL"
             }
         },
         "HTML4_STRICT": {
-            "method": {
+            "type": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "LIST_SYMBOL"
             }
         },
         "HTML4_FRAME": {
-            "accept": {
+            "type": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "LIST_SYMBOL"
             }
         },
         "XHTML1_LOOSE": {
-            "name": {
+            "type": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "STRING"
+                "Value": "LIST_SYMBOL"
+            },
+            "compact": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^compact$/"
             }
         },
         "XHTML1_STRICT": {
-            "enctype": {
-                "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-sample-urlencoded|multipart\/sample-data|text\/plain){0,1}$/"
-            }
         },
         "XHTML1_FRAME": {
-            "target": {
+            "type": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "WINDOW"
+                "Value": "LIST_SYMBOL"
+            },
+            "compact": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^compact$/"
             }
         },
         "XHTML1_1": {
-            "accept": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "MIME"
-            }
         },
         "HTML5": {
-            "autocomplete": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "ON_OFF"
-            }
         },
         "HTML5_1": {
-            "name": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "STRING"
-            }
         }
     },
     "CustomAttributes": {
-        "require": {
+        "compact": {
             "Type": "NAME_ONLY",
-            "AttributeName": "novalidate",
-            "Alias": "must",
+            "AttributeName": "compact",
+            "Alias": "compact",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
         }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "入力項目指定"
-        }
-    ]
+    }
 }

@@ -1,10 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "delete",
+    "TagOpen": "del",
+    "TagClose": "</del>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "del",
+    "ParentElement": "ALONE",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,30 +31,112 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "HTML4_STRICT": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "HTML4_FRAME": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "XHTML1_LOOSE": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "XHTML1_STRICT": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "XHTML1_FRAME": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "XHTML1_1": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "HTML5": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         },
         "HTML5_1": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
+            }
         }
-    },
-    "CustomAttributes": {
-        "css_key":"css_value"
     }
 }

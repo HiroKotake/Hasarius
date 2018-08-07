@@ -1,10 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "caption",
+    "TagOpen": "caption",
+    "TagClose": "</caption>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "tc",
+    "ParentElement": "table",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,21 +31,36 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
-                "Priority": "OPTION",
+            "align": {
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "SIDE_TRBL"
             }
         },
         "HTML4_STRICT": {
         },
         "HTML4_FRAME": {
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            }
         },
         "XHTML1_LOOSE": {
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            }
         },
         "XHTML1_STRICT": {
         },
         "XHTML1_FRAME": {
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TRBL"
+            }
         },
         "XHTML1_1": {
         },
@@ -52,8 +68,5 @@
         },
         "HTML5_1": {
         }
-    },
-    "CustomAttributes": {
-        "css_key":"css_value"
     }
 }
