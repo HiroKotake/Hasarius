@@ -1,9 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "option",
+    "TagOpen": "option",
+    "TagClose": "</option>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "CommandAlias": "samp",
+    "ParentElement": "select,optgroup",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -29,63 +31,148 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "action": {
-                "Priority": "REQUIRED|OPTION",
-                "CompareType": "DEFINED|VALUE",
-                "Value": "URI"
-            }
-        },
-        "HTML4_STRICT": {
-            "method": {
-                "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
-            }
-        },
-        "HTML4_FRAME": {
-            "accept": {
-                "Priority": "OPTION",
+            "value": {
+                "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
-            }
-        },
-        "XHTML1_LOOSE": {
-            "name": {
+                "Value": "STRING"
+            },
+            "label": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
             }
         },
-        "XHTML1_STRICT": {
-            "enctype": {
+        "HTML4_STRICT": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML4_FRAME": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "selected": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-sample-urlencoded|multipart\/sample-data|text\/plain){0,1}$/"
+                "Value": "selected"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "disabled"
+            }
+        },
+        "XHTML1_STRICT": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "selected": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "selected"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "disabled"
             }
         },
         "XHTML1_FRAME": {
-            "target": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "WINDOW"
+                "Value": "STRING"
+            },
+            "selected": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "selected"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "disabled"
             }
         },
         "XHTML1_1": {
-            "accept": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "STRING"
+            },
+            "selected": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "selected"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "disabled"
             }
         },
         "HTML5": {
-            "autocomplete": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "ON_OFF"
+                "Value": "STRING"
             }
         },
         "HTML5_1": {
-            "name": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "label": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
@@ -93,20 +180,19 @@
         }
     },
     "CustomAttributes": {
-        "require": {
+        "selected": {
             "Type": "NAME_ONLY",
-            "AttributeName": "novalidate",
-            "Alias": "must",
+            "AttributeName": "selected",
+            "Alias": "selected",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
+        },
+        "disabled": {
+            "Type": "NAME_ONLY",
+            "AttributeName": "disabled",
+            "Alias": "disabled",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
         }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "入力項目指定"
-        }
-    ]
+    }
 }

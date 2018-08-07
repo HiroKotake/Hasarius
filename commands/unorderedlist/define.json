@@ -4,6 +4,8 @@
     "TagClose": "</sample>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "CommandAlias": "samp",
+    "ParentElement": "ORIGIN|<ParentTagName>",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,8 +32,8 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "action": {
-                "Priority": "REQUIRED|OPTION",
-                "CompareType": "DEFINED|VALUE",
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
                 "Value": "URI"
             }
         },

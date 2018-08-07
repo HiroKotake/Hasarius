@@ -3,8 +3,9 @@
     "TagOpen": "frameset",
     "TagClose": "</frameset>",
     "BlockType": "BLOCK",
-    "CommandAlias": "fset",
+    "CommandAlias": "frames",
     "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
     "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
     "GlobalAttributes": {
         "HTML4_FRAME": ["style", "class", "id", "title"],
@@ -44,6 +45,5 @@
                 "Value": "RPET_NZ_PCT_ASTER"
             }
         }
-    },
-    "AutoIndent": 0
+    }
 }

@@ -5,6 +5,7 @@
     "BlockType": "ONELINE",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "h1",
+    "ParentElement": "ORIGIN",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -74,6 +75,5 @@
         "XHTML1_1": {},
         "HTML5": {},
         "HTML5_1": {}
-    },
-    "AutoIndent": 0
+    }
 }

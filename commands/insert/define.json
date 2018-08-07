@@ -1,9 +1,10 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "ins",
+    "TagOpen": "ins",
+    "TagClose": "</ins>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "ParentElement": "fieldset",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -29,84 +30,112 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "action": {
-                "Priority": "REQUIRED|OPTION",
-                "CompareType": "DEFINED|VALUE",
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
                 "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "HTML4_STRICT": {
-            "method": {
+            "cite": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "HTML4_FRAME": {
-            "accept": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "XHTML1_LOOSE": {
-            "name": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "STRING"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "XHTML1_STRICT": {
-            "enctype": {
+            "cite": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-sample-urlencoded|multipart\/sample-data|text\/plain){0,1}$/"
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "XHTML1_FRAME": {
-            "target": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "WINDOW"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "XHTML1_1": {
-            "accept": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "HTML5": {
-            "autocomplete": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "ON_OFF"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         },
         "HTML5_1": {
-            "name": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "STRING"
+                "Value": "URI"
+            },
+            "datetime": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DATETIME"
             }
         }
-    },
-    "CustomAttributes": {
-        "require": {
-            "Type": "NAME_ONLY",
-            "AttributeName": "novalidate",
-            "Alias": "must",
-            "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
-        }
-    },
-    "AutoIndent": 0,
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "DefaultAttrs": {},
-            "Description": "入力項目指定"
-        }
-    ]
+    }
 }

@@ -4,6 +4,7 @@
     "TagClose": "</frame>",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
+    "ParentElement": "frameset",
     "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
     "GlobalAttributes": {
         "HTML4_FRAME": ["style", "class", "id", "title"],
@@ -97,6 +98,5 @@
             "Value": "ON_OFF",
             "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"]
         }
-    },
-    "AutoIndent": 0
+    }
 }
