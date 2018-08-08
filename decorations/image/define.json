@@ -486,6 +486,7 @@
     },
     "CustomAttributes": {
         "ismap": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "ismap",
             "Alias": "ismap",

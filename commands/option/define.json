@@ -181,6 +181,7 @@
     },
     "CustomAttributes": {
         "selected": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "selected",
             "Alias": "selected",
@@ -188,6 +189,7 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
         },
         "disabled": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",

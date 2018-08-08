@@ -32,12 +32,12 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_STYLE"
             },
             "value": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
@@ -46,24 +46,24 @@
         },
         "HTML4_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_STYLE"
             },
             "value": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "XHTML1_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_STYLE"
             },
             "value": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
@@ -72,12 +72,12 @@
         },
         "XHTML1_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_STYLE"
             },
             "value": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }

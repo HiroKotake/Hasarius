@@ -92,6 +92,7 @@
     },
     "CustomAttributes": {
         "noresize": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "noresize",
             "Alias": "resize",

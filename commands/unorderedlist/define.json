@@ -32,33 +32,33 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_SYMBOL"
             }
         },
         "HTML4_STRICT": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_SYMBOL"
             }
         },
         "HTML4_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_SYMBOL"
             }
         },
         "XHTML1_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_SYMBOL"
             },
             "compact": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^compact$/"
             }
@@ -67,12 +67,12 @@
         },
         "XHTML1_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_SYMBOL"
             },
             "compact": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^compact$/"
             }
@@ -86,6 +86,7 @@
     },
     "CustomAttributes": {
         "compact": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "compact",
             "Alias": "compact",

@@ -67,12 +67,12 @@
                 "Value": "NC_PCT"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMR"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -114,12 +114,12 @@
                 "Value": "NC_PCT"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMR"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -161,12 +161,12 @@
                 "Value": "NC_PCT"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMR"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -208,12 +208,12 @@
                 "Value": "NC_PCT"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMR"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -292,12 +292,12 @@
                 "Value": "NC_PCT"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMR"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -346,8 +346,9 @@
     },
     "CustomAttributes": {
         "border": {
+            "Priority": "OPTION",
             "Type": "border",
-            "AttributeName": "novalidate",
+            "AttributeName": "border",
             "Alias": "brdr",
             "Value": "ONE_NULL",
             "DocumentType": ["HTML5","HTML5_1"]

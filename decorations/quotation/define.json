@@ -1,10 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "quotation",
+    "TagOpen": "q",
+    "TagClose": "</q>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "q",
+    "ParentElement": "ALONE",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,30 +31,67 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
+            "cite": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "URI"
             }
         },
         "HTML4_STRICT": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "HTML4_FRAME": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "XHTML1_LOOSE": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "XHTML1_STRICT": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "XHTML1_FRAME": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "XHTML1_1": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "HTML5": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         },
         "HTML5_1": {
+            "cite": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            }
         }
-    },
-    "CustomAttributes": {
-        "css_key":"css_value"
     }
 }

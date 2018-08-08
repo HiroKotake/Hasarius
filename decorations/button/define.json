@@ -266,6 +266,7 @@
     },
     "CustomAttributes": {
         "disabled": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",
@@ -273,6 +274,7 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
         },
         "autofocus": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "autofocus",
             "Alias": "autofocus",
@@ -280,6 +282,7 @@
             "DocumentType": ["HTML5","HTML5_1"]
         },
         "formnovalidate": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "formnovalidate",
             "Alias": "formnovalidate",

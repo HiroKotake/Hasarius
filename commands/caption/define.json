@@ -32,67 +32,37 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
-            },
-            "valign": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_TB"
             }
         },
         "HTML4_STRICT": {
-            "align": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_TRBL"
-            },
-            "valign": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_TB"
-            }
         },
         "HTML4_FRAME": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
-            },
-            "valign": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_TB"
             }
         },
         "XHTML1_LOOSE": {
             "aligin": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LF"
             }
         },
         "XHTML1_STRICT": {
-            "aligin": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_LF"
-            }
         },
         "XHTML1_FRAME": {
             "aligin": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LF"
             }
         },
         "XHTML1_1": {
-            "aligin": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_LF"
-            }
         },
         "HTML5": {},
         "HTML5_1": {}

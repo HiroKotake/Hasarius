@@ -32,28 +32,23 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
             }
         },
         "HTML4_STRICT": {
-            "align": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "SIDE_TRBL"
-            }
         },
         "HTML4_FRAME": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
             }
         },
         "XHTML1_LOOSE": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
             }
@@ -62,7 +57,7 @@
         },
         "XHTML1_FRAME": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_TRBL"
             }

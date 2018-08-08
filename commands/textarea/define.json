@@ -306,6 +306,7 @@
     },
     "CustomAttributes": {
         "disabled": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",
@@ -313,6 +314,7 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
         },
         "readonly": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "readonly",
             "Alias": "readonly",
@@ -320,6 +322,7 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
         },
         "required": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "required",
             "Alias": "must",
@@ -327,6 +330,7 @@
             "DocumentType": ["HTML5","HTML5_1"]
         },
         "autofocus": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "autofocus",
             "Alias": "focus",

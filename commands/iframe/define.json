@@ -71,7 +71,7 @@
                 "Value": "NZ"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
@@ -123,7 +123,7 @@
                 "Value": "NZ"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
@@ -175,7 +175,7 @@
                 "Value": "NZ"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
@@ -227,7 +227,7 @@
                 "Value": "NZ"
             },
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
@@ -309,6 +309,7 @@
     },
     "CustomAttributes": {
         "allowfullscreen": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "allowfullscreen",
             "Alias": "fullscrren",

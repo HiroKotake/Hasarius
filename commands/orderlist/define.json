@@ -32,53 +32,53 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_NUM"
             },
             "start": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "HTML4_STRICT": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_NUM"
             },
             "start": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "HTML4_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_NUM"
             },
             "start": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "XHTML1_LOOSE": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_NUM"
             },
             "start": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             },
             "compact": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "compact"
             }
@@ -87,17 +87,17 @@
         },
         "XHTML1_FRAME": {
             "type": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "LIST_NUM"
             },
             "start": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             },
             "compact": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "compact"
             }
@@ -131,6 +131,7 @@
     },
     "CustomAttributes": {
         "compact": {
+            "Priority": "DEPRECATION",
             "Type": "NAME_ONLY",
             "AttributeName": "compact",
             "Alias": "compact",
@@ -138,6 +139,7 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
         },
         "reversed": {
+            "Priority": "OPTION",
             "Type": "NAME_ONLY",
             "AttributeName": "compact",
             "Alias": "compact",

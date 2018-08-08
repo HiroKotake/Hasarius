@@ -35,7 +35,7 @@
         "HTML4_FRAME": {},
         "XHTML1_LOOSE": {
             "compact":{
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^compact$/"
             }
@@ -43,7 +43,7 @@
         "XHTML1_STRICT": {},
         "XHTML1_FRAME": {
             "compact":{
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^compact$/"
             }
@@ -51,5 +51,15 @@
         "XHTML1_1": {},
         "HTML5": {},
         "HTML5_1": {}
+    },
+    "CustomAttributes": {
+        "compact": {
+            "Priority": "DEPRECATION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "compact",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
     }
 }

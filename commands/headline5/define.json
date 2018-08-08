@@ -32,42 +32,42 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }
         },
         "HTML4_STRICT": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }
         },
         "HTML4_FRAME": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }
         },
         "XHTML1_LOOSE": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }
         },
         "XHTML1_STRICT": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }
         },
         "XHTML1_FRAME": {
             "align": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "SIDE_LMRJ"
             }

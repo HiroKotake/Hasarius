@@ -121,6 +121,7 @@
     },
     "CustomAttributes": {
         "noshade": {
+            "Priority": "DEPRECATION",
             "Type": "NAME_ONLY",
             "AttributeName": "noshade",
             "Alias": "noshade",

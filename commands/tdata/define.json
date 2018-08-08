@@ -82,17 +82,17 @@
                 "Value": "STRING"
             },
             "width": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "height": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -147,21 +147,6 @@
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
-            },
-            "width": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "NC_PCT"
-            },
-            "height": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "NC_PCT"
-            },
-            "bgcolor": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "COLOR"
             }
         },
         "HTML4_FRAME": {
@@ -216,17 +201,17 @@
                 "Value": "STRING"
             },
             "width": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "height": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -283,22 +268,22 @@
                 "Value": "STRING"
             },
             "width": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "height": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             },
             "nowrap": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^nowrap$/"
             }
@@ -407,22 +392,22 @@
                 "Value": "STRING"
             },
             "width": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "height": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             },
             "nowrap": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
                 "Value": "/^nowrap$/"
             }
@@ -516,9 +501,10 @@
     },
     "CustomAttributes": {
         "nowrap": {
+            "Priority": "DEPRECATION",
             "Type": "NAME_ONLY",
             "AttributeName": "nowrap",
-            "Alias": "nowrap",
+            "Alias": "",
             "Value": "ON_OFF",
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
         }

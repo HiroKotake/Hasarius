@@ -1,10 +1,10 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
-    "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandName": "map",
+    "TagOpen": "map",
+    "TagClose": "</map>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,30 +30,62 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
-                "Priority": "OPTION",
+            "name": {
+                "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "MIME"
+                "Value": "STRING"
             }
         },
         "HTML4_STRICT": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "HTML4_FRAME": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "XHTML1_LOOSE": {
+            "name": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "XHTML1_STRICT": {
+            "name": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "XHTML1_FRAME": {
+            "name": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "XHTML1_1": {
         },
         "HTML5": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         },
         "HTML5_1": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
         }
-    },
-    "CustomAttributes": {
-        "css_key":"css_value"
     }
 }

@@ -32,28 +32,23 @@
     "TagAttributes": {
         "HTML4_LOOSE": {
             "width": {
-                "Priority": "OPTION",
+                "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
         },
         "HTML4_STRICT": {
-            "width": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "NZ"
-            }
         },
         "HTML4_FRAME": {
             "width": {
-                "Priority": "OPTION",
+                "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             }
         },
         "XHTML1_LOOSE": {
             "width": {
-                "Priority": "OPTION",
+                "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             },
@@ -67,7 +62,7 @@
         },
         "XHTML1_FRAME": {
             "width": {
-                "Priority": "OPTION",
+                "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NZ"
             },

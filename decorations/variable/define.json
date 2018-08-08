@@ -1,10 +1,11 @@
 {
-    "CommandName": "sample",
-    "TagOpen": "sample",
-    "TagClose": "</sample>",
+    "CommandName": "variable",
+    "TagOpen": "var",
+    "TagClose": "</var>",
     "BlockType": "INLINE",
-    "CommandPerposes": ["HTML","CSS","SCRIPT"],
-    "CommandAlias": "samp",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "var",
+    "ParentElement": "ALONE",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -30,11 +31,6 @@
     },
     "TagAttributes": {
         "HTML4_LOOSE": {
-            "AttributeName": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "MIME"
-            }
         },
         "HTML4_STRICT": {
         },
@@ -52,8 +48,5 @@
         },
         "HTML5_1": {
         }
-    },
-    "CustomAttributes": {
-        "css_key":"css_value"
     }
 }

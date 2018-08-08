@@ -52,7 +52,7 @@
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -77,11 +77,6 @@
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
-            },
-            "bgcolor": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "COLOR"
             }
         },
         "HTML4_FRAME": {
@@ -106,7 +101,7 @@
                 "Value": "NC_PCT"
             },
             "bgcolor": {
-                "Priority": "OPTION",
+                "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "COLOR"
             }
@@ -131,6 +126,11 @@
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
             }
         },
         "XHTML1_STRICT": {
@@ -175,6 +175,11 @@
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
             }
         },
         "XHTML1_1": {
