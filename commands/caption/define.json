@@ -50,7 +50,7 @@
             "aligin": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "SIDE_LF"
+                "Value": "SIDE_TRBL"
             }
         },
         "XHTML1_STRICT": {
@@ -59,7 +59,7 @@
             "aligin": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "SIDE_LF"
+                "Value": "SIDE_TRBL"
             }
         },
         "XHTML1_1": {

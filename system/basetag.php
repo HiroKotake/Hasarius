@@ -630,6 +630,7 @@ class BaseTag
 
     /**
      * Tagパラメータが正しく設定されているか確認する
+     * (validateの開始) 改修が必要！！ -> validation クラスを使用
      * @param  array $paramaters 属性名と属性値のペアを含んだ連想配列
      * @return array             何らかのエラーが発生している場合は、エラー文字列を含んだ配列を返す。問題がない場合は空配列を返す
      */

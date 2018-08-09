@@ -224,7 +224,7 @@ class Generate
      */
     public function preprocess(string $source): array
     {
-        $lineNumber = 1;
+        $lineNumber = 0;
         $lines = [];
         $variables = [];
         $sourceInfo = explode($source, DIRECTORY_SEPARATOR);
@@ -238,6 +238,8 @@ class Generate
             $hFile = fopen($source, 'r');
             // 行読み込み
             while (($line = fgets($hFile)) !== false) {
+                // 行カウントアップ
+                $lineNumber++;
                 // 変数置き換え
                 if (empty($variables)) {
                     // 変数定義がある場合に置き換え処理を実施
@@ -245,14 +247,14 @@ class Generate
                 }
                 // 外部ソースチェック & 読み込み
                 $match = null;
-                $checkedSource = Parser::getIncludeFile($source);
+                $checkedSource = Parser::getIncludeFile($line);
                 if (!empty($checkedSource["filename"])) {
                     $lines = array_merge($lines, $this->preprocess($checkedSource["filename"]));
                     continue;
                 }
                 // 変数対応
                 $match = null;
-                $tempVar = Parser::getValiable($source);
+                $tempVar = Parser::getValiable($line);
                 if (array_key_exists($tempVar['valName'], $variables)) {
                     throw new \Exception("Deplicate variable error !!");
                 }
@@ -261,7 +263,7 @@ class Generate
                     continue;
                 }
                 // 特殊コマンド対応
-                $vessel = Parser::analyzeLine($line, '@', '=');
+                $vessel = Parser::analyzeLine($line, [], '@', '=');
                 if (!empty($vessel->getCommand())) {
                     $batch = $vessel->getBatch();
                     foreach ($batch as $batchLine) {
@@ -281,7 +283,6 @@ class Generate
                     'lineNumber' => $lineNumber,
                     'lineText' => $line,
                 ];
-                $lineNumber++;
             }
             // ファイルクローズ
             fclose($hFile);
