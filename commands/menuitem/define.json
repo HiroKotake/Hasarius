@@ -1,0 +1,66 @@
+{
+    "CommandName": "menuitem",
+    "TagOpen": "menuitem",
+    "TagClose": "",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "mi",
+    "ParentElement": "menu",
+    "DocumentType": ["HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttribute": {
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5_1": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(command|radio|checkbox)$/"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "icon": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "radiogroup": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "checked": {
+            "Priority": "OPTION|",
+            "Type": "NAME_ONLY",
+            "AttributeName": "checked",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5_1"]
+        },
+        "disable": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "disable",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5_1"]
+        },
+        "default": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "default",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5_1"]
+        }
+    }
+}

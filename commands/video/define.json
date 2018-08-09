@@ -1,0 +1,122 @@
+{
+    "CommandName": "video",
+    "TagOpen": "video",
+    "TagClose": "</video>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttribute": {
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "poster": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "preload": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "PRELOAD"
+            },
+            "mediagroup": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "crossorigin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "USE_SIGNIN"
+            }
+        },
+        "HTML5_1": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "poster": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "preload": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "PRELOAD"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ"
+            },
+            "crossorigin": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "USE_SIGNIN"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "autoplay": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "autoplay",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "loop": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "loop",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "muted": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "muted",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "controls": {
+            "Priority": "OPTION",
+            "Type": "NAME_ONLY",
+            "AttributeName": "controls",
+            "Alias": "",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
+    }
+}

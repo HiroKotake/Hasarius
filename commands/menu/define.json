@@ -1,0 +1,29 @@
+{
+    "CommandName": "menu",
+    "TagOpen": "menu",
+    "TagClose": "</menu>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttribute": {
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5_1": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^context$/"
+            },
+            "label": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        }
+    }
+}
