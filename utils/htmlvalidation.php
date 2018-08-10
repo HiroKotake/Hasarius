@@ -27,7 +27,7 @@ class HtmlValidation
      * ToDo: とりあえず日本語しか入っていないので、順次追加する必要がある。
      * @var array
      */
-    private $encodeList = [
+    private static $encodeList = [
         'ISO-2022-JP',
         'UTF-8',
         'Shift_JIS',
@@ -38,7 +38,7 @@ class HtmlValidation
      * チェック用パターン一覧
      * @var array
      */
-    private $validPattern = [
+    private static $validPattern = [
         "BUTTON_TYPE" => "/^(submit|reset|button)$/u",
         "BLEAR_TYPE" => "/^(left|right|all|none)$/u",
         "DIR_TYPE" => "/^(ltr|rtl)$/",
@@ -53,6 +53,7 @@ class HtmlValidation
         "LIST_STYLE" => "/^(disc|circle|square|1|A|a|I|i)$/",
         "LIST_SYMBOL" => "/^(disc|circle|square)$/",
         "NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
+        "MEDIA_QUERY" => "/^(not|only)?\s*((all|screen|print|speech|tv|projection|handheld|tty|braille|embossed)?\s*((and)?\s*(\((((min-|max-)?((device-)?width:\s*\d*|(device-)?height:\s*\d*|(device-)?acept-ratio:\s*(\d*\/\d*)|color(-index)?:\s*\d*|monochrome:\s*\d*|resolution:\s*\d*(dpi|apcm)))|oriencation:\s*(portrait|landspace)|scan:\s*(progressive|interlace)|grid:\s*(0|1))\)),?)*\s*)*$/",
         "NZ_PCT_RLT" => "/^(((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*))$/",
         "ON_OFF_AUTO" => "/^(on|off|auto)$/",
         "PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%$/",
@@ -89,6 +90,9 @@ class HtmlValidation
     public static function validate(object &$tag, Vessel $data): string
     {
         $result = "";
+        $paramaters = $data->getParamaters();
+        $attributeInfo = $tag->getPossibleTagAttributes();
+
         return $result;
     }
 
@@ -169,7 +173,7 @@ class HtmlValidation
     // ENCORD
     public static function isEncode(string $encode): bool
     {
-        return in_array($encode, self::encodeList);
+        return in_array($encode, self::$encodeList);
     }
 
     // FLT
@@ -211,14 +215,6 @@ class HtmlValidation
         }
 
         return in_array($inputtype, $type);
-    }
-
-    // MEDIA_QUERY
-    public static function isMediaQuery(string $mediaQuery): bool
-    {
-        return true;
-        // ToDo: 正式な内容を書くこと
-        return (preg_match("/^$/", $mediaQuery) > 0);
     }
 
     // MIME

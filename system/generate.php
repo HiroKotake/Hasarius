@@ -111,7 +111,7 @@ class Generate
     }
 
     /**
-     * 初期設定実施
+     * システム初期設定実施：ユーザ指定の設定以外のシステム側だけの設定を読み込む
      */
     private function initialize() : void
     {
@@ -187,11 +187,12 @@ class Generate
      */
     public function make(string $source): bool
     {
-        // 設定ファイル読み込み
+        // HTMLファイル生成用ユーザ独自の設定ファイル読み込み
         $sourcePath = explode(DIRECTORY_SEPARATOR, $source);
         array_pop($sourcePath);
         $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
+            // ユーザ指定がなければシステム側提供の設定ファイルを使用
             $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.json';
         }
         $json = file_get_contents($makeConfigFile);

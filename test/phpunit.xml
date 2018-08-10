@@ -10,6 +10,7 @@
             <file>./utils/parser.php</file>
             <file>./utils/validater.php</file>
             <file>./utils/strutils.php</file>
+            <file>./utils/mimevalidation.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
