@@ -15,10 +15,11 @@
     },
     "SCRIPT_FILE": "ScriptFile",
     "CSS_FILE": "CssFile",
-    "TAG_ATTRIBUTES": {
+    "GLOBAL_ATTRIBUTES": {
         "id": {
             "alias": "id",
-            "type": "string"
+            "CompareType": "DEFINED",
+            "Value": "STRING"
         }
     },
     "CSS_ATTRIBUTES": {

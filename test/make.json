@@ -17,7 +17,7 @@
             "ContentStyleType": "",
             "Refresh": "",
             "Jump": "",
-            
+
             "Keyword": "",
             "Description": "",
             "Robots": "",
@@ -25,9 +25,7 @@
             "ReplyTo": "",
             "Copyright": "",
             "Generator": "",
-            "Date": "",
-            "Date": "",
-
+            "Date": ""
         },
         "regular": [
             {"property":"", "content":""},
@@ -41,8 +39,9 @@
     "Link": [
         {"rel":"", "href":""}
     ],
-    "WhiteTargetDir": "",
+    "WriteTargetDir": "",
     "UseHashFileName": 1,
     "AutoHashFileName": 0,
-    "HashedFileName": "393wxok804dw983420ckle23"
+    "HashedFileName": "393wxok804dw983420ckle23",
+    "AttributeValidate": 0
 }

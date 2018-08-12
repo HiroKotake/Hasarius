@@ -81,6 +81,22 @@ class HtmlValidation
         "ZERO_ONE" => "/^(0|1)$/",
     ];
 
+    private static $functions = [
+        "COORDS" => "isCoords",
+        "DATETIME" => "isDateTime",
+        "ENCODE" => "isEncode",
+        "FLOAT" => "isFloat",
+        "INPUT_TYPE" => "isInputType",
+        "MIME" => "isMime",
+        "NC" => "isNc",
+        "NZ" => "isNz",
+        "STRING" => "isString",
+        "US_FLT" => "isUsFlt",
+        "US_NC" => "isUsNc",
+        "WINDOW" => "isWindow",
+    ];
+
+
     /**
      * ToDo: HTMLのタグに設定されている属性を一括して検証する
      * @param  object $tag  コマンドもしくは修飾クラス
@@ -92,8 +108,120 @@ class HtmlValidation
         $result = "";
         $paramaters = $data->getParamaters();
         $attributeInfo = $tag->getPossibleTagAttributes();
+        $customAttributeInfo = $tag->getPossibleCustomAttributes();
+        foreach ($paramaters as $key => $value) {
+            // Global Attribute Check
+            /* 保険として暫定的に残す UnitTest完了後削除
+            if (array_key_exists($key, GLOBAL_ATTRIBUTES)) {
+                // PREG
+                if (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "Value") {
+                    // unique
+                    if (!self::checkValidate(GLOBAL_ATTRIBUTES[$key]["VALUE"], $value)) {
+                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                    }
+                    continue;
+                } else {
+                    // check defined
+                    if (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$functions)) {
+                        // METHOD
+                        if (!self::checkValidateByFunc($key, $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
+                            $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                        }
+                        continue;
+                    } elseif (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$validPattern)) {
+                        // PATTERN
+                        if (!self::checkValidate(self::$validPattern[GLOBAL_ATTRIBUTES[$key]["Value"]], $value)) {
+                            $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                        }
+                        continue;
+                    }
+                }
+            }
+            */
+            $check = self::commonValidate(GLOBAL_ATTRIBUTES, $paramaters, $key, $value);
+            if (!empty($check)) {
+                $result .= $check;
+                continue;
+            }
+            // Normal Attribute Check
+            $check = self::commonValidate($attributeInfo, $paramaters, $key, $value);
+            if (!empty($check)) {
+                $result .= $check;
+                continue;
+            }
+            // Custom Attribute Check
+            $check = self::commonValidate($customAttributeInfo, $paramaters, $key, $value);
+            if (!empty($check)) {
+                $result .= $check;
+                continue;
+            }
+            // No Exists
+            $result .= "[Attribute Not Defined] $key" . PHP_EOL;
+        }
 
         return $result;
+    }
+
+    public static function matchArrayKey(string $key, array $infos): bool
+    {
+        $keys = array_keys($infos);
+        foreach ($keys as $k) {
+            if (preg_match("/^$key$/i", $k) > 0) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    // common
+    private static function commonValidate(array &$attributeInfo, array &$paramaters, string $key, string $value): string
+    {
+        $result = "";
+        if (array_key_exists($key, $attributeInfo)) {
+            // PREG
+            if ($attributeInfo[$key]["CompareType"] == "Value") {
+                // unique
+                if (!self::checkValidate($attributeInfo[$key]["VALUE"], $value)) {
+                    $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                }
+            } else {
+                // check defined
+                if (array_key_exists($attributeInfo[$key]["Value"], self::$functions)) {
+                    // METHOD
+                    if (!self::checkValidateByFunc($key, $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
+                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                    }
+                } elseif (array_key_exists($attributeInfo[$key]["Value"], self::$validPattern)) {
+                    // PATTERN
+                    if (!self::checkValidate(self::$validPattern[$attributeInfo[$key]["Value"]], $value)) {
+                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+    // Generic
+    private static function checkValidate(string $pattern, $str): bool
+    {
+        return (preg_match($pattern, $str) > 0);
+    }
+
+    // Call Methods
+    private static function checkValidateByFunc(string $key, string $str, $sharp = null): bool
+    {
+        // pattern: 2 params
+        //  - isCoords
+        if ($key == "Coords") {
+            return self::isCoords($sharp, $str);
+        }
+        //  - isInputType
+        if ($key == "InputType") {
+            return self::isInputType($str, HEAD_DocumentType);
+        }
+        // pattern: 1 params
+        return self::$functions[$key]($str);
     }
 
     // COORD
