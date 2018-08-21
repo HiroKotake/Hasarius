@@ -104,6 +104,12 @@ class Generate
      */
     private $documentWork = [];
 
+    /**
+     * パラメータ検証エラー一覧
+     * @var array
+     */
+    private $validateErrorList = [];
+
     public function __construct()
     {
         $this->currentSubCommand = new CloseInfo();
@@ -325,6 +331,15 @@ class Generate
                     if (!in_array($command, $this->commands)) {
                         throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
                     }
+                    //  ----- パラメータ検証
+                    $validateResult = Utils\HtmlValidation($this->commands[$command], $lineParameters->getParamaters());
+                    if (!empty($validateResult)) {
+                        if (HEAD_ValidateStop) {
+                            throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
+                        } else {
+                            $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
+                        }
+                    }
                     //  ----- コマンド処理
                     $this->commands[$command]->trancelate($lineParameters);
                     // 修飾コマンド
@@ -342,8 +357,17 @@ class Generate
                         if (!in_array($decorateCommand['command'], $this->decorations)) {
                             throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
                         }
+                        //  ----- パラメータ検証
+                        $validateResult = Utils\HtmlValidation($this->decorations[$decorateCommand], $decorateCommand['params']);
+                        if (!empty($validateResult)) {
+                            if (HEAD_ValidateStop) {
+                                throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
+                            } else {
+                                $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
+                            }
+                        }
                         //  ----- テキスト置換
-                        $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorateCommand);
+                        $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorate);
                         $lineParameters->setText(str_replace($decorate, $replaceData['text'], $lineParameters->getText()));
                         //  ------ Script
                         if (!empty($replaceData['script'])) {

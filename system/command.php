@@ -52,8 +52,8 @@ class Command extends BaseTag
             // ブロックタイプ設定
             $parsed->setBlockType($this->getBlockType());
             // ToDo: コマンドの属性と属性値の正当性確認
-            $parserParamaters = $parsed->getParamaters();
-            $params = $this->varifiyTagParamaters($parserParamaters);
+            // $parserParamaters = $parsed->getParamaters();
+            // $params = $this->varifiyTagParamaters($parserParamaters);
             // 開始タグ
             $tagOpen = '<' . $this->getTagOpen();
             foreach ($params as $key => $value) {

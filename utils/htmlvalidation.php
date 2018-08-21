@@ -100,10 +100,10 @@ class HtmlValidation
     /**
      * ToDo: HTMLのタグに設定されている属性を一括して検証する
      * @param  object $tag  コマンドもしくは修飾クラス
-     * @param  Vessel $data 確認するデータ
+     * @param  array $paramaters 確認するデータ
      * @return string       問題がある場合は文字列を、無い場合は空文字を返す
      */
-    public static function validate(object &$tag, Vessel $data): string
+    public static function validate(object &$tag, array $paramaters): string
     {
         $result = "";
         $paramaters = $data->getParamaters();
@@ -348,9 +348,7 @@ class HtmlValidation
     // MIME
     public static function isMime(string $mime): bool
     {
-        return true;
-        // ToDo: 正式な内容を書くこと
-        return (preg_match("/^$/", $mime) > 0);
+        return MimeValidation::validatieMime($mime);
     }
 
     // NC

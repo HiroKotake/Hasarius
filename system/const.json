@@ -22,6 +22,16 @@
             "Value": "STRING"
         }
     },
+    "TAG_ATTRIBUTES": {
+        "id": {
+            "alias": "id",
+            "type": "string"
+        },
+        "style": {
+            "alias": "css",
+            "type": "string"
+        }
+    },
     "CSS_ATTRIBUTES": {
         "width": {
             "alias": "w",
