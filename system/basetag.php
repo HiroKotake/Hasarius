@@ -169,24 +169,24 @@ class BaseTag
     protected $currentDocumentType = null;
     /**
      * 使用可能な一般タグの属性リスト
-     * @var array|null 使用可能な一般タグの属性のリスト
+     * @var array 使用可能な一般タグの属性のリスト
      */
-    protected $possibleGlobalAttributes = null;
+    protected $possibleGlobalAttributes = [];
     /**
      * 使用可能なタグのイベント属性リスト
-     * @var array|null 使用可能なタグのイベント属性のリスト
+     * @var array 使用可能なタグのイベント属性のリスト
      */
-    protected $possibleEventAttributes = null;
+    protected $possibleEventAttributes = [];
     /**
      * 使用可能なタグの属性リスト
-     * @var array|null 使用可能なタグの属性のリスト
+     * @var array 使用可能なタグの属性のリスト
      */
-    protected $possibleTagAttributes = null;
+    protected $possibleTagAttributes = [];
     /**
      * 使用可能なCSSの属性リスト
-     * @var array|null 使用可能なCSSの属性のリスト
+     * @var array 使用可能なCSSの属性のリスト
      */
-    protected $possibleCustomAttributes = null;
+    protected $possibleCustomAttributes = [];
     /**
      * 自動インデントを使用する
      * @var int
@@ -452,8 +452,8 @@ class BaseTag
         $this->possibleCustomAttributes = $attributes;
     }
     /**
-     * 利用可能なCSSの属性のリストを取得
-     * @return array 利用可能なCSSの属性のリスト
+     * 利用可能なカスタム属性のリストを取得
+     * @return array 利用可能なカスタム属性のリスト
      */
     public function getPossibleCustomAttributes(): array
     {

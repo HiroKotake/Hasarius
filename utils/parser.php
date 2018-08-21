@@ -100,9 +100,6 @@ class Parser
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], $commandHead . ' ');
-            if ($commandName == $commandHead) {
-                $commandName = "BLOCK_CLOSE";
-            }
             $lineWork = str_replace($matchCommand[0], '', $separated['body']);
             // パラメータ抽出
             $paramatersWork = self::getParamaters($lineWork, $parameterDelim);

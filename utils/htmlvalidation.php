@@ -41,7 +41,7 @@ class HtmlValidation
     private static $validPattern = [
         "BUTTON_TYPE" => "/^(submit|reset|button)$/u",
         "BLEAR_TYPE" => "/^(left|right|all|none)$/u",
-        "DIR_TYPE" => "/^(ltr|rtl)$/",
+        "DIR_TYPE" => "/^(ltr|rtl|auto)$/",
         "FILENAME" => "/^\S*$/",
         "FONT" => "/^.*$/",     // フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく
         "GET_POST" => "/^(get|post)$/u",
@@ -106,17 +106,15 @@ class HtmlValidation
     public static function validate(object &$tag, array $paramaters): string
     {
         $result = "";
-        $paramaters = $data->getParamaters();
         $attributeInfo = $tag->getPossibleTagAttributes();
         $customAttributeInfo = $tag->getPossibleCustomAttributes();
         foreach ($paramaters as $key => $value) {
             // Global Attribute Check
-            /* 保険として暫定的に残す UnitTest完了後削除
             if (array_key_exists($key, GLOBAL_ATTRIBUTES)) {
                 // PREG
-                if (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "Value") {
+                if (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "VALUE") {
                     // unique
-                    if (!self::checkValidate(GLOBAL_ATTRIBUTES[$key]["VALUE"], $value)) {
+                    if (!self::checkValidate(GLOBAL_ATTRIBUTES[$key]["Value"], $value)) {
                         $result .= "[Validate Error] $key : $value" . PHP_EOL;
                     }
                     continue;
@@ -124,7 +122,7 @@ class HtmlValidation
                     // check defined
                     if (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$functions)) {
                         // METHOD
-                        if (!self::checkValidateByFunc($key, $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
+                        if (!self::checkValidateByFunc(GLOBAL_ATTRIBUTES[$key]["Value"], $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
                             $result .= "[Validate Error] $key : $value" . PHP_EOL;
                         }
                         continue;
@@ -136,12 +134,6 @@ class HtmlValidation
                         continue;
                     }
                 }
-            }
-            */
-            $check = self::commonValidate(GLOBAL_ATTRIBUTES, $paramaters, $key, $value);
-            if (!empty($check)) {
-                $result .= $check;
-                continue;
             }
             // Normal Attribute Check
             $check = self::commonValidate($attributeInfo, $paramaters, $key, $value);
@@ -213,15 +205,16 @@ class HtmlValidation
     {
         // pattern: 2 params
         //  - isCoords
-        if ($key == "Coords") {
+        if ($key == "COORDS") {
             return self::isCoords($sharp, $str);
         }
         //  - isInputType
-        if ($key == "InputType") {
+        if ($key == "INPUT_TYPE") {
             return self::isInputType($str, HEAD_DocumentType);
         }
         // pattern: 1 params
-        return self::$functions[$key]($str);
+        $func = self::$functions[$key];
+        return self::$func($str);
     }
 
     // COORD

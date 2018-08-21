@@ -17,26 +17,49 @@
     "CSS_FILE": "CssFile",
     "GLOBAL_ATTRIBUTES": {
         "id": {
-            "alias": "id",
+            "Alias": "id",
             "CompareType": "DEFINED",
             "Value": "STRING"
+        },
+        "title": {
+            "Alias": "title",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "style": {
+            "Alias": "css",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "class": {
+            "Alias": "class",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "lang": {
+            "Alias": "lang",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "dir": {
+            "Alias": "dir",
+            "CompareType": "DEFINED",
+            "Value": "DIR_TYPE"
         }
     },
     "TAG_ATTRIBUTES": {
         "id": {
-            "alias": "id",
-            "type": "string"
-        },
-        "style": {
-            "alias": "css",
-            "type": "string"
+            "Alias": "id",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
         }
     },
     "CSS_ATTRIBUTES": {
         "width": {
-            "alias": "w",
-            "type": "numeric",
-            "subtype": ["numeric", "px", "percent"]
+            "Alias": "w",
+            "CompareType": "DEFINED",
+            "Value": "NUMERIC",
+            "postFix": ["numeric", "px", "percent"]
         }
     }
 }
