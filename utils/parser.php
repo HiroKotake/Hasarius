@@ -131,7 +131,7 @@ class Parser
      * @param  string $str 処理対象行文字列
      * @return array       ['body' => 処理対象文字列, 'comment' => コメント文字列] コメントが無い場合には'comment'には空文字が入る
      */
-    public function separateComment(string $str): array
+    public static function separateComment(string $str): array
     {
         // 返り値初期化
         $result = [
@@ -369,7 +369,7 @@ class Parser
      * @param  string $source    置換する対象の文字列
      * @return string            置換する変数があった場合には置換を行ったテキスト、なかった場合は元テキスト
      */
-    public function replaceVariable(array $variables, string $source): string
+    public static function replaceVariable(array $variables, string $source): string
     {
         if (empty($variables)) {
             // $variableが空配列の場合は、置換処理をせずに元の文字列を返す
