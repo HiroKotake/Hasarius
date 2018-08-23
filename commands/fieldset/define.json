@@ -72,6 +72,7 @@
     "CustomAttributes": {
         "disabled": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disable",

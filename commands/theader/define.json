@@ -522,6 +522,7 @@
     "CustomAttributes": {
         "nowrap": {
             "Priority": "DEPRECATION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "nowrap",
             "Alias": "nowrap",

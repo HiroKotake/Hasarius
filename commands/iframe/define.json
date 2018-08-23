@@ -310,6 +310,7 @@
     "CustomAttributes": {
         "allowfullscreen": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "allowfullscreen",
             "Alias": "fullscrren",

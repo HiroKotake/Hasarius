@@ -307,6 +307,7 @@
     "CustomAttributes": {
         "disabled": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",
@@ -315,6 +316,7 @@
         },
         "readonly": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "readonly",
             "Alias": "readonly",
@@ -323,6 +325,7 @@
         },
         "required": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "required",
             "Alias": "must",
@@ -331,6 +334,7 @@
         },
         "autofocus": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "autofocus",
             "Alias": "focus",

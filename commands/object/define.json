@@ -607,6 +607,7 @@
     "CustomAttributes": {
         "declare": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "declare",
             "Alias": "declare",
@@ -615,6 +616,7 @@
         },
         "typemustmatch": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "typemustmatch",
             "Alias": "typemustmatch",

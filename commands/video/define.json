@@ -88,6 +88,7 @@
     "CustomAttributes": {
         "autoplay": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "autoplay",
             "Alias": "",
@@ -96,6 +97,7 @@
         },
         "loop": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "loop",
             "Alias": "",
@@ -104,6 +106,7 @@
         },
         "muted": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "muted",
             "Alias": "",
@@ -112,6 +115,7 @@
         },
         "controls": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "controls",
             "Alias": "",

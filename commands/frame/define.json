@@ -93,6 +93,7 @@
     "CustomAttributes": {
         "noresize": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "noresize",
             "Alias": "resize",

@@ -132,6 +132,7 @@
     "CustomAttributes": {
         "compact": {
             "Priority": "DEPRECATION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "compact",
             "Alias": "compact",
@@ -140,6 +141,7 @@
         },
         "reversed": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "compact",
             "Alias": "compact",

@@ -356,6 +356,7 @@
     "CustomAttributes": {
         "validate": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "novalidate",
             "Alias": "noval",

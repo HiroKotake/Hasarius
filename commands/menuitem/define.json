@@ -39,7 +39,8 @@
     },
     "CustomAttributes": {
         "checked": {
-            "Priority": "OPTION|",
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "checked",
             "Alias": "",
@@ -48,6 +49,7 @@
         },
         "disable": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "disable",
             "Alias": "",
@@ -56,6 +58,7 @@
         },
         "default": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "default",
             "Alias": "",
