@@ -19,24 +19,24 @@
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML5_1": {
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         }
     }

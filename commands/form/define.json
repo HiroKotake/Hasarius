@@ -37,13 +37,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -74,13 +74,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -111,13 +111,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -148,13 +148,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -185,13 +185,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -212,13 +212,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -249,13 +249,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -276,13 +276,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",
@@ -318,13 +318,13 @@
             },
             "method": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)$/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "enctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain){0,1}$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "accept-charset": {
                 "Priority": "OPTION",

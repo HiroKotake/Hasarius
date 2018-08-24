@@ -42,10 +42,9 @@ class HtmlValidation
         "BUTTON_TYPE" => "/^(submit|reset|button)$/u",
         "BLEAR_TYPE" => "/^(left|right|all|none)$/u",
         "DIR_TYPE" => "/^(ltr|rtl|auto)$/",
-        "FILENAME" => "/^\S*$/",
         "FONT" => "/^.*$/",     // フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく
-        "GET_POST" => "/^(get|post)$/u",
-        "LANG" => "/^[a-z]{2}(-[a-z]{2})?$/",
+        "GET_POST" => "/^(get|post)$/iu",
+        "LANG" => "/^[a-z]{2}(-[a-zA-Z]{2})?$/",
         "LINE_FRAME" => "/^(void|lhs|rhs|vsides|above|below|hsides|box|border)$/",
         "LIST_NUM" => "/^(1|A|a|I|i)$/",
         "LINE_RULES" => "/^(none|rows|cols|groups|all)$/",
@@ -55,6 +54,7 @@ class HtmlValidation
         "NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
         "MEDIA_QUERY" => "/^(not|only)?\s*((all|screen|print|speech|tv|projection|handheld|tty|braille|embossed)?\s*((and)?\s*(\((((min-|max-)?((device-)?width:\s*\d*|(device-)?height:\s*\d*|(device-)?acept-ratio:\s*(\d*\/\d*)|color(-index)?:\s*\d*|monochrome:\s*\d*|resolution:\s*\d*(dpi|apcm)))|oriencation:\s*(portrait|landspace)|scan:\s*(progressive|interlace)|grid:\s*(0|1))\)),?)*\s*)*$/",
         "NZ_PCT_RLT" => "/^(((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*))$/",
+        "ON_OFF" => "/^(on|off)$/",
         "ON_OFF_AUTO" => "/^(on|off|auto)$/",
         "PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%$/",
         "PRELOAD" => "/^(none|metadata|auto)$/",
@@ -76,15 +76,17 @@ class HtmlValidation
         "SHAPE" => "/^(rect|circle|poly|default)$/",
         "SRCSET" => "/^(((http(s)?:\/\/)?(\S*(:\d*)?\/)?(\S*\/)*\S*\s*)(\d*w\s)?(\d*x)?,?\s*)+$/",
         "TYPEMODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/",
-        "URI" => "/^(http(s)?:\/\/)?(\S*(:\d*)?\/)?(\S*\/)*\S*$/",
+        "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
         "USE_SIGNIN" => "/^(anonymous|use-credentials)$/",
         "ZERO_ONE" => "/^(0|1)$/",
     ];
 
     private static $functions = [
+        "COLOR" => "isColor",
         "COORDS" => "isCoords",
         "DATETIME" => "isDateTime",
         "ENCODE" => "isEncode",
+        "FILENAME" => "isString",
         "FLOAT" => "isFloat",
         "INPUT_TYPE" => "isInputType",
         "MIME" => "isMime",
@@ -93,7 +95,198 @@ class HtmlValidation
         "STRING" => "isString",
         "US_FLT" => "isUsFlt",
         "US_NC" => "isUsNc",
+        "US_NZ" => "isUsNz",
         "WINDOW" => "isWindow",
+    ];
+
+    private static $colorChart = [
+        "a" => [
+                    "aliceblue",
+                    "antiquewhite",
+                    "aqua",
+                    "aquamarine",
+                    "azure",
+               ],
+        "b" => [
+                    "beige",
+                    "bisque",
+                    "black",
+                    "blanchedalmond",
+                    "blue",
+                    "blueviolet",
+                    "brass",
+                    "brown",
+                    "burlywood",
+               ],
+        "c" => [
+                    "cadetblue",
+                    "chartreuse",
+                    "chocolate",
+                    "coolcopper",
+                    "copper",
+                    "coral",
+                    "cornflower",
+                    "cornflowerblue",
+                    "cornsilk",
+                    "crimson",
+                    "cyan",
+               ],
+        "d" => [
+                    "darkblue",
+                    "darkbrown",
+                    "darkcyan",
+                    "darkgoldenrod",
+                    "darkgray",
+                    "darkgreen",
+                    "darkkhaki",
+                    "darkmagenta",
+                    "darkolivegreen",
+                    "darkorange",
+                    "darkorchid",
+                    "darkred",
+                    "darksalmon",
+                    "darkseagreen",
+                    "darkslateblue",
+                    "darkslategray",
+                    "darkturquoise",
+                    "darkviolet",
+                    "deeppink",
+                    "deepskyblue",
+                    "dimgray",
+                    "dodgerblue",
+               ],
+        "f" => [
+                    "feldsper",
+                    "firebrick",
+                    "floralwhite",
+                    "forestgreen",
+                    "fuchsia",
+               ],
+        "g" => [
+                    "gainsboro",
+                    "ghostwhite",
+                    "gold",
+                    "goldenrod",
+                    "gray",
+                    "green",
+                    "greenyellow",
+               ],
+        "h" => [
+                    "honeydew",
+                    "hotpink",
+               ],
+        "i" => [
+                    "indianred",
+                    "indigo",
+                    "ivory",
+               ],
+        "k" => [
+                    "khaki",
+               ],
+        "l" => [
+                    "lavender",
+                    "lavenderblush",
+                    "lawngreen",
+                    "lemonchiffon",
+                    "lightblue",
+                    "lightcoral",
+                    "lightcyan",
+                    "lightgoldenrodyellow",
+                    "lightgreen",
+                    "lightgrey",
+                    "lightpink",
+                    "lightsalmon",
+                    "lightseagreen",
+                    "lightskyblue",
+                    "lightslategray",
+                    "lightsteelblue",
+                    "lightyellow",
+                    "lime",
+                    "limegreen",
+                    "linen",
+               ],
+        "m" => [
+                    "magenta",
+                    "maroon",
+                    "mediumaquamarine",
+                    "mediumblue",
+                    "mediumorchid",
+                    "mediumpurple",
+                    "mediumseagreen",
+                    "mediumslateblue",
+                    "mediumspringgreen",
+                    "mediumturquoise",
+                    "mediumvioletred",
+                    "midnightblue",
+                    "mintcream",
+                    "mistyrose",
+                    "moccasin",
+               ],
+        "n" => [
+                    "navajowhite",
+                    "navy",
+               ],
+        "o" => [
+                    "oldlace",
+                    "olive",
+                    "olivedrab",
+                    "orange",
+                    "orangered",
+                    "orchid",
+               ],
+        "p" => [
+                    "palegoldenrod",
+                    "palegreen",
+                    "paleturquoise",
+                    "palevioletred",
+                    "papayawhip",
+                    "peachpuff",
+                    "peru",
+                    "pink",
+                    "plum",
+                    "powderblue",
+                    "purple",
+               ],
+        "r" => [
+                    "red",
+                    "richblue",
+                    "rosybrown",
+                    "royalblue",
+               ],
+        "s" => [
+                    "saddlebrown",
+                    "salmon",
+                    "sandybrown",
+                    "seagreen",
+                    "seashell",
+                    "sienna",
+                    "silver",
+                    "skyblue",
+                    "slateblue",
+                    "slategray",
+                    "snow",
+                    "springgreen",
+                    "steelblue",
+               ],
+        "t" => [
+                    "tan",
+                    "teal",
+                    "thistle",
+                    "tomato",
+                    "turquoise",
+               ],
+        "v" => [
+                    "violet",
+               ],
+        "w" => [
+                    "wheat",
+                    "white",
+                    "whitesmoke",
+               ],
+        "y" => [
+                    "yellow",
+                    "yellowgreen",
+               ],
     ];
 
 
@@ -122,7 +315,7 @@ class HtmlValidation
                     // check defined
                     if (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$functions)) {
                         // METHOD
-                        if (!self::checkValidateByFunc(GLOBAL_ATTRIBUTES[$key]["Value"], $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
+                        if (!self::checkValidateByFunc(GLOBAL_ATTRIBUTES[$key]["Value"], $value, (self::matchArrayKey("shape", $paramaters) ? $paramaters["shape"] : null))) {
                             $result .= "[Validate Error] $key : $value" . PHP_EOL;
                         }
                         continue;
@@ -136,16 +329,18 @@ class HtmlValidation
                 }
             }
             // Normal Attribute Check
-            $check = self::commonValidate($attributeInfo, $paramaters, $key, $value);
-            if (!empty($check)) {
-                $result .= $check;
+            $check = self::commonValidate($attributeInfo[CURRENT_DOCUMENT_DATA], $paramaters, $key, $value);
+            if ($check["existence"]) {
+                $result .= !empty($check["message"]) ? $check["message"] : "";
                 continue;
             }
             // Custom Attribute Check
-            $check = self::commonValidate($customAttributeInfo, $paramaters, $key, $value);
-            if (!empty($check)) {
-                $result .= $check;
-                continue;
+            if (array_key_exists($key, $customAttributeInfo) && in_array(CURRENT_DOCUMENT_DATA, $customAttributeInfo[$key]["DocumentType"])) {
+                $check = self::commonValidate($customAttributeInfo, $paramaters, $key, $value);
+                if ($check["existence"]) {
+                    $result .= !empty($check["message"]) ? $check["message"] : "";
+                    continue;
+                }
             }
             // No Exists
             $result .= "[Attribute Not Defined] $key" . PHP_EOL;
@@ -159,35 +354,38 @@ class HtmlValidation
         $keys = array_keys($infos);
         foreach ($keys as $k) {
             if (preg_match("/^$key$/i", $k) > 0) {
-                return false;
+                return true;
             }
         }
         return false;
     }
 
     // common
-    private static function commonValidate(array &$attributeInfo, array &$paramaters, string $key, string $value): string
+    private static function commonValidate(array &$attributeInfo, array &$paramaters, string $key, string $value): array
     {
-        $result = "";
+        $result = ["existence" => false, "message" => ""];
         if (array_key_exists($key, $attributeInfo)) {
+            $result["existence"] = true;
             // PREG
-            if ($attributeInfo[$key]["CompareType"] == "Value") {
+            if ($attributeInfo[$key]["CompareType"] == "VALUE") {
                 // unique
-                if (!self::checkValidate($attributeInfo[$key]["VALUE"], $value)) {
-                    $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                if (!self::checkValidate($attributeInfo[$key]["Value"], $value)) {
+                    $result["message"] .= "[Validate Error] $key : $value" . PHP_EOL;
                 }
             } else {
                 // check defined
                 if (array_key_exists($attributeInfo[$key]["Value"], self::$functions)) {
                     // METHOD
-                    if (!self::checkValidateByFunc($key, $value, (self::matchArrayKey("sharp", $paramaters) ? $paramaters["sharp"] : null))) {
-                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                    if (!self::checkValidateByFunc($attributeInfo[$key]["Value"], $value, (self::matchArrayKey("shape", $paramaters) ? $paramaters["shape"] : null))) {
+                        $result["message"] .= "[Validate Error] $key : $value" . PHP_EOL;
                     }
                 } elseif (array_key_exists($attributeInfo[$key]["Value"], self::$validPattern)) {
                     // PATTERN
                     if (!self::checkValidate(self::$validPattern[$attributeInfo[$key]["Value"]], $value)) {
-                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                        $result["message"] .= "[Validate Error] $key : $value" . PHP_EOL;
                     }
+                } else {
+                    $result["existence"] = false;
                 }
             }
         }
@@ -201,12 +399,12 @@ class HtmlValidation
     }
 
     // Call Methods
-    private static function checkValidateByFunc(string $key, string $str, $sharp = null): bool
+    private static function checkValidateByFunc(string $key, string $str, $shape = null): bool
     {
         // pattern: 2 params
         //  - isCoords
         if ($key == "COORDS") {
-            return self::isCoords($sharp, $str);
+            return self::isCoords($shape, $str);
         }
         //  - isInputType
         if ($key == "INPUT_TYPE") {
@@ -217,20 +415,89 @@ class HtmlValidation
         return self::$func($str);
     }
 
+    private static function inRange(int $base, int $start, int $end): bool
+    {
+        return ($start <= $base && $base <= $end);
+    }
+
+    // COLOR
+    public static function isColor(string $color): bool
+    {
+        // color chart
+        $colorName = strtolower($color);
+        $firstChar = substr($colorName, 0, 1);
+        if (array_key_exists($firstChar, self::$colorChart) && in_array($colorName, self::$colorChart[$firstChar])) {
+            return true;
+        }
+
+        // 16: hexadecimal
+        $preg = "/^#([AaBbCcDdEeFf0-9]{3}|[AaBbCcDdEeFf0-9]{6}|[AaBbCcDdEeFf0-9]{8})$/";
+        if (preg_match($preg, $color) >= 1) {
+            return true;
+        }
+
+        // For Style
+        // %: percent
+        $clrs = explode(",", $color);
+        if (count($clrs) < 3) {
+            return false;
+        }
+        $clrs[0] = trim($clrs[0]);
+        $clrs[1] = trim($clrs[1]);
+        $clrs[2] = trim($clrs[2]);
+        if (count($clrs) == 3) {
+            $color0 = (preg_match("/^\d{1,3}%$/", $clrs[0]) == 1 && self::inRange($clrs[0], 0, 100));
+            $color1 = (preg_match("/^\d{1,3}%$/", $clrs[1]) == 1 && self::inRange($clrs[1], 0, 100));
+            $color2 = (preg_match("/^\d{1,3}%$/", $clrs[2]) == 1 && self::inRange($clrs[2], 0, 100));
+            if ($color0 && $color1 && $color2) {
+                return true;
+            }
+        } elseif (count($clrs) == 4) {
+            $clrs[3] = trim($clrs[3]);
+            $color0 = (preg_match("/^\d{1,3}%$/", $clrs[0]) == 1 && self::inRange($clrs[0], 0, 100));
+            $color1 = (preg_match("/^\d{1,3}%$/", $clrs[1]) == 1 && self::inRange($clrs[1], 0, 100));
+            $color2 = (preg_match("/^\d{1,3}%$/", $clrs[2]) == 1 && self::inRange($clrs[2], 0, 100));
+            $color3 = (preg_match("/^\d{1,3}%$/", $clrs[3]) == 1 && self::inRange($clrs[3], 0, 100));
+            if ($color0 && $color1 && $color2 && $color3) {
+                return true;
+            }
+        }
+
+        // 10: decimal
+        if (count($clrs) == 3) {
+            if (self::inRange($clrs[0], 0, 255) && self::inRange($clrs[1], 0, 255) && self::inRange($clrs[2], 0, 255)) {
+                return true;
+            }
+        } elseif (count($clrs) == 4) {
+            if (self::inRange($clrs[0], 0, 255) && self::inRange($clrs[1], 0, 255) && self::inRange($clrs[2], 0, 255) && self::inRange($clrs[3], 0, 100)) {
+                return true;
+            }
+        }
+
+        // No Match
+        return false;
+    }
+
     // COORD
-    public static function isCoords(string $shape, string $coords): bool
+    public static function isCoords(string $shape, $coords): bool
     {
         $result = false;
+        $match = explode(",", $coords);
+        foreach ($match as $numb) {
+            if (!self::isDecimalNumber($numb)) {
+                return false;
+            }
+        }
+        $points = count($match);
         switch ($shape) {
             case "circle":
-                $result = (preg_match("/^(\d+\.{0,1}\d*,{0,1}\s*){3}$/", $coords) > 0);
+                $result = $points == 3 ? true : false;
                 break;
-            case "ploy":
-                $points = preg_match("/^(\d+\.{0,1}\d*,{0,1}\s*)*$/", $coords);
+            case "poly":
                 $result = $points % 2 == 0 ? true : false;
                 break;
             case "rect":
-                $result = (preg_match("/^(\d+\.{0,1}\d*,{0,1}\s*){4}$/", $coords) > 0);
+                $result = $points == 4 ? true : false;
                 break;
         }
         return $result;
@@ -239,6 +506,10 @@ class HtmlValidation
     // DATETIME (YYYY-MM-DDThh:mm:ssTZD)
     public static function isDateTime(string $datetime): bool
     {
+        if (strlen($datetime) <= 0) {
+            return false;
+        }
+
         $match = null;
         preg_match("/^((\d{2,4})-(\d{1,2})-(\d{1,2}))T{0,1}((\d{1,2}):(\d{1,2}):(\d{1,2})){0,1}((\+|\-)(\d{2}):(\d{2})){0,1}$/", $datetime, $match);
         // 変数定義
@@ -294,7 +565,7 @@ class HtmlValidation
     // ENCORD
     public static function isEncode(string $encode): bool
     {
-        return in_array($encode, self::$encodeList);
+        return empty($encode) ? false : in_array($encode, self::$encodeList);
     }
 
     // FLT
@@ -307,6 +578,10 @@ class HtmlValidation
     // INPUT_TYPE
     public static function isInputType(string $inputtype, string $dtd): bool
     {
+        if (empty($inputtype) || empty($dtd)) {
+            return false;
+        }
+
         $type = [
             "text",             // テキスト入力欄 （初期値）
             "password",         // パスワード入力欄
@@ -341,13 +616,13 @@ class HtmlValidation
     // MIME
     public static function isMime(string $mime): bool
     {
-        return MimeValidation::validatieMime($mime);
+        return empty($mime) ? false : MimeValidation::validatieMime($mime);
     }
 
     // NC
     public static function isNc(string $numeric): bool
     {
-        return (is_numeric($numeric) && (preg_match("/^(1|2|3|4|5|6|7|8|9)\d*$/", $numeric) > 0));
+        return (is_numeric($numeric) && (preg_match("/^-?(1|2|3|4|5|6|7|8|9)\d*$/", $numeric) > 0));
     }
 
     // NZ
@@ -359,7 +634,7 @@ class HtmlValidation
     // STRING
     public static function isString(string $str): bool
     {
-        return is_string($str);
+        return (empty($str) || self::isWhiteSpaces($str)) ? false : is_string($str);
     }
 
     // US_FLT
@@ -374,14 +649,38 @@ class HtmlValidation
         return (is_numeric($usNc) && $usNc >= 0 && is_int($usNc));
     }
 
+    // US_NZ
+    public static function isUsNz(string $usNz): bool
+    {
+        return (self::isDecimalNumber($usNz) && $usNz > 0 && is_int((int) $usNz));
+    }
+
     // WINDOW
     // ウィンドウ名、フレーム名は文字列チェックしかできない。存在チェックについては別に任せる
     public static function isWindow(string $window): bool
     {
+        if (empty($window)) {
+            return false;
+        }
         $expres = preg_match("/^(_blank|_self|_parent|_top)$/", $window);
         if ($expres > 0) {
             return true;
         }
         return (preg_match("/^\S*$/", $window) > 0);
+    }
+
+    public static function isDecimalNumber($numb): bool
+    {
+        return preg_match('/^-?\d*$/', $numb) == 1;
+    }
+
+    public static function isFloatNumber($numb): bool
+    {
+        return preg_match('/^-?\d*\.?\d*$/', $numb) == 1;
+    }
+
+    public static function isWhiteSpaces($str): bool
+    {
+        return preg_match('/^[\s　]$/', $str) == 1;
     }
 }

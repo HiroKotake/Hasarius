@@ -19,13 +19,13 @@
         "HTML4_FRAME": {
             "cols": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "RPET_NZ_PCT_ASTER"
+                "CompareType": "DEFINED",
+                "Value": "REPET_NC_PCT_ASTER"
             },
             "rows": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "RPET_NZ_PCT_ASTER"
+                "Value": "REPET_NC_PCT_ASTER"
             },
             "border": {
                 "Priority": "OPTION",
@@ -37,12 +37,12 @@
             "cols": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "RPET_NZ_PCT_ASTER"
+                "Value": "REPET_NC_PCT_ASTER"
             },
             "rows": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "RPET_NZ_PCT_ASTER"
+                "Value": "REPET_NC_PCT_ASTER"
             }
         }
     }

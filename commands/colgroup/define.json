@@ -34,7 +34,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "OPTION",
@@ -66,7 +66,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "OPTION",
@@ -98,7 +98,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "OPTION",
@@ -130,7 +130,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "OPTION",
@@ -152,7 +152,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "OPTION",
@@ -174,7 +174,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "OPTION",
@@ -196,7 +196,7 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "OPTION",
@@ -218,14 +218,14 @@
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML5_1": {
             "span": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         }
     }

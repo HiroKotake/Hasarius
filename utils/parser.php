@@ -139,9 +139,9 @@ class Parser
             'comment' => "",
         ];
         // コメント行対応
-        if (preg_match('/^\/\/.*/', ltrim($str)) == 1) {
+        if (preg_match('/^\/\/\s+.*/', ltrim($str)) == 1) {
             $result['body'] = "";
-            $result['comment'] = trim(preg_replace('/^\/\//', '', trim($str)));    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
+            $result['comment'] = trim(preg_replace('/^\/\/\s+/', '', trim($str)));    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
             return $result;
         }
         // 空白行対応
@@ -152,7 +152,7 @@ class Parser
         }
 
         // 通常コマンド対応
-        $preg = '/(.*[^\s])\s*\/\/s*(.*)/u';
+        $preg = '/(.*[^\s])\s*\/\/\s+(.*)/u';
         $matches = null;
         preg_match($preg, $str, $matches);
         if (count($matches) > 0) {
