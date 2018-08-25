@@ -49,12 +49,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -96,12 +96,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -138,12 +138,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -190,12 +190,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -262,12 +262,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -329,12 +329,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -401,12 +401,12 @@
             "size": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "src": {
                 "Priority": "OPTION",
@@ -472,6 +472,7 @@
     "CustomAttributes": {
         "checked": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "checked",
             "Alias": "checked",
@@ -480,6 +481,7 @@
         },
         "disabled": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",
@@ -488,6 +490,7 @@
         },
         "ismap": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "ismap",
             "Alias": "ismap",
@@ -496,6 +499,7 @@
         },
         "readonly": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "readonly",
             "Alias": "readonly",
@@ -504,6 +508,7 @@
         },
         "autofocus": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "autofocus",
             "Alias": "autofocus",

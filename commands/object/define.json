@@ -320,7 +320,7 @@
             "declare": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/declare^$/"
+                "Value": "/^declare$/"
             }
         },
         "XHTML1_STRICT": {
@@ -382,7 +382,7 @@
             "declare": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/declare^$/"
+                "Value": "/^declare$/"
             }
         },
         "XHTML1_FRAME": {
@@ -464,7 +464,7 @@
             "declare": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/declare^$/"
+                "Value": "/^declare$/"
             }
         },
         "XHTML1_1": {
@@ -526,7 +526,7 @@
             "declare": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/declare^$/"
+                "Value": "/^declare$/"
             }
         },
         "HTML5": {

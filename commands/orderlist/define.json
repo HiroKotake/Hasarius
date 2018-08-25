@@ -80,7 +80,7 @@
             "compact": {
                 "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "compact"
+                "Value": "/^compact$/"
             }
         },
         "XHTML1_STRICT": {
@@ -99,7 +99,7 @@
             "compact": {
                 "Priority": "DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "compact"
+                "Value": "/^compact$/"
             }
         },
         "XHTML1_1": {

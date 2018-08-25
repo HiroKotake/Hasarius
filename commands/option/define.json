@@ -80,12 +80,12 @@
             "selected": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "selected"
+                "Value": "/^selected$/"
             },
             "disabled": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "disabled"
+                "Value": "/^disabled$/"
             }
         },
         "XHTML1_STRICT": {
@@ -102,12 +102,12 @@
             "selected": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "selected"
+                "Value": "/^selected$/"
             },
             "disabled": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "disabled"
+                "Value": "/^disabled$/"
             }
         },
         "XHTML1_FRAME": {
@@ -124,12 +124,12 @@
             "selected": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "selected"
+                "Value": "/^selected$/"
             },
             "disabled": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "disabled"
+                "Value": "/^disabled$/"
             }
         },
         "XHTML1_1": {
@@ -146,12 +146,12 @@
             "selected": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "selected"
+                "Value": "/^selected$/"
             },
             "disabled": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "disabled"
+                "Value": "/^disabled$/"
             }
         },
         "HTML5": {

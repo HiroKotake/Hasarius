@@ -51,8 +51,9 @@ class HtmlValidation
         "LINE_TYPE" => "/^(alternate|stylesheet|start|next|prev|contents|index|glossary|copyright|chapter|section|subsection|appendix|help|bookmark)$/",
         "LIST_STYLE" => "/^(disc|circle|square|1|A|a|I|i)$/",
         "LIST_SYMBOL" => "/^(disc|circle|square)$/",
-        "NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
-        "MEDIA_QUERY" => "/^(not|only)?\s*((all|screen|print|speech|tv|projection|handheld|tty|braille|embossed)?\s*((and)?\s*(\((((min-|max-)?((device-)?width:\s*\d*|(device-)?height:\s*\d*|(device-)?acept-ratio:\s*(\d*\/\d*)|color(-index)?:\s*\d*|monochrome:\s*\d*|resolution:\s*\d*(dpi|apcm)))|oriencation:\s*(portrait|landspace)|scan:\s*(progressive|interlace)|grid:\s*(0|1))\)),?)*\s*)*$/",
+        "NC_PCT" => "/^-?\d*\%?$/",
+        "NZ_PCT" => "/^-?(1|2|3|4|5|6|7|8|9)\d*\%?$/",
+        "MEDIA_QUERY" => "/^(not|only)?\s*((all|screen|print|speech|tv|projection|handheld|tty|braille|embossed)?\s*((and)?\s*(\((((min-|max-)?((device-)?width:\s*\d*px|(device-)?height:\s*\d*|(device-)?acept-ratio:\s*(\d*\/\d*)|color(-index)?:\s*\d*|monochrome:\s*\d*|resolution:\s*\d*(dpi|apcm)))|oriencation:\s*(portrait|landspace)|scan:\s*(progressive|interlace)|grid:\s*(0|1))\))*(\s*\d*(vw|px))?,?)*\s*)*$/",
         "NZ_PCT_RLT" => "/^(((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*))$/",
         "ON_OFF" => "/^(on|off)$/",
         "ON_OFF_AUTO" => "/^(on|off|auto)$/",
@@ -74,9 +75,10 @@ class HtmlValidation
         "SIDE_LMRJC" => "/^(left|middle|right|justify|char)$/",
         "SIDE_TRBL" => "/^(top|right|bottom|left)$/",
         "SHAPE" => "/^(rect|circle|poly|default)$/",
-        "SRCSET" => "/^(((http(s)?:\/\/)?(\S*(:\d*)?\/)?(\S*\/)*\S*\s*)(\d*w\s)?(\d*x)?,?\s*)+$/",
+        "SRCSET" => "/^(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?(,\s+(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?)*$/",
         "TYPEMODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/",
-        "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
+        //"URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
+        "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w-.\/?%&=]*)?$/",
         "USE_SIGNIN" => "/^(anonymous|use-credentials)$/",
         "ZERO_ONE" => "/^(0|1)$/",
     ];
@@ -92,6 +94,7 @@ class HtmlValidation
         "MIME" => "isMime",
         "NC" => "isNc",
         "NZ" => "isNz",
+        "ONE_NULL" => "isOneNull",
         "STRING" => "isString",
         "US_FLT" => "isUsFlt",
         "US_NC" => "isUsNc",
@@ -305,7 +308,9 @@ class HtmlValidation
             // Global Attribute Check
             if (array_key_exists($key, GLOBAL_ATTRIBUTES)) {
                 // PREG
-                if (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "VALUE") {
+                if (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "NONE") {
+                    continue;
+                } elseif (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "VALUE") {
                     // unique
                     if (!self::checkValidate(GLOBAL_ATTRIBUTES[$key]["Value"], $value)) {
                         $result .= "[Validate Error] $key : $value" . PHP_EOL;
@@ -367,7 +372,9 @@ class HtmlValidation
         if (array_key_exists($key, $attributeInfo)) {
             $result["existence"] = true;
             // PREG
-            if ($attributeInfo[$key]["CompareType"] == "VALUE") {
+            if ($attributeInfo[$key]["CompareType"] == "NONE") {
+                return $result;
+            } elseif ($attributeInfo[$key]["CompareType"] == "VALUE") {
                 // unique
                 if (!self::checkValidate($attributeInfo[$key]["Value"], $value)) {
                     $result["message"] .= "[Validate Error] $key : $value" . PHP_EOL;
@@ -511,21 +518,29 @@ class HtmlValidation
         }
 
         $match = null;
-        preg_match("/^((\d{2,4})-(\d{1,2})-(\d{1,2}))T{0,1}((\d{1,2}):(\d{1,2}):(\d{1,2})){0,1}((\+|\-)(\d{2}):(\d{2})){0,1}$/", $datetime, $match);
+        $matchResult = preg_match("/^(\d{4})-((0|1)\d)-((0|1|2|3)\d)T((0|1|2)\d):((0|1|2|3|4|5|)\d):((0|1|2|3|4|5|)\d)(Z|(\+|\-)((0|1|2)\d):((0|1|2|3|4|5|)\d))$/", $datetime, $match);
+        if ($matchResult == 0) {
+            return false;
+        }
+
         // 変数定義
-        $counter = count($match);
-        $year = (int) $match[2];
-        $month = (int) $match[3];
-        $day = (int) $match[4];
-        $hour = $counter >= 7 ?  (int) $match[6] : null;
-        $minute = $counter >= 8 ? (int) $match[7] : null;
-        $second = $counter >= 9 ? (int) $match[8] : null;
-        $tzdSymbol = $counter >= 11 ? (int) $match[10] : null;
-        $tzdHour = $counter >= 12 ? (int) $match[11] : null;
-        $tzdMinute = $counter >= 13 ? (int) $match[12] : null;
+        $counter   = count($match);
+        $year      = (int) $match[1];
+        $month     = (int) $match[2];
+        $day       = (int) $match[4];
+        $hour      = (int) $match[6];
+        $minute    = (int) $match[8];
+        $second    = (int) $match[10];
+        if ($counter > 14) {
+            $tzdSymbol = $match[13];
+            $tzdHour   = (int) $match[14];
+            $tzdMinute = (int) $match[16];
+        } else {
+            $tzdSymbol = $match[12];
+        }
 
         // 年月日チェック
-        if (!checkdate($day, $month, $year)) {
+        if (!checkdate((int)$month, (int)$day, (int)$year)) {
             return false;
         }
 
@@ -545,18 +560,21 @@ class HtmlValidation
         }
 
         // TZDプラスマイナスチェック
-        if ($tzdSymbol != "+" || $tzdSymbol != "-") {
+        //if ($tzdSymbol != "+" || $tzdSymbol != "-" || $tzdSymbol != "Z") {
+        if (preg_match("/^(\+|-|Z)$/", $tzdSymbol) == 0) {
             return false;
         }
 
-        // TZD分チェック
-        if (!empty($tzdMinute) && $tzdMinute > 59) {
-            return false;
-        }
+        if ($counter > 14) {
+            // TZD分チェック
+            if (!empty($tzdMinute) && $tzdMinute > 59) {
+                return false;
+            }
 
-        // TZD時チェック
-        if (!empty($tzdHour) && ($tzdHour > 24 || ($tzdHour == 24 && $tzdMinute > 0))) {
-            return false;
+            // TZD時チェック
+            if (!empty($tzdHour) && ($tzdHour > 24 || ($tzdHour == 24 && $tzdMinute > 0))) {
+                return false;
+            }
         }
 
         return true;
@@ -629,6 +647,12 @@ class HtmlValidation
     public static function isNz(string $numeric): bool
     {
         return (self::isNc($numeric) && $numeric > 0);
+    }
+
+    // ONE_NULL
+    public static function isOneNull(string $str): bool
+    {
+        return (empty($str) || $str == 1);
     }
 
     // STRING

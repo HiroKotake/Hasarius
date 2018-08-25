@@ -54,12 +54,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -121,12 +121,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -173,12 +173,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -240,12 +240,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -312,12 +312,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -364,12 +364,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -436,12 +436,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "abbr": {
                 "Priority": "OPTION",
@@ -468,12 +468,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "headers": {
                 "Priority": "OPTION",
@@ -485,12 +485,12 @@
             "callspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rowspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "headers": {
                 "Priority": "OPTION",

@@ -39,12 +39,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML4_STRICT": {
@@ -56,12 +56,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML4_FRAME": {
@@ -73,12 +73,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "XHTML1_LOOSE": {
@@ -90,12 +90,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "disabled": {
                 "Priority": "OPTION",
@@ -117,12 +117,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "disabled": {
                 "Priority": "OPTION",
@@ -144,12 +144,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "disabled": {
                 "Priority": "OPTION",
@@ -171,12 +171,12 @@
             "cols": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "REQUIRED",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "disabled": {
                 "Priority": "OPTION",
@@ -198,22 +198,22 @@
             "cols": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "minlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "wrap": {
                 "Priority": "OPTION",
@@ -255,22 +255,22 @@
             "cols": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "rows": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "maxlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "minlength": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "wrap": {
                 "Priority": "OPTION",

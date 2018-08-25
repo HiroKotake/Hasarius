@@ -34,7 +34,7 @@
             "width": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML4_STRICT": {
@@ -43,14 +43,14 @@
             "width": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "XHTML1_LOOSE": {
             "width": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "xml:space": {
                 "Priority": "OPTION",
@@ -64,7 +64,7 @@
             "width": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "xml:space": {
                 "Priority": "OPTION",

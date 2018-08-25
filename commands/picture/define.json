@@ -35,13 +35,13 @@
             },
             "media": {
                 "Priority": "OPTION",
-                "CompareType": "DEFINED",
+                "CompareType": "NONE",
                 "Value": "MEDIA_QUERY"
             },
             "sizes": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^\\d+vw$/"
+                "CompareType": "NONE",
+                "Value": "MEDIA_QUERY"
             }
         }
     }

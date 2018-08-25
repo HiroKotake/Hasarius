@@ -63,17 +63,17 @@
             "marginwidth": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "marginheight": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "SIDE_ALL"
             }
         },
         "HTML4_FRAME": {
@@ -115,17 +115,17 @@
             "marginwidth": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "marginheight": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "SIDE_ALL"
             }
         },
         "XHTML1_LOOSE": {
@@ -167,17 +167,17 @@
             "marginwidth": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "marginheight": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "SIDE_ALL"
             }
         },
         "XHTML1_FRAME": {
@@ -219,17 +219,17 @@
             "marginwidth": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "marginheight": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "align": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "SIDE_ALL"
             }
         },
         "HTML5": {
