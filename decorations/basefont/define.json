@@ -23,7 +23,7 @@
             "size": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "/(+|-)(1|2|3|4|5|6|7)/"
+                "Value": "/^[+-]?[1234567]$/"
             },
             "color": {
                 "Priority": "DEPRECATION",
@@ -32,7 +32,7 @@
             },
             "face": {
                 "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
+                "CompareType": "NONE",
                 "Value": "FONT"
             }
         },
@@ -42,7 +42,7 @@
             "size": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "/(+|-)(1|2|3|4|5|6|7)/"
+                "Value": "/^[+-]?[1234567]$/"
             },
             "color": {
                 "Priority": "DEPRECATION",
@@ -51,7 +51,7 @@
             },
             "face": {
                 "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
+                "CompareType": "NONE",
                 "Value": "FONT"
             }
         },
@@ -59,7 +59,7 @@
             "size": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "/(+|-)(1|2|3|4|5|6|7)/"
+                "Value": "/^[+-]?[1234567]$/"
             },
             "color": {
                 "Priority": "DEPRECATION",
@@ -68,7 +68,7 @@
             },
             "face": {
                 "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
+                "CompareType": "NONE",
                 "Value": "FONT"
             }
         },
@@ -78,7 +78,7 @@
             "size": {
                 "Priority": "REQUIRED_DEPRECATION",
                 "CompareType": "VALUE",
-                "Value": "/(+|-)(1|2|3|4|5|6|7)/"
+                "Value": "/^[+-]?[1234567]$/"
             },
             "color": {
                 "Priority": "DEPRECATION",
@@ -87,7 +87,7 @@
             },
             "face": {
                 "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
+                "CompareType": "NONE",
                 "Value": "FONT"
             }
         },

@@ -73,14 +73,13 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "WINDOW"
             }
-        },
         },
         "HTML4_STRICT": {
             "href": {
@@ -126,7 +125,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
@@ -178,7 +177,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
@@ -230,7 +229,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
@@ -282,7 +281,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
@@ -334,7 +333,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",
@@ -386,7 +385,7 @@
             "coords": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "COORD"
+                "Value": "COORDS"
             },
             "target": {
                 "Priority": "OPTION",

@@ -199,47 +199,47 @@ class Parser
     ): array {
         $flagEscapeOn = false;
         $flagModifierOn = false;
-        $length = mb_strlen($line);
         $modifiersCommand = "";
         $modifiers = [];
+        $listChars = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);
 
-        for ($i = 0; $i < $length; $i++) {
+        foreach ($listChars as $char) {
             // エスケープ中か？
             if ($flagEscapeOn) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
                 if ($flagModifierOn) {
-                    $modifiersCommand .= $line[$i];
+                    $modifiersCommand .= $char;
                 }
                 $flagEscapeOn = false;
                 continue;
             }
             // 文中のエスケープ文字か？
-            if ($line[$i] == $escape) {
+            if ($char == $escape) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
                 if ($flagModifierOn) {
-                    $modifiersCommand .= $line[$i];
+                    $modifiersCommand .= $char;
                 }
                 $flagEscapeOn = true;
                 continue;
             }
 
             // 修飾コマンド開始か？
-            if (!$flagModifierOn && $line[$i] == $modifiersKey[0]) {
+            if (!$flagModifierOn && $char == $modifiersKey[0]) {
                 $modifiersCommand = "";
                 $flagModifierOn = true;
-                $modifiersCommand .= $line[$i];
+                $modifiersCommand .= $char;
                 continue;
             }
             // 修飾コマンド終了か？
-            if ($flagModifierOn && $line[$i] == $modifiersKey[1]) {
-                $modifiersCommand .= $line[$i];
+            if ($flagModifierOn && $char == $modifiersKey[1]) {
+                $modifiersCommand .= $char;
                 $modifiers[] = $modifiersCommand;
                 $flagModifierOn = false;
                 continue;
             }
             // 修飾コマンド中か？
             if ($flagModifierOn) {
-                $modifiersCommand .= $line[$i];
+                $modifiersCommand .= $char;
             }
         }
         return $modifiers;
@@ -247,7 +247,8 @@ class Parser
 
     /**
      * 修飾コマンド解析
-     * @param  string $modifiers 修飾コマンド文字列
+     * @param string $modifiers 修飾コマンド文字列
+     * @param string $escape
      * @return array             解析結果を格納した連想配列
      *                           [
      *                              'command' => コマンド名文字列,
@@ -255,31 +256,73 @@ class Parser
      *                              'text'    => 表示する文字列
      *                           ]
      */
-    public static function analyzeModifier(string $modifiers): array
+    public static function analyzeModifier(string $modifiers, string $escape = '\\'): array
     {
-        $pattern = '/^@(\S+)\s((\S+=\S+\s)*)(.*)@$/u';
-        $matches = null;
-        preg_match_all($pattern, $modifiers, $matches);
-        $command = $matches[1][0];
-        $paramString = $matches[2][0];
-        $paramMatches = null;
-        $params = null;
-        if (!empty($paramString)) {
-            preg_match_all('/\S+=\S+/u', $paramString, $paramMatches);
-            $params = [];
-            foreach ($paramMatches[0] as $attribute) {
-                list($key, $value) = explode("=", $attribute);
-                $value = str_replace("_", " ", trim($value, "\"'"));
-                $params[$key] = $value;
+        $inEscape = false;
+        $inAttribute = 0;   // 0 ... 属性値以外, 1 ... 属性値待機('"'が来るまで待機), 2 ... 属性値入力
+        $flagStarted = false;
+        $command = "";
+        $paramName = "";
+        $flagCommandDone = false;
+        $work = "";
+        $params = [];
+        $text = "";
+        $listChars = preg_split("//u", $modifiers, -1, PREG_SPLIT_NO_EMPTY);
+
+        foreach ($listChars as $char) {
+            if ($char == '@') {
+                $flagStarted = true;
+                continue;
+            }
+            if ($flagStarted) {
+                if (!$flagCommandDone) {
+                    if ($char == ' ') {
+                        $flagCommandDone = true;
+                        continue;
+                    }
+                    $command .= $char;
+                } elseif (!$inEscape && $char == '@') {
+                    // 修飾コマンド終了
+                    $text = $work;
+                    break;
+                } else {
+                    // エスケープ発生か？
+                    if (!$inEscape && $char == $escape) {
+                        $inEscape = true;
+                        continue;
+                    }
+                    // 属性値関連
+                    if (!$inEscape && $inAttribute == 0 && $char == "=") {
+                        $paramName = trim($work);
+                        $inAttribute = 1;
+                        $work = "";
+                        continue;
+                    } elseif (!$inEscape && $char == '"') {
+                        if ($inAttribute == 2) {
+                            $params[$paramName] = trim($work);
+                            $paramName = "";
+                            $work = "";
+                            $inAttribute = 0;
+                            continue;
+                        }
+                        $work = "";
+                        $inAttribute = 2;
+                        continue;
+                    }
+                    // 文字確保
+                    $work .= $char;
+                    $inEscape = false;
+                }
             }
         }
-        $text = array_pop($matches);
-        $text = $text[0];
-        return [
+
+        $text = trim($work);
+        $result = [
             'command' => $command,
             'params'  => $params,
             'text'    => $text,
         ];
+        return $result;
     }
 
     /**

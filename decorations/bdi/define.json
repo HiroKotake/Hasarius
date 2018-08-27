@@ -18,15 +18,15 @@
         "HTML5": {
             "dir": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(auto|ltr|rtl)$/"
+                "CompareType": "DEFINED",
+                "Value": "DIR_TYPE"
             }
         },
         "HTML5_1": {
             "dir": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(auto|ltr|rtl)$/"
+                "CompareType": "DEFINED",
+                "Value": "DIR_TYPE"
             }
         }
     }

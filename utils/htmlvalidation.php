@@ -40,7 +40,7 @@ class HtmlValidation
      */
     private static $validPattern = [
         "BUTTON_TYPE" => "/^(submit|reset|button)$/u",
-        "BLEAR_TYPE" => "/^(left|right|all|none)$/u",
+        "CLEAR_TYPE" => "/^(left|right|all|none)$/u",
         "DIR_TYPE" => "/^(ltr|rtl|auto)$/",
         "FONT" => "/^.*$/",     // フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく
         "GET_POST" => "/^(get|post)$/iu",
@@ -402,7 +402,7 @@ class HtmlValidation
     // Generic
     private static function checkValidate(string $pattern, $str): bool
     {
-        return (preg_match($pattern, $str) > 0);
+        return (preg_match($pattern, $str) != 0);
     }
 
     // Call Methods

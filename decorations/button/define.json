@@ -202,13 +202,13 @@
             },
             "formmethod": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)%/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "formenctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "formtarget": {
                 "Priority": "OPTION",
@@ -249,13 +249,13 @@
             },
             "formmethod": {
                 "Priority": "OPTION",
-                "CompareType": "VALUE",
-                "Value": "/^(get|post)%/i"
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
             },
             "formenctype": {
                 "Priority": "OPTION",
                 "CompareType": "VALUE",
-                "Value": "/^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$/"
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
             },
             "formtarget": {
                 "Priority": "OPTION",
@@ -267,6 +267,7 @@
     "CustomAttributes": {
         "disabled": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "disabled",
             "Alias": "disabled",
@@ -275,6 +276,7 @@
         },
         "autofocus": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "autofocus",
             "Alias": "autofocus",
@@ -283,6 +285,7 @@
         },
         "formnovalidate": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "formnovalidate",
             "Alias": "formnovalidate",
