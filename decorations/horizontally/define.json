@@ -34,7 +34,7 @@
             "size": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "DEPRECATION",
@@ -53,7 +53,7 @@
             "size": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "DEPRECATION",
@@ -70,7 +70,7 @@
             "size": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "DEPRECATION",
@@ -94,7 +94,7 @@
             "size": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "width": {
                 "Priority": "DEPRECATION",
@@ -122,6 +122,7 @@
     "CustomAttributes": {
         "noshade": {
             "Priority": "DEPRECATION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "noshade",
             "Alias": "noshade",

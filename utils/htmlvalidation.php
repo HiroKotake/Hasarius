@@ -80,6 +80,8 @@ class HtmlValidation
         //"URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
         "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w-.\/?%&=]*)?$/",
         "USE_SIGNIN" => "/^(anonymous|use-credentials)$/",
+        "US_NC_PCT" => "/^\d*\%?$/",
+        "US_NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
         "ZERO_ONE" => "/^(0|1)$/",
     ];
 
@@ -90,6 +92,7 @@ class HtmlValidation
         "ENCODE" => "isEncode",
         "FILENAME" => "isString",
         "FLOAT" => "isFloat",
+        "FLT" => "isFloat",
         "INPUT_TYPE" => "isInputType",
         "MIME" => "isMime",
         "NC" => "isNc",
@@ -589,7 +592,10 @@ class HtmlValidation
     // FLT
     public static function isFloat(string $float): bool
     {
-        return (is_numeric($float) && is_float($float));
+        if (empty($float)) {
+            return false;
+        }
+        return (is_numeric($float) && is_float((float) $float));
     }
 
 
@@ -640,12 +646,18 @@ class HtmlValidation
     // NC
     public static function isNc(string $numeric): bool
     {
+        if (empty($numeric)) {
+            return false;
+        }
         return (is_numeric($numeric) && (preg_match("/^-?(1|2|3|4|5|6|7|8|9)\d*$/", $numeric) > 0));
     }
 
     // NZ
     public static function isNz(string $numeric): bool
     {
+        if (empty($numeric)) {
+            return false;
+        }
         return (self::isNc($numeric) && $numeric > 0);
     }
 
@@ -664,18 +676,27 @@ class HtmlValidation
     // US_FLT
     public static function isUsFlt(string $usFlt): bool
     {
-        return (is_numeric($usFlt) && $usFlt >= 0 && is_float($usFlt));
+        if (empty($usFlt)) {
+            return false;
+        }
+        return (is_numeric($usFlt) && (float) $usFlt >= 0 && is_float((float) $usFlt));
     }
 
     // US_NC
     public static function isUsNc(string $usNc): bool
     {
+        if (empty($usNc)) {
+            return false;
+        }
         return (is_numeric($usNc) && $usNc >= 0 && is_int($usNc));
     }
 
     // US_NZ
     public static function isUsNz(string $usNz): bool
     {
+        if (empty($usNz)) {
+            return false;
+        }
         return (self::isDecimalNumber($usNz) && $usNz > 0 && is_int((int) $usNz));
     }
 

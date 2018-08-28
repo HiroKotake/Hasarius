@@ -584,11 +584,37 @@ class Generate
         $this->documentWork[] = '</html>';
     }
 
+    // For Debug
+    public function getCloserStack(): array
+    {
+        return $this->closerStack;
+    }
+
+    // For Debug
+    public function getScriptStack(): array
+    {
+        return $this->scriptStack;
+    }
+
+    // For Debug
+    public function getCssStack(): array
+    {
+        return $this->cssStack;
+    }
+
+    // For Debug
     public function getVesselContainer(): array
     {
         return $this->vesselContainer;
     }
 
+    // For Debug
+    public function getDocumentWork(): array
+    {
+        return $this->documentWork;
+    }
+
+    // For Debug
     public function physicalTest(): string
     {
         return 'DONE';

@@ -54,12 +54,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -74,17 +74,17 @@
             "border": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "hspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "vspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML4_STRICT": {
@@ -111,12 +111,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -131,17 +131,17 @@
             "border": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "hspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "vspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "HTML4_FRAME": {
@@ -168,12 +168,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -188,17 +188,17 @@
             "border": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "hspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "vspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             }
         },
         "XHTML1_LOOSE": {
@@ -225,12 +225,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -245,17 +245,17 @@
             "border": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "hspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "vspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "ismap": {
                 "Priority": "OPTION",
@@ -282,12 +282,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -324,12 +324,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -344,17 +344,17 @@
             "border": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "hspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "vspace": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "NZ"
+                "Value": "US_NZ"
             },
             "ismap": {
                 "Priority": "OPTION",
@@ -381,12 +381,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -413,12 +413,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -455,12 +455,12 @@
             "witdh": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "height": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
-                "Value": "NZ_PCT"
+                "Value": "US_NZ_PCT"
             },
             "usemap": {
                 "Priority": "OPTION",
@@ -487,6 +487,7 @@
     "CustomAttributes": {
         "ismap": {
             "Priority": "OPTION",
+            "CompareType": "DEFINED",
             "Type": "NAME_ONLY",
             "AttributeName": "ismap",
             "Alias": "ismap",
