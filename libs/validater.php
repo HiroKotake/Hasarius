@@ -2,12 +2,12 @@
 /**
  * validater.php
  *
- * @package Hasarius
- * @category utils
+ * @package jp_teleios
+ * @category libs
  * @author Takahiro Kotake
  * @license Teleios Development
  */
-namespace Hasarius\utils;
+namespace jp\teleios\libs;
 
 /**
  * Validater Class

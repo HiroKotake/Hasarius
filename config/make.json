@@ -1,0 +1,48 @@
+{
+    "DocumentType": "HTML5",
+    "BasePosittion": "head",
+    "Language": "ja",
+    "prefix": [
+        {"og": "http://ogp.me/ns#"}
+    ],
+    "Chareset": "utf-8",
+    "Title": "Default Page",
+    "Meta": {
+        "contraction": {
+            "ContentType": ["utf-8"],
+            "Pragma": [""],
+            "CacheControl": [""],
+            "Expires": [""],
+            "ContentScriptType": [""],
+            "ContentStyleType": [""],
+            "Refresh": [""],
+            "Jump": [""],
+
+            "Keyword": [""],
+            "Description": [""],
+            "Robots": [""],
+            "Author": [""],
+            "ReplyTo": [""],
+            "Copyright": [""],
+            "Generator": [""],
+            "Date": [""]
+        },
+        "regular": [
+            {"property":"", "content":""},
+            {"name":"", "content":""}
+        ]
+    },
+    "Script": [
+        {"type":"", "src":""},
+        {"src":""}
+    ],
+    "Link": [
+        {"rel":"", "href":""}
+    ],
+    "WriteTargetDir": "",
+    "UseHashFileName": 0,
+    "AutoHashFileName": 0,
+    "HashedFileName": "",
+    "AttributeValidate": 1,
+    "ValidateStop": 0
+}

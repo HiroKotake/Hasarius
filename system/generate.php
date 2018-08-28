@@ -225,6 +225,34 @@ class Generate
     }
 
     /**
+     * オリジナルのドキュメントファイルを読み込み、配列に格納して返す。
+     * @param  string $source ソースファイル
+     * @return array          ソースファイルの内容を一行単位で配列に格納した結果の配列。
+     * @throws Exception
+     */
+    public function loadSource(string $source): array
+    {
+        $lineArray = [];
+        try {
+            // ファイル存在確認
+            if (!file_exists($source)) {
+                throw new \Exception("[ERROR] FILE NOT EXISTS !!", 1);
+            }
+            // ファイルオープン
+            $hFile = fopen($source, 'r');
+            // 行読み込み
+            while (($line = fgets($hFile)) !== false) {
+                $lineArray[] = $line;
+            }
+            fclose($hFile);
+        } catch (\Exception $e) {
+            throw new \Exception("[ERROR] FILE IS ERROR !!", 1);
+        }
+
+        return $lineArray;
+    }
+
+    /**
      * ファイルを読み込み事前準備を実施する
      * @param  string $source ソースファイル
      * @return array          事前準備完了後のデータ配列
@@ -334,7 +362,7 @@ class Generate
                     //  ----- パラメータ検証
                     $validateResult = Utils\HtmlValidation($this->commands[$command], $lineParameters->getParamaters());
                     if (!empty($validateResult)) {
-                        if (HEAD_ValidateStop) {
+                        if (MAKE_ValidateStop) {
                             throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
                         } else {
                             $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
@@ -360,7 +388,7 @@ class Generate
                         //  ----- パラメータ検証
                         $validateResult = Utils\HtmlValidation($this->decorations[$decorateCommand], $decorateCommand['params']);
                         if (!empty($validateResult)) {
-                            if (HEAD_ValidateStop) {
+                            if (MAKE_ValidateStop) {
                                 throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
                             } else {
                                 $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);

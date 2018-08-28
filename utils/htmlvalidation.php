@@ -418,7 +418,7 @@ class HtmlValidation
         }
         //  - isInputType
         if ($key == "INPUT_TYPE") {
-            return self::isInputType($str, HEAD_DocumentType);
+            return self::isInputType($str, MAKE_DocumentType);
         }
         // pattern: 1 params
         $func = self::$functions[$key];
