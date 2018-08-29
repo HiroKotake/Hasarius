@@ -337,13 +337,13 @@ class HtmlValidation
                 }
             }
             // Normal Attribute Check
-            $check = self::commonValidate($attributeInfo[CURRENT_DOCUMENT_DATA], $paramaters, $key, $value);
+            $check = self::commonValidate($attributeInfo[MAKE_DocumentType], $paramaters, $key, $value);
             if ($check["existence"]) {
                 $result .= !empty($check["message"]) ? $check["message"] : "";
                 continue;
             }
             // Custom Attribute Check
-            if (array_key_exists($key, $customAttributeInfo) && in_array(CURRENT_DOCUMENT_DATA, $customAttributeInfo[$key]["DocumentType"])) {
+            if (array_key_exists($key, $customAttributeInfo) && in_array(MAKE_DocumentType, $customAttributeInfo[$key]["DocumentType"])) {
                 $check = self::commonValidate($customAttributeInfo, $paramaters, $key, $value);
                 if ($check["existence"]) {
                     $result .= !empty($check["message"]) ? $check["message"] : "";

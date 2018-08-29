@@ -422,8 +422,8 @@ class Parser
         $search = [];
         $replace = [];
         foreach ($variables as $valName => $valInfo) {
-            $search[]  = '$' . $valName . '$';
-            $replace[] = $valInfo['varValue'];
+            $search[]  = '#' . $valName . '#';
+            $replace[] = trim($valInfo['varValue'], '"');
         }
         return str_replace($search, $replace, $source);
     }

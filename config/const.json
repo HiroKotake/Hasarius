@@ -1,4 +1,70 @@
 {
+    "HEAD_META": {
+        "ContentType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Type"
+        },
+        "Pragma": {
+            "attribute": "http-equiv",
+            "origin": "Pragma"
+        },
+        "CacheControl": {
+            "attribute": "http-equiv",
+            "origin": "Cache-Control"
+        },
+        "Expires": {
+            "attribute": "http-equiv",
+            "origin": "Expires"
+        },
+        "ContentScriptType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Script-Type"
+        },
+        "ContentStyleType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Style-Type"
+        },
+        "Refresh": {
+            "attribute": "http-equiv",
+            "origin": "Refresh"
+        },
+        "Jump": {
+            "attribute": "http-equiv",
+            "origin": "Jump"
+        },
+        "Keywords": {
+            "attribute": "name",
+            "origin": "keywords"
+        },
+        "Description": {
+            "attribute": "name",
+            "origin": "description"
+        },
+        "Robots": {
+            "attribute": "name",
+            "origin": "ROBOTS"
+        },
+        "Author": {
+            "attribute": "name",
+            "origin": "author"
+        },
+        "ReplyTo": {
+            "attribute": "name",
+            "origin": "reply-to"
+        },
+        "Copyright": {
+            "attribute": "name",
+            "origin": "copyright"
+        },
+        "Generator": {
+            "attribute": "name",
+            "origin": "generator"
+        },
+        "Date": {
+            "attribute": "name",
+            "origin": "date"
+        }
+    },
     "SCRIPT": {
         "None": {
             "READY": {
@@ -58,8 +124,12 @@
         "width": {
             "Alias": "w",
             "CompareType": "DEFINED",
-            "Value": "NUMERIC",
-            "postFix": ["numeric", "px", "percent"]
+            "Value": "US_NZ_PX_PCT"
+        },
+        "hight": {
+            "Alias": "h",
+            "CompareType": "DEFINED",
+            "Value": "US_NZ_PX_PCT"
         }
     }
 }

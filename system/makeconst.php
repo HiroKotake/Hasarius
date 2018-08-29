@@ -27,7 +27,7 @@ class MakeConst
 
     public static function loadMakeFile(string $file): void
     {
-        if (!file_exists($source)) {
+        if (!file_exists($file)) {
             throw new Exception("[ERROR] make.json file is not existed !!", 1);
         }
 

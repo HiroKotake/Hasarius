@@ -210,7 +210,7 @@ class BaseTag
      */
     public function __construct($jsonFile)
     {
-        $this->currentDocumentType = CURRENT_DOCUMENT_DATA;
+        $this->currentDocumentType = MAKE_DocumentType;
         try {
             $this->loadSettingJsonFile($jsonFile);
         } catch (\Exception $e) {

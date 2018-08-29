@@ -25,11 +25,6 @@ use Hasarius\decorate as Decorate;
 class Generate
 {
     /**
-     * 設定値を格納
-     * @var array
-     */
-    private $config = [];
-    /**
      * プリプロセスコマンド保持マップ
      * @var array
      */
@@ -109,11 +104,15 @@ class Generate
      * @var array
      */
     private $validateErrorList = [];
+    /**
+     * ソース内変数格納
+     * @var array
+     */
+    private $variables = [];
 
     public function __construct()
     {
-        $this->currentSubCommand = new CloseInfo();
-        $this->initialize();
+        // $this->currentSubCommand = new CloserInfo();
     }
 
     /**
@@ -193,17 +192,17 @@ class Generate
      */
     public function make(string $source): bool
     {
+        // 事前準備
+        $this->initialize();
         // HTMLファイル生成用ユーザ独自の設定ファイル読み込み
         $sourcePath = explode(DIRECTORY_SEPARATOR, $source);
         array_pop($sourcePath);
         $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
             // ユーザ指定がなければシステム側提供の設定ファイルを使用
-            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'make.json';
+            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'make.json';
         }
-        $json = file_get_contents($makeConfigFile);
-        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $this->config = json_decode($json, true);
+        MakeConst::loadMakeFile($makeConfigFile);
 
         // HTML生成
         try {
@@ -261,9 +260,9 @@ class Generate
     {
         $lineNumber = 0;
         $lines = [];
-        $variables = [];
-        $sourceInfo = explode($source, DIRECTORY_SEPARATOR);
+        $sourceInfo = explode(DIRECTORY_SEPARATOR, $source);
         $filename = array_pop($sourceInfo);
+        $sourceDir = implode(DIRECTORY_SEPARATOR, $sourceInfo);
         try {
             // ファイル存在確認
             if (!file_exists($source)) {
@@ -273,32 +272,32 @@ class Generate
             $hFile = fopen($source, 'r');
             // 行読み込み
             while (($line = fgets($hFile)) !== false) {
+                // 改行削除
+                $line = rtrim($line);
                 // 行カウントアップ
                 $lineNumber++;
                 // 変数置き換え
-                if (empty($variables)) {
+                if (!empty($this->variables)) {
                     // 変数定義がある場合に置き換え処理を実施
-                    $line = Parser::replaceVariable($variables, $line);
+                    $line = Utils\Parser::replaceVariable($this->variables, $line);
                 }
                 // 外部ソースチェック & 読み込み
-                $match = null;
-                $checkedSource = Parser::getIncludeFile($line);
+                $checkedSource = Utils\Parser::getIncludeFile($line);
                 if (!empty($checkedSource["filename"])) {
                     $lines = array_merge($lines, $this->preprocess($checkedSource["filename"]));
                     continue;
                 }
                 // 変数対応
-                $match = null;
-                $tempVar = Parser::getValiable($line);
-                if (array_key_exists($tempVar['valName'], $variables)) {
+                $tempVar = Utils\Parser::getValiable($line);
+                if (array_key_exists($tempVar['varName'], $this->variables)) {
                     throw new \Exception("Deplicate variable error !!");
                 }
-                if (!empty($tempVar['valName'])) {
-                    $variables[$tempVar['valName']] = $tempVar;
+                if (!empty($tempVar['varName'])) {
+                    $this->variables[$tempVar['varName']] = $tempVar;
                     continue;
                 }
                 // 特殊コマンド対応
-                $vessel = Parser::analyzeLine($line, [], '@', '=');
+                $vessel = Utils\Parser::analyzeLine($line, [], '@', '=');
                 if (!empty($vessel->getCommand())) {
                     $batch = $vessel->getBatch();
                     foreach ($batch as $batchLine) {
@@ -322,7 +321,7 @@ class Generate
             // ファイルクローズ
             fclose($hFile);
         } catch (\Exception $e) {
-            throw new Exception('[ERROR:PREPROCESS] ' . $filename . ':' . $lineNumber . ' - ' . $e->getMessage(), 1);
+            throw new \Exception('[ERROR:PREPROCESS] ' . $filename . ':' . $lineNumber . ' - ' . $e->getMessage(), 1);
         }
         return $lines;
     }
@@ -374,7 +373,7 @@ class Generate
                     $subIndex = 0;
                     foreach ($lineParameters->getModifiers() as $decorate) {
                         //  ---- 修飾コマンド解析
-                        $decorateCommand = Util/Parser::analyzeModifier($decorate);
+                        $decorateCommand = Utils\Parser::analyzeModifier($decorate);
                         //  ---- インデックス設定
                         $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
                         //  ---- 修飾エイリアス確認
@@ -552,7 +551,7 @@ class Generate
                 $comment = ' <!-- ' . $vessel->getComment() . ' -->';
             }
             // ブロッククローズ
-            if ($vessel->getCommand() == Parser::SYSTEM_BLOCK_CLOSE) {
+            if ($vessel->getCommand() == Utils\Parser::SYSTEM_BLOCK_CLOSE) {
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
                 $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
@@ -563,7 +562,7 @@ class Generate
                 continue;
             }
             // 空行
-            if ($vessel->getCommand() == Parser::SYSTEM_EMPTY_LINE) {
+            if ($vessel->getCommand() == Utils\Parser::SYSTEM_EMPTY_LINE) {
                 $this->documentWork[] = PHP_EOL;
                 continue;
             }
