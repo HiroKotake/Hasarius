@@ -327,13 +327,14 @@ class Parser
 
     /**
      * 引数で指定された文字列からファイルと子マントを取り出す
-     * @param  string $source 文字列
+     * @param  string $source ファイル名。第２引数の指定が無い場合はフルパスで、第２引数を指定した場合は相対パスで指定する。
+     * @param  string $baseDir ベースディレクトリ　第１引数で指定されているファイルを検索するためのベースディレクトリを指定
      * @return array          [
      *                          "filename" => <ファイル名>,      ファイル指定に該当した場合はファイル文字列、該当しない場合は null
      *                          "comment"  => <コメント文字列>   コメント指定に該当した場合はコメント文字列、該当しない場合は null
      *                        ]
      */
-    public static function getIncludeFile($source): array
+    public static function getIncludeFile(string $source, string $baseDir = null): array
     {
         $result = [
             "filename" => null,
@@ -352,7 +353,11 @@ class Parser
                 throw new \Exception("File is not mention !!");
             }
             if (!file_exists($match[1])) {
-                throw new \Exception("File not exists !! -> (" . $match[1] . ")");
+                if (!empty($baseDir) && file_exists($baseDir . DIRECTORY_SEPARATOR . $match[1])) {
+                    $result["filename"] = $baseDir . DIRECTORY_SEPARATOR . $match[1];
+                } else {
+                    throw new \Exception("File not exists !! -> (" . $match[1] . ")");
+                }
             }
         }
         return $result;

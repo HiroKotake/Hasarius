@@ -23,10 +23,10 @@ class CloserInfo
      */
     private $subCommand = [];
 
-    public function __construct(string $closeTag, array $subCommand)
+    public function __construct(string $closeTag = null, array $subCommand = null)
     {
-        $this->closeTag   = $closeTag;
-        $this->subCommand = $subCommand;
+        $this->closeTag   = $closeTag ?? "";
+        $this->subCommand = $subCommand ?? [];
     }
 
     /**

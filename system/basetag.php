@@ -138,7 +138,7 @@ class BaseTag
     protected $blockType             = self::BLOCK_TYPE_INLINE;
     /**
      * コマンドの利用種別
-     * @var array|null コマンドの適用先(sytem, html, css, script)
+     * @var array コマンドの適用先(sytem, html, css, script)
      *                 配列に含まれる可能性のある要素
      *                 COMMAND_PERPOSE_SYSTEM(1)       ... システム用コマンド
      *                 COMMAND_PERPOSE_HTML(10)        ... HTML用コマンド
@@ -148,18 +148,22 @@ class BaseTag
     protected $commandPerpose        = [];
     /**
      * コマンド呼び出し用エイリアス
-     * @var string|null エイリアス文字列
+     * @var string エイリアス文字列
      */
-    protected $commandAlias          = null;
+    protected $commandAlias          = "";
     /**
      * 使用可能ドキュメントタイプ
-     * @var array|null 使用可能ドキュメントタイプのリスト
-     *                 配列に含まれる可能性のある要素
-     *                 DOCUMENT_TYPE_HTML4_LOOSE(1)
-     *                 DOCUMENT_TYPE_HTML4_STRICT(2)
-     *                 DOCUMENT_TYPE_HTML4_FRAME(3)
-     *                 DOCUMENT_TYPE_XHTML1(10)
-     *                 DOCUMENT_TYPE_HTML5(20)
+     * @var array 使用可能ドキュメントタイプのリスト
+     *            配列に含まれる可能性のある要素
+     *            DOCUMENT_TYPE_HTML4_LOOSE(1)
+     *            DOCUMENT_TYPE_HTML4_STRICT(2)
+     *            DOCUMENT_TYPE_HTML4_FRAME(3)
+     *            DOCUMENT_TYPE_XHTML1_LOOSE(10)
+     *            DOCUMENT_TYPE_XHTML1_STRICT(11)
+     *            DOCUMENT_TYPE_XHTML1_FRAME(12)
+     *            DOCUMENT_TYPE_XHTML1_1(13)
+     *            DOCUMENT_TYPE_HTML5(20)
+     *            DOCUMENT_TYPE_HTML5_1(21)
      */
     protected $possibleDocumentTypes = [];
     /**
@@ -202,6 +206,16 @@ class BaseTag
      * @var string
      */
     protected $scriptSetType;
+    /**
+     * スクリプトファイル
+     * @var string
+     */
+    protected $scriptFile = "";
+    /**
+     * CSSファイル
+     * @var string
+     */
+    protected $cssFile = "";
 
     /**
      * コンストラクタ
@@ -495,6 +509,40 @@ class BaseTag
     }
 
     /**
+     * 設定ファイルからスクリプトファイルリストを設定
+     * @param array $list スクリプトファイルリスト
+     */
+    public function setScriptFile(array $list): void
+    {
+        $this->scriptFile = $list;
+    }
+    /**
+     * スクリプトファイルを取得
+     * @return string スクリプトファイル
+     */
+    public function getScriptFile(): string
+    {
+        return empty($this->scriptFile) ? "" : $this->scriptFile[MAKE_DocumentType];
+    }
+
+    /**
+     * 設定ファイルからCSSファイルリストを設定
+     * @param array $list スクリプトファイルリスト
+     */
+    public function setCssFile(array $list): void
+    {
+        $this->cssFile = $list;
+    }
+    /**
+     * CSSファイルを取得
+     * @return string CSSファイル
+     */
+    public function getCssFile(): string
+    {
+        return empty($this->cssFile) ? "" : $this->cssFile[MAKE_DocumentType];
+    }
+
+    /**
      * コマンド設定用JSONファイルを読み込み、設定値を格納
      * @param string $filename コマンド設定用JSONファイル
      * @throws Exception ファイル存在しない、ファイルが開けない場合に例外を発生
@@ -534,6 +582,12 @@ class BaseTag
             }
             if (array_key_exists("SubCommand", $settings)) {
                 $this->setSubCommand($settings["SubCommand"]);
+            }
+            if (array_key_exists("ScriptFile", $settings)) {
+                $this->setScriptFile($settings["ScriptFile"]);
+            }
+            if (array_key_exists("CssFile", $settings)) {
+                $this->setCssFile($settings["CssFile"]);
             }
             // json変数を解放
             unset($json);

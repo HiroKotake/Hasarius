@@ -12,8 +12,8 @@ namespace Hasarius\system;
 
 use Hasarius\utils as Utils;
 use Hasarius\preprocess as Preprocess;
-use Hasarius\command as Command;
-use Hasarius\decorate as Decorate;
+use Hasarius\commands as Commands;
+use Hasarius\decorates as Decorates;
 
 /**
  * HTML 生成クラス
@@ -43,7 +43,7 @@ class Generate
      * コマンドエイリアス保持マップ
      * @var array
      */
-    private $commandAlias = [];
+    private $commandsAlias = [];
     /**
      * 修飾コマンド保持マップ
      * @var array
@@ -112,74 +112,87 @@ class Generate
 
     public function __construct()
     {
-        // $this->currentSubCommand = new CloserInfo();
+        $this->currentSubCommand = new CloserInfo();
     }
 
     /**
      * システム初期設定実施：ユーザ指定の設定以外のシステム側だけの設定を読み込む
      */
-    private function initialize() : void
+    public function initialize() : void
     {
-        // 定数値読み込み
-        MakeConst::load();
+        if (!defined("FLAG_UNIT_TEST")) {
+            // 定数値読み込み
+            MakeConst::load();
 
-        // directory解析
-        $dirMap = explode(DIRECTORY_SEPARATOR, __DIR__);
-        array_pop($dirMap);
-        $baseDir = implode(DIRECTORY_SEPARATOR, $dirMap);
-        define('HASARIUS_BASE_DIR', $baseDir);
-        define('HASARIUS_PREPROCESS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'preprocess');
-        define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
-        define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
-        define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
-        define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
+            // directory解析
+            $dirMap = explode(DIRECTORY_SEPARATOR, __DIR__);
+            array_pop($dirMap);
+            $baseDir = implode(DIRECTORY_SEPARATOR, $dirMap);
+            define('HASARIUS_BASE_DIR', $baseDir);
+            define('HASARIUS_PREPROCESS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'preprocess');
+            define('HASARIUS_SYSTEM_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'system');
+            define('HASARIUS_UTILS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'utils');
+            define('HASARIUS_COMMANDS_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'commands');
+            define('HASARIUS_DECORATION_DIR', HASARIUS_BASE_DIR . DIRECTORY_SEPARATOR . 'decorations');
+        }
 
         // preprocess 読み込み
         $commandDir = dir(HASARIUS_PREPROCESS_DIR);
-        while (false !== ($file = $commandDir->read())) {
-            if (($file != '.' || $file != '..') && is_dir($file)) {
+        while (($file = $commandDir->read()) !== false) {
+            if (is_dir(HASARIUS_PREPROCESS_DIR . DIRECTORY_SEPARATOR . $file) && $file != '.' && $file != '..') {
                 // クラス生成
                 $className = 'Preprocess\Preprocess' . ucfirst($file);
                 $this->preprocessCommand[$file] = new $className();
-                $this->preprocessCommandAlias[$this->preprocessCommand[$file]->getCommandAlias()] = $file;
+                $alias = $this->preprocessCommand[$file]->getCommandAlias();
+                if (!empty($alias)) {
+                    $this->preprocessCommandAlias[$alias] = $file;
+                }
             }
         }
         $commandDir->close();
 
         // commands 読み込み
         $commandDir = dir(HASARIUS_COMMANDS_DIR);
-        while (false !== ($file = $commandDir->read())) {
-            if (($file != '.' || $file != '..') && is_dir($file)) {
-                $filepath = HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR;
+        while (($file = $commandDir->read()) !== false) {
+            $targetDir = HASARIUS_COMMANDS_DIR . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($targetDir) && $file != '.' && $file != '..') {
+                $classPath = $targetDir . DIRECTORY_SEPARATOR;
                 // クラス生成
-                if (file_exists($filepath . $file . '.php')) {
+                if (file_exists($classPath . $file . '.php')) {
                     // PHPファイルの定義がある場合
                     $className = 'Command\Command' . ucfirst($file);
                     $this->commands[$file] = new $className();
                 } else {
                     // JSONファイル定義が主体
-                    $this->commands[$file] = new Command($filepath . 'define.json');
+                    $this->commands[$file] = new Command($classPath . 'define.json');
                 }
-                $this->commandAlias[$this->commands[$file]->getCommandAlias()] = $file;
+                $alias = $this->commands[$file]->getCommandAlias();
+                if (!empty($alias)) {
+                    $this->commandsAlias[$alias] = $file;
+                }
             }
         }
         $commandDir->close();
 
         // dcecoration 読み込み
         $decorationDir = dir(HASARIUS_DECORATION_DIR);
-        while (false !== ($file = $decorationDir->read())) {
-            if (($file != '.' || $file != '..') && is_dir($file)) {
-                $filepath = HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR;
+        while (($file = $decorationDir->read()) !== false) {
+            $targetDir = HASARIUS_DECORATION_DIR . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($targetDir) && $file != '.' && $file != '..') {
+                $classPath = $targetDir . DIRECTORY_SEPARATOR;
                 // クラス生成
-                if (file_exists($filepath . $file . '.php')) {
+                if (file_exists($classPath . $file . '.php')) {
                     // PHPファイルの定義がある場合
                     $className = 'Decorate\Decorate' . ucfirst($file);
                     $this->decorations[$file] = new $className();
                 } else {
                     // JSONファイル定義が主体
-                    $this->decorations[$file] = new $className($filepath . 'define.json');
+                    $this->decorations[$file] = new Decoration($classPath . 'define.json');
                 }
-                $this->decorationsAlias[$this->decorations[$file]->getCommandAlias()] = $file;
+                $alias = $this->decorations[$file]->getCommandAlias();
+                if (!empty($alias)) {
+                    $this->decorationsAlias[$alias] = $file;
+                }
             }
         }
         $decorationDir->close();
@@ -282,7 +295,7 @@ class Generate
                     $line = Utils\Parser::replaceVariable($this->variables, $line);
                 }
                 // 外部ソースチェック & 読み込み
-                $checkedSource = Utils\Parser::getIncludeFile($line);
+                $checkedSource = Utils\Parser::getIncludeFile($line, $sourceDir);
                 if (!empty($checkedSource["filename"])) {
                     $lines = array_merge($lines, $this->preprocess($checkedSource["filename"]));
                     continue;
@@ -351,20 +364,20 @@ class Generate
                 } else {
                     $command = $lineParameters->getCommand();
                     //  ---- コマンドエイリアス確認
-                    if (in_array($command, $this->commandAlias)) {
-                        $command = $this->commandAlias[$command];
+                    if (array_key_exists($command, $this->commandsAlias)) {
+                        $command = $this->commandsAlias[$command];
                     }
                     //  ---- コマンドエイリアスになければ実態を確認
-                    if (!in_array($command, $this->commands)) {
+                    if (!array_key_exists($command, $this->commands)) {
                         throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
                     }
                     //  ----- パラメータ検証
-                    $validateResult = Utils\HtmlValidation($this->commands[$command], $lineParameters->getParamaters());
+                    $validateResult = Utils\HtmlValidation::validate($this->commands[$command], $lineParameters->getParamaters());
                     if (!empty($validateResult)) {
                         if (MAKE_ValidateStop) {
                             throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
                         } else {
-                            $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
+                            $this->validateErrorList[] = $validateResult;
                         }
                     }
                     //  ----- コマンド処理
@@ -377,11 +390,11 @@ class Generate
                         //  ---- インデックス設定
                         $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
                         //  ---- 修飾エイリアス確認
-                        if (in_array($decorateCommand['command'], $this->decorationsAlias)) {
+                        if (array_key_exists($decorateCommand['command'], $this->decorationsAlias)) {
                             $decorateCommand['command'] = $this->decorationsAlias[$decorateCommand['command']];
                         }
                         //  ---- 修飾エイリアスになければ実態を確認
-                        if (!in_array($decorateCommand['command'], $this->decorations)) {
+                        if (!array_key_exists($decorateCommand['command'], $this->decorations)) {
                             throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
                         }
                         //  ----- パラメータ検証
@@ -611,37 +624,59 @@ class Generate
         $this->documentWork[] = '</html>';
     }
 
-    // For Debug
+    /**************************************************************************/
+    /*** FOR Debug  ***********************************************************/
+    /**************************************************************************/
+    public function getPreprocessCommandList(): array
+    {
+        return array_keys($this->preprocessCommand);
+    }
+    public function getPreprocessCommandAliasList(): array
+    {
+        return array_keys($this->preprocessCommandAlias);
+    }
+    public function getCommandsList(): array
+    {
+        return array_keys($this->commands);
+    }
+    public function getCommandsAliasList(): array
+    {
+        return array_keys($this->commandsAlias);
+    }
+    public function getDecorationCommandList(): array
+    {
+        return array_keys($this->decorations);
+    }
+    public function getDecorationCommandAliasList(): array
+    {
+        return array_keys($this->decorationsAlias);
+    }
+
     public function getCloserStack(): array
     {
         return $this->closerStack;
     }
 
-    // For Debug
     public function getScriptStack(): array
     {
         return $this->scriptStack;
     }
 
-    // For Debug
     public function getCssStack(): array
     {
         return $this->cssStack;
     }
 
-    // For Debug
     public function getVesselContainer(): array
     {
         return $this->vesselContainer;
     }
 
-    // For Debug
     public function getDocumentWork(): array
     {
         return $this->documentWork;
     }
 
-    // For Debug
     public function physicalTest(): string
     {
         return 'DONE';

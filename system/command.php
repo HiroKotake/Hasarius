@@ -43,7 +43,7 @@ class Command extends BaseTag
     public function trancelate(Vessel &$parsed): void
     {
         // コマンドの場合はID生成(id_ + "行番号")
-        $parsed->setId('id_' . $parsed['lineNumber']);
+        $parsed->setId('id_' . $parsed->getLineNumber());
         // 自動インデント設定
         $parsed->setAutoIndent($this->isAutoIndent());
 
@@ -51,37 +51,34 @@ class Command extends BaseTag
         if (!empty($parsed->getCommand()) && $this->getCommandName() == $parsed->getCommand()) {
             // ブロックタイプ設定
             $parsed->setBlockType($this->getBlockType());
-            // ToDo: コマンドの属性と属性値の正当性確認
-            // $parserParamaters = $parsed->getParamaters();
-            // $params = $this->varifiyTagParamaters($parserParamaters);
+            $parserParamaters = $parsed->getParamaters();
             // 開始タグ
-            $tagOpen = '<' . $this->getTagOpen();
-            foreach ($params as $key => $value) {
-                $tagOpen . ' ' . $key . '="' . $value . '"';
+            $parameters = "";
+            foreach ($parserParamaters as $key => $value) {
+                $parameters .= " " . $key . '="' . $value . '"';
             }
+            $tagOpen = '<' . $this->getTagOpen() . $parameters;
             $parsed->setTagOpen($tagOpen . '>');
             // 終了タグ（スタック用）
             $parsed->setTagClose($this->getTagClose());
             // scriptがあるならばそのデータを定義
-            $filename = null;
-            if (array_key_exists('ScriptFile', $parserParamaters)) {
-                $filename = $parserParamaters['ScriptFile'];
-                // ファイルが存在しない場合は例外発生
+            $filename = $this->getScriptFile();
+            if (!empty($filename)) {
                 if (!file_existx($filename)) {
+                    // ファイルが存在しない場合は例外発生
                     throw new \Exception("Script template file is not exists !! (" . $filename . ")");
                 }
+                $parsed->setScript($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
             }
-            $parsed->setScript($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
             // 独自CSSがあるならばそのデータを定義
-            $filename = null;
-            if (array_key_exists('CssFile', $parserParamaters)) {
-                $filename = $parserParamaters['CssFile'];
-                // ファイルが存在しない場合は例外発生
+            $filename = $this->getCssFile();
+            if (!empty($filename)) {
                 if (!file_exists($filename)) {
+                    // ファイルが存在しない場合は例外発生
                     throw new \Exception("CSS template file is not exists !! (" . $filename . ")");
                 }
+                $parsed->setCss($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
             }
-            $parsed->setCss($this->makeScriptString($parsed->getId(), HASARIUS_COMMANDS_DIR, $filename));
         }
     }
 
