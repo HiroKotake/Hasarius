@@ -14,6 +14,7 @@ use Hasarius\utils as Utils;
 use Hasarius\preprocess as Preprocess;
 use Hasarius\commands as Commands;
 use Hasarius\decorates as Decorates;
+use jp\teleios\libs as Libs;
 
 /**
  * HTML 生成クラス
@@ -24,6 +25,11 @@ use Hasarius\decorates as Decorates;
  */
 class Generate
 {
+    /**
+     * ページタイトル
+     * @var string
+     */
+    private $pageTitle = "";
     /**
      * プリプロセスコマンド保持マップ
      * @var array
@@ -110,9 +116,19 @@ class Generate
      */
     private $variables = [];
 
-    public function __construct()
+    public function __construct(string $pageTitle = "")
     {
+        $this->pageTitle = $pageTitle ?? MAKE_Title;
         $this->currentSubCommand = new CloserInfo();
+    }
+
+    public function setPageTitle(string $pageTitle): void
+    {
+        $this->pageTitle = $pageTitle ?? MAKE_Title;
+    }
+    public function getPateTitle(): string
+    {
+        return $this->pageTitle;
     }
 
     /**
@@ -310,17 +326,19 @@ class Generate
                     continue;
                 }
                 // 特殊コマンド対応
-                $vessel = Utils\Parser::analyzeLine($line, [], '@', '=');
-                if (!empty($vessel->getCommand())) {
-                    $batch = $vessel->getBatch();
-                    foreach ($batch as $batchLine) {
-                        $line[] = [
-                            'filename' => $filename,
-                            'filefullpath' => $source,
-                            'lineNumber' => $lineNumber,
-                            'lineText' => $batchLine,
-                        ];
+                // ToDo: 特殊コマンド対応処理に納得いかない部分がるので、ルールを含め見直しが必要と思う
+                $vessel = Utils\Parser::analyzeLine(["lineText" => $line, "lineNumber" => $lineNumber], [], '@', '=');
+                if (!empty($vessel->getBatch())) {
+                    $batches = "";
+                    foreach ($vessel->getBatch() as $batch) {
+                        $batches .= $batch . PHP_EOL;
                     }
+                    $lines[] = [
+                        'filename' => $filename,
+                        'filefullpath' => $source,
+                        'lineNumber' => $lineNumber,
+                        'lineText' => $batch,
+                    ];
                     continue;
                 }
                 // ライン読み込み
@@ -345,7 +363,7 @@ class Generate
      *
      * @param  array $source     プリプロセスを経由して作成されたデータ配列
      */
-    public function analyze(array $source) : int
+    public function analyze(array $source) : void
     {
         // STEP 1 : READ LINE
         try {
@@ -353,7 +371,7 @@ class Generate
             foreach ($source as $line) {
                 // ToDo: 文字エンコード変換
                 //  --- 解析
-                $lineParameters = Utils\Parser::analyzeLine($line['lineText'], $this->currentSubCommand->getSubCommand());
+                $lineParameters = Utils\Parser::analyzeLine($line, $this->currentSubCommand->getSubCommand());
                 if (is_numeric($lineParameters->getCommand())) {
                     // --- システムコマンド系
                     //  コンテナに格納
@@ -436,6 +454,7 @@ class Generate
      */
     public function transform(): void
     {
+        $this->currentIndent += 1;
         foreach ($this->vesselContainer as $vessel) {
             // スクリプト抽出
             $workScript = $vessel->getScript();
@@ -453,10 +472,15 @@ class Generate
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
                 // 現在のサブコマンドを設定する
-                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand(), $vessel->getAutoIndent());
+                //$this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand(), $vessel->getAutoIndent());
+                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent());
                 array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
                 $this->currentIndent += 1;
+            }
+            // ブロッククローズ対応：インデント数修正
+            if ($vessel->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
+                $this->currentIndent -= 1;
             }
         }
     }
@@ -467,13 +491,13 @@ class Generate
     public function genarate(): void
     {
         // スクリプトファイルを生成
-        $scriptFileName = $this->subGenarateScriptFile();
+        $scriptFileName = $this->subGenerateScriptFile();
         // CSSファイルを生成
-        $cssFileName = $this->subGenarateCssFile();
+        $cssFileName = $this->subGenerateCssFile();
         // 設定からヘッダ部を生成
-        $this->subGenarateHead($scriptFileName, $cssFileName);
+        $this->subGenerateHead($scriptFileName, $cssFileName);
         // BODY部を生成
-        $this->subGenarateBody();
+        $this->subGenerateBody();
         // HTMLファイル出力
         $fileName = DESTINATION . DIRECTORY_SEPARATOR . TARGET_NAME . '.html';
         $hFile = fopen($fileName, 'w');
@@ -483,7 +507,7 @@ class Generate
         fclose($hFile);
     }
 
-    private function subGenarateScriptFile(): string
+    public function subGenerateScriptFile(): string
     {
         $scriptFileName = "";
         if (!empty($this->scriptStack['FILE']) || !empty($this->scriptStack['FILE_READY'])) {
@@ -523,7 +547,7 @@ class Generate
         return $scriptFileName;
     }
 
-    private function subGenarateCssFile(): string
+    public function subGenerateCssFile(): string
     {
         $cssFileName = "";
         if (!empty($this->cssStack)) {
@@ -537,34 +561,43 @@ class Generate
         return $cssFileName;
     }
 
-    private function subGenarateHead(string $scriptFile, string $cssFile): void
+    /**
+     * make.jsonファイルで設定されてデータから、HEAD部に必要な文字列を生成する
+     * @param string $scriptFile [description]
+     * @param string $cssFile    [description]
+     */
+    public function subGenerateHead(string $scriptFile = "", string $cssFile = ""): void
     {
+        $this->documentWork[] = MakeConst::getDocumentType();
         // 設定からヘッダ部(設定ファイルによる部分のみ)を生成
         $this->documentWork[] = '<html>';
-        $this->documentWork[] = '    <head>';
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . '<head>';
 
         // 設定からヘッダ部(コマンドにより生成されたスクリプト,CSS)を生成
-        $this->documentWork[] = '        <script type="text/javascript" src="' .$scriptFile . '"></script>';        // ToDo: 設定として個別の排出先指定が可能なようにする
-        $this->documentWork[] = '        <link rel="stylesheet" type="text/css" href="' . $cssFile . '"></style>';  // ToDo: 設定として個別の排出先指定が可能なようにする
-        $this->documentWork[] = '    </head>';
+        if (!empty($scriptFile)) {
+            $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . '<script type="text/javascript" src="' .$scriptFile . '"></script>';        // ToDo: 設定として個別の排出先指定が可能なようにする
+        }
+        if (!empty($cssFile)) {
+            $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . '<link rel="stylesheet" type="text/css" href="' . $cssFile . '"></style>';  // ToDo: 設定として個別の排出先指定が可能なようにする
+        }
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . '</head>';
     }
 
-    // ToDo: インデントは無視している
-    private function subGenarateBody(): void
+    /**
+     * BODY部のHTMLを生成する
+     */
+    public function subGenerateBody(): void
     {
         foreach ($this->vesselContainer as $vessel) {
-            // インデント分生成
-            if ($vessel->getAutoIndent()) {
-                $indentText = Utils\indentRepeat($vessel->getIndent());
-            }
             // コメント存在確認
             // * 設定ファイルによりコメント表示がONならばコメントテキストを追加する
             $comment = "";
-            if (SHOW_COMMENT && !empty($vessel->getComment())) {
+            if (MAKE_ShowComment && !empty($vessel->getComment())) {
                 $comment = ' <!-- ' . $vessel->getComment() . ' -->';
             }
             // ブロッククローズ
-            if ($vessel->getCommand() == Utils\Parser::SYSTEM_BLOCK_CLOSE) {
+            if ($vessel->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
+                $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent() - 1);
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
                 $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
@@ -575,9 +608,13 @@ class Generate
                 continue;
             }
             // 空行
-            if ($vessel->getCommand() == Utils\Parser::SYSTEM_EMPTY_LINE) {
+            if ($vessel->getCommand() == SYSTEM["EMPTY_LINE"]) {
                 $this->documentWork[] = PHP_EOL;
                 continue;
+            }
+            // インデント分生成
+            if ($vessel->getAutoIndent()) {
+                $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent());
             }
             // 通常
             // - スクリプト対応
@@ -586,19 +623,17 @@ class Generate
                 $this->documentWork = array_merge($this->documentWork, $scriptCheck['body']);
             }
             // - タグの内容
-            switch ($vessel->getBlockType) {
+            switch ($vessel->getBlockType()) {
                 case BaseTag::BLOCK_TYPE_INLINE:
                     $this->documentWork[] = $indentText
-                                    . '<' . $vessel->getTagOpen()
-                                    . ' ' . $vessel->getVerifiedAttributes() . '>'
+                                    . $vessel->getTagOpen()
                                     . $vessel->getText()
                                     . $vessel->getTagClose()
                                     . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
                     $this->documentWork[] = $indentText
-                                          . '<' . $vessel->getTagOpen()
-                                          . ' ' . $vessel->getVerifiedAttributes() . '>'
+                                          . $vessel->getTagOpen()
                                           . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BATCH:
@@ -620,7 +655,7 @@ class Generate
             $this->documentWork[] = '</script>';
         }
 
-        $this->documentWork[] = '    </body>';
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . '</body>';
         $this->documentWork[] = '</html>';
     }
 

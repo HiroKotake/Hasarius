@@ -53,7 +53,7 @@ class Command extends BaseTag
             $parsed->setBlockType($this->getBlockType());
             $parserParamaters = $parsed->getParamaters();
             // 開始タグ
-            $parameters = "";
+            $parameters = " id=\"" . $parsed->getId() . "\"";
             foreach ($parserParamaters as $key => $value) {
                 $parameters .= " " . $key . '="' . $value . '"';
             }

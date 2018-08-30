@@ -22,11 +22,17 @@ class CloserInfo
      * @var array サブコマンドデータリスト
      */
     private $subCommand = [];
+    /**
+     * 事前のインデント数
+     * @var int
+     */
+    private $indentNumber = 0;
 
-    public function __construct(string $closeTag = null, array $subCommand = null)
+    public function __construct(string $closeTag = null, array $subCommand = [], int $indentNumber = 0)
     {
         $this->closeTag   = $closeTag ?? "";
         $this->subCommand = $subCommand ?? [];
+        $this->indentNumber = $indentNumber ?? 0;
     }
 
     /**
@@ -61,5 +67,22 @@ class CloserInfo
     public function getSubCommand(): array
     {
         return $this->subCommand;
+    }
+
+    /**
+     * 自動インデントを設定
+     * @param bool $autoIndent 自動インデント設定
+     */
+    public function setIndentNumber(int $indentNumber): void
+    {
+        $this->indentNumber = $indentNumber;
+    }
+    /**
+     * 自動インデント設定を取得
+     * @return bool 自動インデント設定
+     */
+    public function getIndentNumber(): int
+    {
+        return $this->indentNumber;
     }
 }

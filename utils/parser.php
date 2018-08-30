@@ -21,11 +21,6 @@ use Hasarius\system\Vessel;
  */
 class Parser
 {
-    // システムコマンド定義
-    const SYSTEM_COMMENT_LINE = 10000;
-    const SYSTEM_EMPTY_LINE   = 10001;
-    const SYSTEM_BLOCK_CLOSE  = 10002;
-
     /**
      * 文字列を解析する
      * @param string $line
@@ -37,7 +32,7 @@ class Parser
      * @return Vessel|null      サブコマンドの場合はnullを返し、それ以外はVesselオブジェクトを返す
      */
     public static function analyzeLine(
-        string $line,
+        array $line,
         array  $subCommand = [],
         string $commandHead = '#',
         string $parameterDelim = '=',
@@ -55,7 +50,7 @@ class Parser
             }
             $subCommandPat = "/^\s*([" . ltrim($subCommandPat, "|") . "])\s*(.*)$/";
             $subCommandMatch = null;
-            $flagSubCommantMatch = preg_match($subCommandPat, $line, $subCommandMatch);
+            $flagSubCommantMatch = preg_match($subCommandPat, $line["lineText"], $subCommandMatch);
             if ($flagSubCommantMatch) {
                 $vessel->setCommand($subCommandMatch[1]);
                 $vessel->setSubCommand(true);
@@ -65,7 +60,7 @@ class Parser
         }
 
         // 本文とコメントに分離
-        $separated = self::separateComment($line);
+        $separated = self::separateComment($line["lineText"]);
 
         $lineWork = $separated['body'];
         $paramaters = [];
@@ -75,21 +70,21 @@ class Parser
 
         // コメント行か確認
         if (strlen(trim($separated['body'])) == 0 && mb_strlen($separated['comment']) > 0) {
-            $vessel->setCommand(self::SYSTEM_COMMENT_LINE);
+            $vessel->setCommand(SYSTEM["COMMENT_LINE"]);
             $vessel->setComment($separated['comment']);
             return $vessel;
         }
 
         // 空白行か確認
         if (strlen(trim($separated['body'])) == 0 && mb_strlen($separated['comment']) == 0) {
-            $vessel->setCommand(self::SYSTEM_EMPTY_LINE);
+            $vessel->setCommand(SYSTEM["EMPTY_LINE"]);
             return $vessel;
         }
 
         // ブロッククロースか確認
         $blockClose = $commandHead . $commandHead;
         if ($separated['body'] == $blockClose) {
-            $vessel->setCommand(self::SYSTEM_BLOCK_CLOSE);
+            $vessel->setCommand(SYSTEM["BLOCK_CLOSE"]);
             $vessel->setComment($separated['comment']);
             return $vessel;
         }
@@ -97,6 +92,8 @@ class Parser
         // コマンドラインか確認
         $matchCommand = null;
         preg_match('/^' . $commandHead . '.*\s/U', ltrim($separated['body']), $matchCommand);
+        $commandName = SYSTEM["TEXT_ONLY"];
+        $paramaters = [];
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], $commandHead . ' ');
@@ -123,6 +120,7 @@ class Parser
         $vessel->setModifiers($modifierCommand);
         $vessel->setText(($commandName == "" ? $text : ltrim($text)));
         $vessel->setComment($separated['comment']);
+        $vessel->setLineNumber($line["lineNumber"]);
         return $vessel;
     }
 

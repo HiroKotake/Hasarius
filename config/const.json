@@ -1,4 +1,10 @@
 {
+    "SYSTEM": {
+        "COMMENT_LINE": 10000,
+        "EMPTY_LINE": 10001,
+        "BLOCK_CLOSE": 10002,
+        "TEXT_ONLY": 10003
+    },
     "HEAD_META": {
         "ContentType": {
             "attribute": "http-equiv",
@@ -63,6 +69,10 @@
         "Date": {
             "attribute": "name",
             "origin": "date"
+        },
+        "Property": {
+            "attribute": "property",
+            "origin": "property"
         }
     },
     "SCRIPT": {

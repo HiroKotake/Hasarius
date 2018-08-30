@@ -2,10 +2,11 @@
     "DocumentType": "HTML5",
     "BasePosittion": "head",
     "Language": "ja",
-    "prefix": [
+    "Prefix": [
         {"og": "http://ogp.me/ns#"}
     ],
-    "Chareset": "utf-8",
+    "HtmlClass": "",
+    "Charset": "utf-8",
     "Title": "Default Page",
     "Meta": {
         "ContentType": "text/html; charset=UTF-8",
@@ -23,19 +24,26 @@
         "ReplyTo": "info_hasarius&#64;teleios.jp",
         "Copyright": "teleios",
         "Generator": "hasarius",
-        "Date": "2018-08-31T12:00:00+09:00"
+        "Date": "2018-08-31T12:00:00+09:00",
+        "Property": {
+            "og:type": "article",
+            "og:title": "test",
+            "og:site_name": "sample page",
+            "og:url": "http://www.teleios.jp/index.html"
+        }
     },
     "Script": [
-        {"type":"", "src":""},
-        {"src":""}
+        {"type":"text/javascript", "src":"script/sample.js"},
+        {"src":"script/common.js"}
     ],
     "Link": [
-        {"rel":"", "href":""}
+        {"rel":"stylesheet", "href":"css/style.css"}
     ],
     "WriteTargetDir": "/var/www/html/test",
     "UseHashFileName": 0,
     "AutoHashFileName": 0,
     "HashedFileName": "",
     "AttributeValidate": 1,
-    "ValidateStop": 0
+    "ValidateStop": 0,
+    "ShowComment": 1
 }
