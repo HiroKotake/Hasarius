@@ -95,11 +95,13 @@ class MakeConst
                 throw new \Exception("[ERROR:" . __METHOD__ . "] $key can not use !!");
             }
             $info = HEAD_META[$key];
-            if ($key == "Property") {
-                foreach ($value as $subKey => $subValue) {
-                    $metaList[] = "<meta " . $info["attribute"] . "=\"$subKey\" content=\"$subValue\">";
+            if (preg_match("/^HTML5.*/", MAKE_DocumentType) > 0) {
+                if ($key == "Property") {
+                    foreach ($value as $subKey => $subValue) {
+                        $metaList[] = "<meta " . $info["attribute"] . "=\"$subKey\" content=\"$subValue\">";
+                    }
+                    continue;
                 }
-                continue;
             }
             // エンコード関連
             if ($key == "ContentType" && self::isDefinedCharset()) {
@@ -141,18 +143,23 @@ class MakeConst
     public static function getTagHtml(): string
     {
         $tagHtml = "<html";
-        if (defined("MAKE_HtmlClass")) {
-            $tagHtml .= ' class="' . MAKE_HtmlClass . '"';
+        if (defined("MAKE_HtmlClass") && !empty(MAKE_HtmlClass)) {
+            $tagHtml .= ' class="';
+            $classWork = "";
+            foreach (MAKE_HtmlClass as $cssName) {
+                $classWork .= $cssName . " ";
+            }
+            $tagHtml .= rtrim($classWork) . '"';
         }
         if (!defined('MAKE_BasePosition') || MAKE_BasePosition == "html") {
             if (defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
                 $prefixStr = "";
                 foreach (MAKE_Prefix as $prefix) {
-                    $prefixStr .= $prefix;
+                    $prefixStr .= $prefix . " ";
                 }
-                $tagHtml .= ' prefix="' . $prefixStr . '"';
+                $tagHtml .= ' prefix="' . rtrim($prefixStr) . '"';
+                $tagHtml .= ' lang="' . MAKE_Language . '"';
             }
-            $tagHtml .= ' lang="' . MAKE_Language . '"';
         }
         $tagHtml .= ">";
         return $tagHtml;

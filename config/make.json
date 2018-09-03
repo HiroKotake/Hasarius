@@ -1,11 +1,13 @@
 {
     "DocumentType": "HTML5",
-    "BasePosittion": "head",
+    "BasePosition": "head",
     "Language": "ja",
     "Prefix": [
-        {"og": "http://ogp.me/ns#"}
+        "og:http://ogp.me/ns#"
     ],
-    "HtmlClass": "",
+    "HtmlClass": [
+        "HtmlClassName"
+    ],
     "Charset": "utf-8",
     "Title": "Default Page",
     "Meta": {
@@ -38,6 +40,9 @@
     ],
     "Link": [
         {"rel":"stylesheet", "href":"css/style.css"}
+    ],
+    "BodyClass": [
+        "BodyClassName1"
     ],
     "WriteTargetDir": "/var/www/html/test",
     "UseHashFileName": 0,

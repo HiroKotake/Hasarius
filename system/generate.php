@@ -1,6 +1,6 @@
 <?php
 /**
- * genarate.php
+ * generate.php
  *
  * @package Hasarius
  * @category system
@@ -25,11 +25,27 @@ use jp\teleios\libs as Libs;
  */
 class Generate
 {
+    // ファイル名のハッシュ生成時の指定
+    const MD5_16  = 1;
+    const MD5_32  = 2;
+    const SHA1_20 = 3;
+    const SHA1_40 = 4;
+
     /**
      * ページタイトル
      * @var string
      */
-    private $pageTitle = "";
+    private $pageTitle = "Default Page Title";
+    /**
+     * HTMLファイル生成先ディレクトリ
+     * @var string
+     */
+    private $destination = "";
+    /**
+     * HTML作成時ファイル名称
+     * @var string
+     */
+    private $destFileName = "";
     /**
      * プリプロセスコマンド保持マップ
      * @var array
@@ -116,9 +132,8 @@ class Generate
      */
     private $variables = [];
 
-    public function __construct(string $pageTitle = "")
+    public function __construct()
     {
-        $this->pageTitle = $pageTitle ?? MAKE_Title;
         $this->currentSubCommand = new CloserInfo();
     }
 
@@ -129,6 +144,14 @@ class Generate
     public function getPateTitle(): string
     {
         return $this->pageTitle;
+    }
+    public function setDestination(string $dist): void
+    {
+        $this->destination = $dist;
+    }
+    public function getDestination(): string
+    {
+        return $this->destination;
     }
 
     /**
@@ -215,35 +238,104 @@ class Generate
     }
 
     /**
+     * HTMLファイル名を生成する
+     * @param  string $srcFileName ソースファイル名
+     * @return string              HTMLファイル名
+     */
+    public function makeDestFileName(string $srcFileName): string
+    {
+        $dstFileName = "";
+        if (defined("MAKE_UseHashFileName") && MAKE_UseHashFileName == 1) {
+            // フィイル名をハッシュ化
+            if (defined("MAKE_HashedFileName") && !empty(MAKE_HashedFileName)) {
+                // ユーザ側でハッシュ化したファイル名
+                $dstFileName = MAKE_HashedFileName;
+            } elseif (defined("MAKE_AutoHashFileName") && MAKE_AutoHashFileName > 1) {
+                switch (MAKE_AutoHashFileName) {
+                    case self::MD5_16:
+                        $dstFileName = md5($srcFileName, true) . ".html";
+                        break;
+                    case self::MD5_32:
+                        $dstFileName = md5($srcFileName) . ".html";
+                        break;
+                    case self::SHA1_20:
+                        $dstFileName = sha1($srcFileName, true) . ".html";
+                        break;
+                    case self::SHA1_40:
+                        $dstFileName = sha1($srcFileName) . ".html";
+                        break;
+                }
+            }
+        } else {
+            $dstFileName = preg_replace("/(\.text|\.txt)$/ui", ".html", $srcFileName);
+        }
+        return $dstFileName;
+    }
+
+    /**
      * HTMLファイル生成
-     * @param  string $source 元ファイル
+     * @param  array $params[
+     *                          "Source" => (必須) HTML化するファイル
+     *                          "Destination" => (任意) 生成したファイルを保存先ディレクトリ : make.json内で記載可だが、指定した場合はここでの指定が優先される
+     *                          "Title" => (任意) ページタイトル : make.json内で記載可だが、指定した場合はここでの指定が優先される
+     *                      ]
      * @return bool           成功時には真を、失敗時に偽を返す
      */
-    public function make(string $source): bool
+    public function make(array $params = ["Source" => "", "Destination" => "", "Title" => ""]): bool
     {
         // 事前準備
         $this->initialize();
-        // HTMLファイル生成用ユーザ独自の設定ファイル読み込み
-        $sourcePath = explode(DIRECTORY_SEPARATOR, $source);
-        array_pop($sourcePath);
+
+        // 設定読み込み
         $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
             // ユーザ指定がなければシステム側提供の設定ファイルを使用
             $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'make.json';
         }
+        // HTMLファイル生成用ユーザ独自の設定ファイル読み込み
         MakeConst::loadMakeFile($makeConfigFile);
+
+        // 変換後のHTMLファイル名設定
+        if (array_key_exists("Source", $params) || empty($params["Source"])) {
+            throw new \Exception("[ERROR] Paramater Invalid: Source not defined");
+        }
+        $sourcePath = explode(DIRECTORY_SEPARATOR, $params["Source"]);
+        $destFileWork = array_pop($sourcePath);
+        $this->destFileName = $this->makeDestFileName($destFileWork);
+
+        // ページタイトル変更
+        if (array_key_exists("Title", $params)) {
+            $this->pageTitle = empty($params["Title"]) ? MAKE_Title : $params["Title"];
+        } elseif (array_key_exists("Title", $params)) {
+            $this->pageTitle = $params["Title"];
+        }
+        // 保存先設定
+        if (array_key_exists("Destination", $params)) {
+            $this->destination = empty($params["Destination"]) ? MAKE_WriteTargetDir : $params["Destination"];
+        } elseif (array_key_exists("Destination", $params)) {
+            $this->destination = $params["Destination"];
+        } else {
+            // Make.json にも引数にも保存先の指定がない
+            throw new \Exception("[ERROR] Paramater Invalid: No destination specified !!", 1);
+        }
+        // 保存先確認
+        if (!file_exists($this->destination)) {
+            throw new \Exception("[ERROR] Paramater Invalid: Destination does not exist !!", 1);
+        }
 
         // HTML生成
         try {
             // ToDo: プリプロセス処理を追加（定数対応、変数対応、プリプロセス用バッチコマンド対応)
             // プリプロセス
-            $lines = $this->preprocess($source);
+            $lines = $this->preprocess($params["Source"]);
             // 解析
             $this->analyze($lines);
             // 構築
             $this->transform();
-            // ファイル出力
-            $this->genarate();
+            // HTML生成
+            $this->generate();
+            // HTML保存
+            $this->saveHtml();
         } catch (\Exception $e) {
             echo $e->getMessage();
             return false;
@@ -488,7 +580,7 @@ class Generate
     /**
      * transformの結果を受けて、HTMLファイルを作成する
      */
-    public function genarate(): void
+    public function generate(): void
     {
         // スクリプトファイルを生成
         $scriptFileName = $this->subGenerateScriptFile();
@@ -498,8 +590,12 @@ class Generate
         $this->subGenerateHead($scriptFileName, $cssFileName);
         // BODY部を生成
         $this->subGenerateBody();
+    }
+
+    public function saveHtml()
+    {
         // HTMLファイル出力
-        $fileName = DESTINATION . DIRECTORY_SEPARATOR . TARGET_NAME . '.html';
+        $fileName = $this->destination . DIRECTORY_SEPARATOR . $this->destFileName;
         $hFile = fopen($fileName, 'w');
         foreach ($this->documentWork as $line) {
             fwrite($hFile, $line . PHP_EOL);
@@ -568,14 +664,34 @@ class Generate
      */
     public function subGenerateHead(string $scriptFile = "", string $cssFile = ""): void
     {
-        $this->documentWork[] = MakeConst::getDocumentType();
+        $this->documentWork[] = MakeConst::getDocumentType() . PHP_EOL;
         // 設定からヘッダ部(設定ファイルによる部分のみ)を生成
-        $this->documentWork[] = '<html>';
-        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . '<head>';
+        $this->documentWork[] = MakeConst::getTagHtml() . PHP_EOL;
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . MakeConst::getTagHead() . PHP_EOL;
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . "<title>" . $this->pageTitle . "</title>" . PHP_EOL;
+        $metaList = MakeConst::makeMetaParts();
+        foreach ($metaList as $meta) {
+            $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $meta . PHP_EOL;
+        }
 
-        // 設定からヘッダ部(コマンドにより生成されたスクリプト,CSS)を生成
+        // 設定からヘッダ部(コマンドにより生成されたスクリプト)を生成
+        $scriptList = MakeConst::makeScriptParts();
+        if (!empty($scriptList)) {
+            foreach ($scriptList as $script) {
+                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $script . PHP_EOL;
+            }
+        }
         if (!empty($scriptFile)) {
             $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . '<script type="text/javascript" src="' .$scriptFile . '"></script>';        // ToDo: 設定として個別の排出先指定が可能なようにする
+        }
+
+
+        // 設定からヘッダ部(CSS)を生成
+        $linkList = MakeConst::makeLinkParts();
+        if (!empty($linkList)) {
+            foreach ($linkList as $link) {
+                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $link . PHP_EOL;
+            }
         }
         if (!empty($cssFile)) {
             $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . '<link rel="stylesheet" type="text/css" href="' . $cssFile . '"></style>';  // ToDo: 設定として個別の排出先指定が可能なようにする
@@ -588,6 +704,18 @@ class Generate
      */
     public function subGenerateBody(): void
     {
+        // body タグ
+        $bodyTag = Libs\StrUtils::indentRepeat(1) . "<body";
+        if (defined("MAKE_BodyClass") && !empty(MAKE_BodyClass)) {
+            $bodyTag .= " class=\"";
+            $classWork = "";
+            foreach (MAKE_BodyClass as $bodyClass) {
+                $classWork .= $bodyClass . " ";
+            }
+            $bodyTag .= rtrim($classWork) . "\"";
+        }
+        $this->documentWork[] = $bodyTag . ">";
+        // bodyタグ以降
         foreach ($this->vesselContainer as $vessel) {
             // コメント存在確認
             // * 設定ファイルによりコメント表示がONならばコメントテキストを追加する
