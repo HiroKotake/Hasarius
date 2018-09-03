@@ -90,18 +90,23 @@ class MakeConst
     public static function makeMetaParts(): array
     {
         $metaList = [];
+        // Charset
+        if (self::isDefinedCharset()) {
+            $metaList[] = "<meta charset=\"" . MAKE_Charset . "\">";
+        }
+        // etc
         foreach (MAKE_Meta as $key => $value) {
             if (!array_key_exists($key, HEAD_META)) {
                 throw new \Exception("[ERROR:" . __METHOD__ . "] $key can not use !!");
             }
             $info = HEAD_META[$key];
-            if (preg_match("/^HTML5.*/", MAKE_DocumentType) > 0) {
-                if ($key == "Property") {
+            if ($key == "Property") {
+                if (defined("MAKE_DocumentType") && preg_match("/^HTML5.*$/", MAKE_DocumentType) != 0) {
                     foreach ($value as $subKey => $subValue) {
                         $metaList[] = "<meta " . $info["attribute"] . "=\"$subKey\" content=\"$subValue\">";
                     }
-                    continue;
                 }
+                continue;
             }
             // エンコード関連
             if ($key == "ContentType" && self::isDefinedCharset()) {
@@ -143,23 +148,27 @@ class MakeConst
     public static function getTagHtml(): string
     {
         $tagHtml = "<html";
-        if (defined("MAKE_HtmlClass") && !empty(MAKE_HtmlClass)) {
-            $tagHtml .= ' class="';
-            $classWork = "";
-            foreach (MAKE_HtmlClass as $cssName) {
-                $classWork .= $cssName . " ";
-            }
-            $tagHtml .= rtrim($classWork) . '"';
-        }
-        if (!defined('MAKE_BasePosition') || MAKE_BasePosition == "html") {
-            if (defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
-                $prefixStr = "";
-                foreach (MAKE_Prefix as $prefix) {
-                    $prefixStr .= $prefix . " ";
+        if (preg_match("/^HTML5\S*$/ui", MAKE_DocumentType) != 0) {
+            if (defined("MAKE_HtmlClass") && !empty(MAKE_HtmlClass)) {
+                $tagHtml .= ' class="';
+                $classWork = "";
+                foreach (MAKE_HtmlClass as $cssName) {
+                    $classWork .= $cssName . " ";
                 }
-                $tagHtml .= ' prefix="' . rtrim($prefixStr) . '"';
-                $tagHtml .= ' lang="' . MAKE_Language . '"';
+                $tagHtml .= rtrim($classWork) . '"';
             }
+            if (!defined('MAKE_BasePosition') || MAKE_BasePosition == "html") {
+                if (defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
+                    $prefixStr = "";
+                    foreach (MAKE_Prefix as $prefix) {
+                        $prefixStr .= $prefix . " ";
+                    }
+                    $tagHtml .= ' prefix="' . rtrim($prefixStr) . '"';
+                    $tagHtml .= ' lang="' . MAKE_Language . '"';
+                }
+            }
+        } elseif (preg_match("/^XHTML\S*$/ui", MAKE_DocumentType) != 0) {
+            $tagHtml .= " xmlns=\"http://www.w3.org/1999/xhtml\"";
         }
         $tagHtml .= ">";
         return $tagHtml;
@@ -169,7 +178,7 @@ class MakeConst
     {
         $tagHtml = "<head";
         if (defined('MAKE_BasePosition') && MAKE_BasePosition == "head") {
-            if (defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
+            if (preg_match("/^HTML5\S*$/ui", MAKE_DocumentType) != 0 && defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
                 $prefixStr = "";
                 foreach (MAKE_Prefix as $prefix) {
                     $prefixStr .= $prefix;

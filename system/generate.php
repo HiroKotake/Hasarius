@@ -304,11 +304,12 @@ class Generate
         $this->destFileName = $this->makeDestFileName($destFileWork);
 
         // ページタイトル変更
-        if (array_key_exists("Title", $params)) {
-            $this->pageTitle = empty($params["Title"]) ? MAKE_Title : $params["Title"];
-        } elseif (array_key_exists("Title", $params)) {
+        if (array_key_exists("Title", $params) && !empty($params["Title"])) {
             $this->pageTitle = $params["Title"];
+        } elseif (defined("MAKE_Title") && !empty(MAKE_Title)) {
+            $this->pageTitle = MAKE_Title;
         }
+
         // 保存先設定
         if (array_key_exists("Destination", $params)) {
             $this->destination = empty($params["Destination"]) ? MAKE_WriteTargetDir : $params["Destination"];
@@ -664,21 +665,21 @@ class Generate
      */
     public function subGenerateHead(string $scriptFile = "", string $cssFile = ""): void
     {
-        $this->documentWork[] = MakeConst::getDocumentType() . PHP_EOL;
+        $this->documentWork[] = MakeConst::getDocumentType();
         // 設定からヘッダ部(設定ファイルによる部分のみ)を生成
-        $this->documentWork[] = MakeConst::getTagHtml() . PHP_EOL;
-        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . MakeConst::getTagHead() . PHP_EOL;
-        $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . "<title>" . $this->pageTitle . "</title>" . PHP_EOL;
+        $this->documentWork[] = MakeConst::getTagHtml();
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(1) . MakeConst::getTagHead();
+        $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . "<title>" . $this->pageTitle . "</title>";
         $metaList = MakeConst::makeMetaParts();
         foreach ($metaList as $meta) {
-            $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $meta . PHP_EOL;
+            $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $meta;
         }
 
         // 設定からヘッダ部(コマンドにより生成されたスクリプト)を生成
         $scriptList = MakeConst::makeScriptParts();
         if (!empty($scriptList)) {
             foreach ($scriptList as $script) {
-                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $script . PHP_EOL;
+                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $script;
             }
         }
         if (!empty($scriptFile)) {
@@ -690,7 +691,7 @@ class Generate
         $linkList = MakeConst::makeLinkParts();
         if (!empty($linkList)) {
             foreach ($linkList as $link) {
-                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $link . PHP_EOL;
+                $this->documentWork[] = Libs\StrUtils::indentRepeat(2) . $link;
             }
         }
         if (!empty($cssFile)) {
@@ -737,7 +738,7 @@ class Generate
             }
             // 空行
             if ($vessel->getCommand() == SYSTEM["EMPTY_LINE"]) {
-                $this->documentWork[] = PHP_EOL;
+                $this->documentWork[] = "";
                 continue;
             }
             // インデント分生成
@@ -778,7 +779,7 @@ class Generate
         if (!empty($this->scriptStack['BODY'])) {
             $this->documentWork[] = '<script>';
             foreach ($this->scriptStack['BODY'] as $line) {
-                $this->documentWork[] = $line . PHP_EOL;
+                $this->documentWork[] = $line;
             }
             $this->documentWork[] = '</script>';
         }
