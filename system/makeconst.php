@@ -177,15 +177,23 @@ class MakeConst
     public static function getTagHead(): string
     {
         $tagHtml = "<head";
-        if (defined('MAKE_BasePosition') && MAKE_BasePosition == "head") {
-            if (preg_match("/^HTML5\S*$/ui", MAKE_DocumentType) != 0 && defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
+        if (preg_match("/^HTML5\S*$/ui", MAKE_DocumentType) != 0 && defined('MAKE_Prefix') && !empty('MAKE_Prefix')) {
+            if (defined('MAKE_BasePosition') && MAKE_BasePosition == "head") {
                 $prefixStr = "";
                 foreach (MAKE_Prefix as $prefix) {
                     $prefixStr .= $prefix;
                 }
                 $tagHtml .= ' prefix="' . $prefixStr . '"';
+                $tagHtml .= ' lang="' . MAKE_Language . '"';
             }
-            $tagHtml .= ' lang="' . MAKE_Language . '"';
+        } else {
+            if (preg_match("/^XHTML1_1$/ui", MAKE_DocumentType)) {
+                $tagHtml .= ' xml:lang="' . MAKE_Language . '"';
+            } elseif (preg_match("/^XHTML1_.+$/ui", MAKE_DocumentType)) {
+                $tagHtml .= ' lang="' . MAKE_Language . '"' . ' xml:lang="' . MAKE_Language . '"';
+            } else {
+                $tagHtml .= ' lang="' . MAKE_Language . '"';
+            }
         }
         $tagHtml .= ">";
         return $tagHtml;

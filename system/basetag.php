@@ -197,6 +197,11 @@ class BaseTag
      */
     protected $autoIndent = 1;
     /**
+     * 自動改行を使用する
+     * @var int
+     */
+    protected $autoLineBreak = 1;
+    /**
      * サブコマンドデータのリスト
      * @var array|null サブコマンドに関するデータのリスト
      */
@@ -490,6 +495,22 @@ class BaseTag
     {
         return ($this->autoIndent != 0);
     }
+    /**
+     * 自動改行を設定する
+     * @param int $lineBreak 0:使用しない、1:使用する
+     */
+    public function setAutoLineBreak(int $lineBreak): void
+    {
+        $this->autoLineBreak = $lineBreak;
+    }
+    /**
+     * 自動改行を使用するか
+     * @return bool ture:使用する、false:使用しない
+     */
+    public function isAutoLineBreak(): bool
+    {
+        return ($this->autoLineBreak != 0);
+    }
 
     /**
      * サブコマンドデータを設定
@@ -579,6 +600,9 @@ class BaseTag
             }
             if (array_key_exists("AutoIndent", $settings)) {
                 $this->setAutoIndent($settings["AutoIndent"]);
+            }
+            if (array_key_exists("AutoLineBreak", $settings)) {
+                $this->setAutoLineBreak($settings["AutoLineBreak"]);
             }
             if (array_key_exists("SubCommand", $settings)) {
                 $this->setSubCommand($settings["SubCommand"]);

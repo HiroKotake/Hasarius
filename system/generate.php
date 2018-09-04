@@ -87,6 +87,16 @@ class Generate
      */
     private $currentSubCommand = null;
     /**
+     * 自動インデント制御フラグ
+     * @var bool
+     */
+    private $flagAutoIndent = true;
+    /**
+     * 自動改行制御フラグ
+     * @var bool
+     */
+    private $flagAutoLineBreak = true;
+    /**
      * コンテナ
      * @var array
      */
@@ -565,7 +575,6 @@ class Generate
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
                 // 現在のサブコマンドを設定する
-                //$this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $vessel->getSubCommand(), $vessel->getAutoIndent());
                 $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent());
                 array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
@@ -593,10 +602,10 @@ class Generate
         $this->subGenerateBody();
     }
 
-    public function saveHtml()
+    public function saveHtml(string $destFile = "")
     {
         // HTMLファイル出力
-        $fileName = $this->destination . DIRECTORY_SEPARATOR . $this->destFileName;
+        $fileName = empty($destFile) ? $this->destination . DIRECTORY_SEPARATOR . $this->destFileName : $destFile;
         $hFile = fopen($fileName, 'w');
         foreach ($this->documentWork as $line) {
             fwrite($hFile, $line . PHP_EOL);

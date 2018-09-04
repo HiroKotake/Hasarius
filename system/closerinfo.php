@@ -27,12 +27,18 @@ class CloserInfo
      * @var int
      */
     private $indentNumber = 0;
+    /**
+     * 自動改行設定
+     * @var bool
+     */
+    private $autoLineBreak = true;
 
-    public function __construct(string $closeTag = null, array $subCommand = [], int $indentNumber = 0)
+    public function __construct(string $closeTag = null, array $subCommand = [], int $indentNumber = 0, bool $autoLineBreak = true)
     {
         $this->closeTag   = $closeTag ?? "";
         $this->subCommand = $subCommand ?? [];
         $this->indentNumber = $indentNumber ?? 0;
+        $this->autoLineBreak = $autoLineBreak;
     }
 
     /**
@@ -84,5 +90,23 @@ class CloserInfo
     public function getIndentNumber(): int
     {
         return $this->indentNumber;
+    }
+
+    /**
+     * 自動改行設定を行う
+     * @param bool $lineBreak 自動改行フラグ
+     */
+    public function setAutoLineBreak(bool $lineBreak): void
+    {
+        $this->autoLineBreak = $lineBreak;
+    }
+
+    /**
+     * 自動改行設定か確認
+     * @return bool true であれば自動改行、false であれば手動改行
+     */
+    public function isAutoLineBreak(): bool
+    {
+        return $this->autoLineBreak;
     }
 }
