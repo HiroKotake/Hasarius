@@ -477,6 +477,9 @@ class Generate
                 $lineParameters = Utils\Parser::analyzeLine($line, $this->currentSubCommand->getSubCommand());
                 if (is_numeric($lineParameters->getCommand())) {
                     // --- システムコマンド系
+                    if ($lineParameters->getCommand() == SYSTEM["TEXT_ONLY"] || $lineParameters->getCommand() == SYSTEM["EMPTY_LINE"]) {
+                        $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                    }
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
                 } elseif ($lineParameters->isSubCommand()) {
@@ -543,6 +546,9 @@ class Generate
                         // サブインデックス更新
                         $subIndex += 1;
                     }
+                    //  ------ 自動改行
+                    $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
+                    $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
                 }
@@ -575,7 +581,7 @@ class Generate
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
                 // 現在のサブコマンドを設定する
-                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent());
+                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent(), $this->commands[$vessel->getCommand()]->isAutoLineBreak());
                 array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
                 $this->currentIndent += 1;
@@ -738,6 +744,7 @@ class Generate
                 $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent() - 1);
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
+                $this->flagAutoLineBreak = $closeVessel->isAutoLineBreak();
                 $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
                 if (!empty($closeVessel->getSubCommand())) {
                     // サブコマンド指定があった場合は、現在のサブコマンドを更新
@@ -747,7 +754,7 @@ class Generate
             }
             // 空行
             if ($vessel->getCommand() == SYSTEM["EMPTY_LINE"]) {
-                $this->documentWork[] = "";
+                $this->documentWork[] = $vessel->isAutoLineBreak() ? "<br>" : "";
                 continue;
             }
             // インデント分生成
@@ -767,6 +774,7 @@ class Generate
                                     . $vessel->getTagOpen()
                                     . $vessel->getText()
                                     . $vessel->getTagClose()
+                                    . ($vessel->isAutoIndent() ? "<br>" : "")
                                     . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
@@ -779,7 +787,7 @@ class Generate
                     break;
                 case BaseTag::BLOCK_TYPE_NONE:
                 default:
-                    $this->documentWork[] = $indentText . $vessel->getText();
+                    $this->documentWork[] = $indentText . $vessel->getText() . ($vessel->isAutoIndent() ? "<br>" : "");
                     break;
             }
         }

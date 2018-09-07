@@ -32,6 +32,7 @@ class Vessel
         'script'             => [],
         'css'                => "",
         'autoIndent'         => true,
+        'autoLineBreak'      => false,
         // For Command(Batch)
         'batch'              => [],
     ];
@@ -79,5 +80,23 @@ class Vessel
     public function isSubCommand(): bool
     {
         return $this->attributes['subCommand'];
+    }
+
+    /**
+     * 自動インデントか確認
+     * @return bool 自動インデントの場合は真を、手動インデントの場合は偽を返す
+     */
+    public function isAutoIndent(): bool
+    {
+        return $this->attributes["autoIndent"];
+    }
+
+    /**
+     * 自動改行か確認
+     * @return bool 自動改行の場合は真を、手動改行の場合は偽を返す
+     */
+    public function isAutoLineBreak(): bool
+    {
+        return $this->attributes["autoLineBreak"];
     }
 }
