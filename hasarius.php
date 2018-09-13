@@ -2,7 +2,9 @@
 
 namespace Hasarius;
 
-require_one('./system/genarate.php');
+require_one('./autoloader.php');
+$autoload = new \Hasarius\AutoLoader();
+$autoload->autoload();
 
 $genarate = new Hasarius\system\Genarate();
-$genarate->make();
+$genarate->make(["source" => $source]);

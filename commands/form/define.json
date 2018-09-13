@@ -367,7 +367,7 @@
     "SubCommand": [
         {
             "Symbol": "+",
-            "DefaultAttrs": {},
+            "tag": "input",
             "Description": "入力項目指定"
         }
     ],

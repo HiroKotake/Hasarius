@@ -1,7 +1,7 @@
 {
     "CommandName": "input",
     "TagOpen": "input",
-    "TagClose": "</input>",
+    "TagClose": "",
     "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "inp",

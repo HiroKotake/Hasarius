@@ -465,6 +465,14 @@ class Generate
      * （再帰呼び出しあり）
      *
      * @param  array $source     プリプロセスを経由して作成されたデータ配列
+     *                           [
+     *                              [
+     *                                  "lineNumber"   => <行番号>,
+     *                                  "lineText"     => <テキスト>,
+     *                                  "filename"     => <ファイル名(任意)>,
+     *                                  "filefullpath" => <ファイルフルパス(任意)>,
+     *                              ], ...
+     *                           ]
      */
     public function analyze(array $source) : void
     {
@@ -482,76 +490,83 @@ class Generate
                     }
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
-                } elseif ($lineParameters->isSubCommand()) {
-                    // サブコマンド指定 -> 親コマンドに処理を任せる
-                    $this->commands[$this->currentSubCommand->getCommand()]->execSubCommand($lineParameters);
-                } else {
-                    $command = $lineParameters->getCommand();
-                    //  ---- コマンドエイリアス確認
-                    if (array_key_exists($command, $this->commandsAlias)) {
-                        $command = $this->commandsAlias[$command];
+                    continue;
+                }
+
+                // サブコマンド処理
+                if ($lineParameters->isSubCommand()) {
+                    $tagName = $this->commands[$this->currentSubCommand->getCommand()]->replaceSubCommand($lineParameters->getCommand());
+                    $replacedLine = "#" . $tagName . " " . $lineParameters->getText();
+                    $lineParameters = Utils\Parser::analyzeLine(["lineText" => $replacedLine, "lineNumber" => $lineParameters->getLineNumber()], null);
+                }
+
+                // 通常コマンド処理
+                $command = $lineParameters->getCommand();
+                //  ---- コマンドエイリアス確認
+                if (array_key_exists($command, $this->commandsAlias)) {
+                    $command = $this->commandsAlias[$command];
+                    $lineParameters->setCommand($command);
+                }
+                //  ---- コマンドエイリアスになければ実態を確認
+                if (!array_key_exists($command, $this->commands)) {
+                    throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
+                }
+                //  ----- パラメータ検証
+                $validateResult = Utils\HtmlValidation::validate($this->commands[$command], $lineParameters->getParamaters());
+                if (!empty($validateResult)) {
+                    if (MAKE_ValidateStop) {
+                        throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
+                    } else {
+                        $this->validateErrorList[] = $validateResult;
                     }
-                    //  ---- コマンドエイリアスになければ実態を確認
-                    if (!array_key_exists($command, $this->commands)) {
-                        throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
+                }
+                //  ----- コマンド処理
+                $this->commands[$command]->trancelate($lineParameters);
+                // 修飾コマンド
+                $subIndex = 0;
+                foreach ($lineParameters->getModifiers() as $decorate) {
+                    //  ---- 修飾コマンド解析
+                    $decorateCommand = Utils\Parser::analyzeModifier($decorate);
+                    //  ---- インデックス設定
+                    $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
+                    //  ---- 修飾エイリアス確認
+                    if (array_key_exists($decorateCommand['command'], $this->decorationsAlias)) {
+                        $decorateCommand['command'] = $this->decorationsAlias[$decorateCommand['command']];
+                    }
+                    //  ---- 修飾エイリアスになければ実態を確認
+                    if (!array_key_exists($decorateCommand['command'], $this->decorations)) {
+                        throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
                     }
                     //  ----- パラメータ検証
-                    $validateResult = Utils\HtmlValidation::validate($this->commands[$command], $lineParameters->getParamaters());
+                    $validateResult = Utils\HtmlValidation($this->decorations[$decorateCommand], $decorateCommand['params']);
                     if (!empty($validateResult)) {
                         if (MAKE_ValidateStop) {
                             throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
                         } else {
-                            $this->validateErrorList[] = $validateResult;
+                            $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
                         }
                     }
-                    //  ----- コマンド処理
-                    $this->commands[$command]->trancelate($lineParameters);
-                    // 修飾コマンド
-                    $subIndex = 0;
-                    foreach ($lineParameters->getModifiers() as $decorate) {
-                        //  ---- 修飾コマンド解析
-                        $decorateCommand = Utils\Parser::analyzeModifier($decorate);
-                        //  ---- インデックス設定
-                        $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
-                        //  ---- 修飾エイリアス確認
-                        if (array_key_exists($decorateCommand['command'], $this->decorationsAlias)) {
-                            $decorateCommand['command'] = $this->decorationsAlias[$decorateCommand['command']];
+                    //  ----- テキスト置換
+                    $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorate);
+                    $lineParameters->setText(str_replace($decorate, $replaceData['text'], $lineParameters->getText()));
+                    //  ------ Script
+                    if (!empty($replaceData['script'])) {
+                        foreach ($replaceData['script'] as $key => $value) {
+                            $this->scriptStack[$key] = array_merge($this->scriptStack[$key], $value);
                         }
-                        //  ---- 修飾エイリアスになければ実態を確認
-                        if (!array_key_exists($decorateCommand['command'], $this->decorations)) {
-                            throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
-                        }
-                        //  ----- パラメータ検証
-                        $validateResult = Utils\HtmlValidation($this->decorations[$decorateCommand], $decorateCommand['params']);
-                        if (!empty($validateResult)) {
-                            if (MAKE_ValidateStop) {
-                                throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
-                            } else {
-                                $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
-                            }
-                        }
-                        //  ----- テキスト置換
-                        $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorate);
-                        $lineParameters->setText(str_replace($decorate, $replaceData['text'], $lineParameters->getText()));
-                        //  ------ Script
-                        if (!empty($replaceData['script'])) {
-                            foreach ($replaceData['script'] as $key => $value) {
-                                $this->scriptStack[$key] = array_merge($this->scriptStack[$key], $value);
-                            }
-                        }
-                        //  ------ CSS
-                        if (!empty($replaceData['css'])) {
-                            $this->cssStack[] = $replaceData['css'];
-                        }
-                        // サブインデックス更新
-                        $subIndex += 1;
                     }
-                    //  ------ 自動改行
-                    $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
-                    $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
-                    //  コンテナに格納
-                    $this->vesselContainer[] = $lineParameters;
+                    //  ------ CSS
+                    if (!empty($replaceData['css'])) {
+                        $this->cssStack[] = $replaceData['css'];
+                    }
+                    // サブインデックス更新
+                    $subIndex += 1;
                 }
+                //  ------ 自動改行対応
+                $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
+                $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                //  コンテナに格納
+                $this->vesselContainer[] = $lineParameters;
             }
         } catch (\Exception $e) {
             throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . $e->getMessage());
@@ -744,11 +759,13 @@ class Generate
                 $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent() - 1);
                 // 終了タグをスタックから取り込む
                 $closeVessel = array_pop($this->closerStack);
-                $this->flagAutoLineBreak = $closeVessel->isAutoLineBreak();
-                $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
-                if (!empty($closeVessel->getSubCommand())) {
-                    // サブコマンド指定があった場合は、現在のサブコマンドを更新
-                    $this->currentSubCommand = new CloserInfo($closeVessel->getTagClose(), $closeVessel->getSubCommand());
+                if (!empty($closeVessel)) {
+                    $this->flagAutoLineBreak = $closeVessel->isAutoLineBreak();
+                    $this->documentWork[] = $indentText . $closeVessel->getCloseTag();
+                    if (!empty($closeVessel->getSubCommand())) {
+                        // サブコマンド指定があった場合は、現在のサブコマンドを更新
+                        $this->currentSubCommand = new CloserInfo($closeVessel->getCloseTag(), $closeVessel->getSubCommand(), $closeVessel->getIndentNumber(), $closeVessel->isAutoLineBreak());
+                    }
                 }
                 continue;
             }

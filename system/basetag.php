@@ -530,6 +530,23 @@ class BaseTag
     }
 
     /**
+     * サブコマンド指定されているタグを取得する
+     * @param  string $symble サブコマンドシンボル
+     * @return string         サブコマンドシンボルに該当するタグ。該当するものがなければ空文字を返す
+     */
+    public function replaceSubCommand(string $symble): string
+    {
+        $tagName = "";
+        foreach ($this->subCommand as $sub) {
+            if ($sub['symble'] == $symble) {
+                $tagName = $sub["tag"];
+                break;
+            }
+        }
+        return $tagName;
+    }
+
+    /**
      * 設定ファイルからスクリプトファイルリストを設定
      * @param array $list スクリプトファイルリスト
      */

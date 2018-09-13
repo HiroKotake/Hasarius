@@ -91,7 +91,7 @@ class Parser
 
         // コマンドラインか確認
         $matchCommand = null;
-        preg_match('/^' . $commandHead . '.*\s/U', ltrim($separated['body']), $matchCommand);
+        preg_match('/^' . $commandHead . '\S+\s*/ui', ltrim($separated['body']), $matchCommand);
         $commandName = SYSTEM["TEXT_ONLY"];
         $paramaters = [];
         if (!empty($matchCommand)) {

@@ -88,7 +88,7 @@ class Command extends BaseTag
      * @param Vessel $line [description]
      * @throws Exception なんらかのエラー時に例外を発生させる
      */
-    public function execSubCommand(Vessel &$line): void
+    public function execSubCommand(Vessel $line): void
     {
         throw new \Exception("Irregular Call !!  (Command Name = " . $line->getCommand() . ")");
     }
