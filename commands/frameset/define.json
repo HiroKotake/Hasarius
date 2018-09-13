@@ -45,5 +45,7 @@
                 "Value": "REPET_NC_PCT_ASTER"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

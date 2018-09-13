@@ -39,5 +39,7 @@
                 "Value": "MIME"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

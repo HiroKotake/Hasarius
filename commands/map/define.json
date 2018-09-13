@@ -87,5 +87,7 @@
                 "Value": "STRING"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

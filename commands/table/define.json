@@ -372,5 +372,7 @@
             "DefaultAttrs": {},
             "Description": "カラム指定"
         }
-    ]
+    ],
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

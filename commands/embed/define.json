@@ -59,5 +59,7 @@
                 "Value": "US_NZ"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

@@ -370,5 +370,7 @@
             "DefaultAttrs": {},
             "Description": "入力項目指定"
         }
-    ]
+    ],
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

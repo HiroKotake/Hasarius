@@ -777,6 +777,13 @@ class Generate
                                     . ($vessel->isAutoIndent() ? "<br>" : "")
                                     . $comment;
                     break;
+                case BaseTag::BLOCK_TYPE_ONELINE:
+                    $this->documentWork[] = $indentText
+                                    . $vessel->getTagOpen()
+                                    . $vessel->getText()
+                                    . $vessel->getTagClose()
+                                    . $comment;
+                    break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
                     $this->documentWork[] = $indentText
                                           . $vessel->getTagOpen()

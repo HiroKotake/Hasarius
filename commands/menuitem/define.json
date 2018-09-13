@@ -65,5 +65,7 @@
             "Value": "ON_OFF",
             "DocumentType": ["HTML5_1"]
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

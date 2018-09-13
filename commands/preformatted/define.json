@@ -79,5 +79,6 @@
         "HTML5_1": {
         }
     },
-    "AutoIndent": 0
+    "AutoIndent": 0,
+    "AutoLineBreak": 0
 }

@@ -23,5 +23,7 @@
         "HTML4_FRAME": {},
         "XHTML1_LOOSE": {},
         "XHTML1_FRAME": {}
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

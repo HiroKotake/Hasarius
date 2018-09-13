@@ -44,5 +44,7 @@
                 "Value": "MEDIA_QUERY"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

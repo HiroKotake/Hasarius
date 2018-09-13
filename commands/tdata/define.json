@@ -509,5 +509,7 @@
             "Value": "ON_OFF",
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

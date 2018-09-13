@@ -93,5 +93,7 @@
                 "Value": "URI"
             }
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }

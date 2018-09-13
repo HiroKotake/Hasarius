@@ -31,5 +31,7 @@
         },
         "XHTML1_1": {
         }
-    }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
 }
