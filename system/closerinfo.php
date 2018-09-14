@@ -13,6 +13,11 @@ namespace Hasarius\system;
 class CloserInfo
 {
     /**
+     * コマンド名
+     * @var string
+     */
+    private $command = "";
+    /**
      * クローズタグ
      * @var string クローズタグ文字列
      */
@@ -41,6 +46,22 @@ class CloserInfo
         $this->autoLineBreak = $autoLineBreak;
     }
 
+    /**
+     * コマンド名を設定
+     * @param string $command コマンド名
+     */
+    public function setCommand(string $command): void
+    {
+        $this->command = $command;
+    }
+    /**
+     * コマンド名を取得
+     * @return string コマンド名が設定されいればコマンド名を、設定されていなければ""を返す
+     */
+    public function getCommand(): string
+    {
+        return $this->command;
+    }
     /**
      * クローズタグを設定
      * @param string $closeTag クローズタグ文字列

@@ -77,8 +77,13 @@ class Generate
      */
     private $decorationsAlias = [];
     /**
+     * サブコマンドスタック
+     * @var array
+     */
+    private $subCommandStack = [];
+    /**
      * クローズスタック
-     * @var string
+     * @var array
      */
     private $closerStack = [];
     /**
@@ -488,6 +493,13 @@ class Generate
                     if ($lineParameters->getCommand() == SYSTEM["TEXT_ONLY"] || $lineParameters->getCommand() == SYSTEM["EMPTY_LINE"]) {
                         $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
                     }
+                    //  --- サブコマンドリストPull対応
+                    if ($lineParameters->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
+                        $subCommandParts = array_pop($this->subCommandStack);
+                        if ($this->command[$subCommandParts->getCommand()]->hasSubCommand()) {
+                            $this->currentSubCommand = $subCommandParts;
+                        }
+                    }
                     //  コンテナに格納
                     $this->vesselContainer[] = $lineParameters;
                     continue;
@@ -562,6 +574,13 @@ class Generate
                     // サブインデックス更新
                     $subIndex += 1;
                 }
+                //  ------ サブコマンドリストPush対応
+                if ($this->commands[$lineParameters->getCommand()]->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
+                    $subCommandParts = new CloserInfo(null, $this->commands[$lineParameters->getCommand()]->getSubCommand());
+                    $subCommandParts->setCommand($lineParameters->getCommand());
+                    array_push($this->subCommandStack, $subCommandParts);
+                    $this->currentSubCommand = $subCommandParts;
+                }
                 //  ------ 自動改行対応
                 $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
                 $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
@@ -571,6 +590,8 @@ class Generate
         } catch (\Exception $e) {
             throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . $e->getMessage());
         }
+        // 使用したスタックを空に
+        $this->subCommandStack = [];
     }
 
     /**

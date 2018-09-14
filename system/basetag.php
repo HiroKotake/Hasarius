@@ -528,7 +528,14 @@ class BaseTag
     {
         return $this->subCommand;
     }
-
+    /**
+     * サブコマンドを設定しているか
+     * @return bool 設定している場合はtrueを、していない場合はfalseを返す
+     */
+    public function hasSubCommand(): bool
+    {
+        return !empty($this->subCommand);
+    }
     /**
      * サブコマンド指定されているタグを取得する
      * @param  string $symble サブコマンドシンボル
