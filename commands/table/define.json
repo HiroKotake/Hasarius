@@ -359,17 +359,17 @@
     "SubCommand": [
         {
             "Symbol": "+",
-            "tag": "tr",
+            "Tag": "tr",
             "Description": "行指定"
         },
         {
             "Symbol": "!",
-            "tag": "th",
+            "Tag": "th",
             "Description": "見出しカラム指定"
         },
         {
             "Symbol": "|",
-            "tag": "td",
+            "Tag": "td",
             "Description": "カラム指定"
         }
     ],

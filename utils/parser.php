@@ -46,7 +46,7 @@ class Parser
         if (!empty($subCommand)) {
             $subCommandPat = null;
             foreach ($subCommand as $scom) {
-                $subCommandPat .= "|" . preg_quote($scom['symbol']);
+                $subCommandPat .= "|" . preg_quote($scom['Symbol']);
             }
             $subCommandPat = "/^\s*([" . ltrim($subCommandPat, "|") . "])\s*(.*)$/";
             $subCommandMatch = null;

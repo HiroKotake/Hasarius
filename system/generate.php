@@ -496,7 +496,7 @@ class Generate
                     //  --- サブコマンドリストPull対応
                     if ($lineParameters->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
                         $subCommandParts = array_pop($this->subCommandStack);
-                        if ($this->command[$subCommandParts->getCommand()]->hasSubCommand()) {
+                        if (!empty($subCommandParts) && $this->commands[$subCommandParts->getCommand()]->hasSubCommand()) {
                             $this->currentSubCommand = $subCommandParts;
                         }
                     }
@@ -508,8 +508,8 @@ class Generate
                 // サブコマンド処理
                 if ($lineParameters->isSubCommand()) {
                     $tagName = $this->commands[$this->currentSubCommand->getCommand()]->replaceSubCommand($lineParameters->getCommand());
-                    $replacedLine = "#" . $tagName . " " . $lineParameters->getText();
-                    $lineParameters = Utils\Parser::analyzeLine(["lineText" => $replacedLine, "lineNumber" => $lineParameters->getLineNumber()], null);
+                    $line["lineText"] = "#" . $tagName . " " . $lineParameters->getText();
+                    $lineParameters = Utils\Parser::analyzeLine($line, []);
                 }
 
                 // 通常コマンド処理
@@ -576,10 +576,12 @@ class Generate
                 }
                 //  ------ サブコマンドリストPush対応
                 if ($this->commands[$lineParameters->getCommand()]->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
-                    $subCommandParts = new CloserInfo(null, $this->commands[$lineParameters->getCommand()]->getSubCommand());
+                    $subCommandParts = new CloserInfo($lineParameters->getCommand(), $this->commands[$lineParameters->getCommand()]->getSubCommand());
                     $subCommandParts->setCommand($lineParameters->getCommand());
                     array_push($this->subCommandStack, $subCommandParts);
-                    $this->currentSubCommand = $subCommandParts;
+                    if (!empty($subCommandParts->getSubCommand())) {
+                        $this->currentSubCommand = $subCommandParts;
+                    }
                 }
                 //  ------ 自動改行対応
                 $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();

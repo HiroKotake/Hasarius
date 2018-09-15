@@ -538,15 +538,15 @@ class BaseTag
     }
     /**
      * サブコマンド指定されているタグを取得する
-     * @param  string $symble サブコマンドシンボル
+     * @param  string $symbol サブコマンドシンボル
      * @return string         サブコマンドシンボルに該当するタグ。該当するものがなければ空文字を返す
      */
-    public function replaceSubCommand(string $symble): string
+    public function replaceSubCommand(string $symbol): string
     {
         $tagName = "";
         foreach ($this->subCommand as $sub) {
-            if ($sub['symble'] == $symble) {
-                $tagName = $sub["tag"];
+            if ($sub['Symbol'] == $symbol) {
+                $tagName = $sub["Tag"];
                 break;
             }
         }
