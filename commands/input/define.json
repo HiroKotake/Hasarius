@@ -2,7 +2,7 @@
     "CommandName": "input",
     "TagOpen": "input",
     "TagClose": "",
-    "BlockType": "BLOCK",
+    "BlockType": "ONELINE",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "inp",
     "ParentElement": "ORIGIN",

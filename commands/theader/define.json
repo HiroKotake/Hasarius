@@ -2,7 +2,7 @@
     "CommandName": "theader",
     "TagOpen": "th",
     "TagClose": "</th>",
-    "BlockType": "ONELINE",
+    "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "th",
     "ParentElement": "tr",

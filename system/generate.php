@@ -434,19 +434,26 @@ class Generate
                     continue;
                 }
                 // 特殊コマンド対応
-                // ToDo: 特殊コマンド対応処理に納得いかない部分がるので、ルールを含め見直しが必要と思う
+                // ToDo 下記コードは未テスト。なぜなら、プリプロセス用コマンドがないから
                 $vessel = Utils\Parser::analyzeLine(["lineText" => $line, "lineNumber" => $lineNumber], [], '@', '=');
-                if (!empty($vessel->getBatch())) {
-                    $batches = "";
-                    foreach ($vessel->getBatch() as $batch) {
-                        $batches .= $batch . PHP_EOL;
+                $pCommand = $vessel->getCommand();
+                if (!is_numeric($pCommand) && !empty($pCommand)) {
+                    if (array_key_exists($pCommand, $this->preprocessCommandAlias)) {
+                        $pCommand = $this->preprocessCommandAlias[$pCommand];
                     }
-                    $lines[] = [
-                        'filename' => $filename,
-                        'filefullpath' => $source,
-                        'lineNumber' => $lineNumber,
-                        'lineText' => $batch,
-                    ];
+                    if (!array_key_exists($pCommand, $this->preprocessCommand)) {
+                        throw new \Exception("Preprocess Command not exists !! (" . $pCommand . ")");
+                    }
+
+                    $pResult = $this->preprocessCommand[$pCommand]->getBatch($vessel);
+                    foreach ($pResult as $batch) {
+                        $lines[] = [
+                            'filename' => $filename,
+                            'filefullpath' => $source,
+                            'lineNumber' => $lineNumber,
+                            'lineText' => $batch,
+                        ];
+                    }
                     continue;
                 }
                 // ライン読み込み

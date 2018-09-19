@@ -2,7 +2,7 @@
     "CommandName": "tdata",
     "TagOpen": "td",
     "TagClose": "</td>",
-    "BlockType": "ONELINE",
+    "BlockType": "BLOCK",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "td",
     "ParentElement": "table",
