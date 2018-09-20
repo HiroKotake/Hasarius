@@ -74,6 +74,14 @@ class Vessel
     }
 
     /**
+     * idが設定されているか確認する。
+     * @return bool 設定されている場合はtrueを、されていない場合はfalseを返す
+     */
+    public function idExistsParamaters(): bool
+    {
+        return (array_key_exists("id", $this->attributes["paramaters"]) && !empty($this->attributes["paramaters"]["id"]));
+    }
+    /**
      * サブコマンドか確認
      * @return bool サブコマンドの場合は真を、サブコマンドでない場合は偽を返す
      */
