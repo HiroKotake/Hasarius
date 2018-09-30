@@ -39,11 +39,11 @@ if (empty($src)) {
 
 
 // HTML生成
-require_one('./autoloader.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'autoloader.php');
 $autoload = new \Hasarius\AutoLoader();
 $autoload->autoload();
 
-$genarate = new Hasarius\system\Genarate();
+$genarate = new \Hasarius\system\Generate();
 $genarate->make(["Source" => $src, "Destination" => $dist, "title" => $title]);
 
 function showCommandLine()

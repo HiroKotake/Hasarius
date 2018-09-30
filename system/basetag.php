@@ -276,7 +276,11 @@ class BaseTag
      */
     protected function setTagClose(string $tag): void
     {
-        $this->tagClose = preg_match('/^<\/[a-zA-Z0-9]+>$/', $tag) == 1 ? $tag : '</' . $tag . '>';
+        if (!empty($tag)) {
+            $this->tagClose = preg_match('/^<\/[a-zA-Z0-9]+>$/', $tag) == 1 ? $tag : '</' . $tag . '>';
+        } else {
+            $this->tagClose = "";
+        }
     }
     /**
      * 終了タグを取得

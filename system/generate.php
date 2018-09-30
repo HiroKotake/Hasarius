@@ -298,23 +298,23 @@ class Generate
      */
     public function make(array $params = ["Source" => "", "Destination" => "", "Title" => ""]): bool
     {
-        // 事前準備
-        $this->initialize();
-
         // 設定読み込み
+        $sourcePath = explode(DIRECTORY_SEPARATOR, $params["Source"]);
         $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
             // ユーザ指定がなければシステム側提供の設定ファイルを使用
-            $makeConfigFile = 'HASARIUS_BASE_DIR' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'make.json';
+            $makeConfigFile = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'make.json';
         }
         // HTMLファイル生成用ユーザ独自の設定ファイル読み込み
         MakeConst::loadMakeFile($makeConfigFile);
 
+        // 事前準備
+        $this->initialize();
+
         // 変換後のHTMLファイル名設定
-        if (array_key_exists("Source", $params) || empty($params["Source"])) {
+        if (!array_key_exists("Source", $params) || empty($params["Source"])) {
             throw new \Exception("[ERROR] Paramater Invalid: Source not defined");
         }
-        $sourcePath = explode(DIRECTORY_SEPARATOR, $params["Source"]);
         $destFileWork = array_pop($sourcePath);
         $this->destFileName = $this->makeDestFileName($destFileWork);
 

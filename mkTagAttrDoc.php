@@ -4,7 +4,7 @@ namespace Hasarius;
 
 if ($argc < 3) {
     echo PHP_EOL;
-    echo "-- タグ関連ドキュメント雛形生成";
+    echo "-- タグ関連ドキュメント雛形生成" . PHP_EOL;
     echo "php mkTagAttrDoc.php <対象のタグ> <ファイル保存先>" . PHP_EOL;
     echo PHP_EOL;
     return;
@@ -81,7 +81,7 @@ if (empty($tagData->attribute)) {
         $line[] = "| " . $attrName . PHP_EOL;
         $line[] = "| " . $data->value . PHP_EOL;
         foreach ($settings["DocumentType"] as $dtype) {
-            $line[] = "|" . ($data->target[$dtype] == 0 ? "×" : ($data->target[$dtype] == 1 ? "〇" : ($data->target[$dtype] == 2 ? "△" : "▲"))) . PHP_EOL;
+            $line[] = "|" . ($data->target[$dtype] == 0 ? " ×" : ($data->target[$dtype] == 1 ? " 〇" : ($data->target[$dtype] == 2 ? " △" : " ▲"))) . PHP_EOL;
         }
         $line[] = "| <説明>" . PHP_EOL;
         $line[] = "##" . PHP_EOL;
