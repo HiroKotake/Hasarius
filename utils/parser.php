@@ -118,7 +118,8 @@ class Parser
         $vessel->setCommand($commandName);
         $vessel->setParamaters($paramaters);
         $vessel->setModifiers($modifierCommand);
-        $vessel->setText(($commandName == "" ? $text : ltrim($text)));
+        //$vessel->setText(($commandName == "" ? $text : ltrim($text)));
+        $vessel->setText($text);
         $vessel->setComment($separated['comment']);
         $vessel->setLineNumber($line["lineNumber"]);
         return $vessel;

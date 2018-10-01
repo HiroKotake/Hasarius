@@ -1,5 +1,5 @@
 {
-    "CommandName": "ins",
+    "CommandName": "insert",
     "TagOpen": "ins",
     "TagClose": "</ins>",
     "BlockType": "BLOCK",

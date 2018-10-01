@@ -298,9 +298,16 @@ class Generate
      */
     public function make(array $params = ["Source" => "", "Destination" => "", "Title" => ""]): bool
     {
+        // ソース指定チェック
+        if (!array_key_exists("Source", $params) || empty($params["Source"])) {
+            throw new \Exception("[ERROR] Paramater Invalid: Source not defined");
+        }
+
         // 設定読み込み
-        $sourcePath = explode(DIRECTORY_SEPARATOR, $params["Source"]);
-        $makeConfigFile = implode(DIRECTORY_SEPARATOR, $sourcePath) . DIRECTORY_SEPARATOR . 'make.json';
+        $sourceRealPath = realpath($params["Source"]);
+        $sourcePath = dirname($sourceRealPath);
+        $sourceFileName = pathinfo($sourceRealPath, PATHINFO_BASENAME);
+        $makeConfigFile = $sourcePath . DIRECTORY_SEPARATOR . 'make.json';
         if (!file_exists($makeConfigFile)) {
             // ユーザ指定がなければシステム側提供の設定ファイルを使用
             $makeConfigFile = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'make.json';
@@ -312,11 +319,7 @@ class Generate
         $this->initialize();
 
         // 変換後のHTMLファイル名設定
-        if (!array_key_exists("Source", $params) || empty($params["Source"])) {
-            throw new \Exception("[ERROR] Paramater Invalid: Source not defined");
-        }
-        $destFileWork = array_pop($sourcePath);
-        $this->destFileName = $this->makeDestFileName($destFileWork);
+        $this->destFileName = $this->makeDestFileName($sourceFileName);
 
         // ページタイトル変更
         if (array_key_exists("Title", $params) && !empty($params["Title"])) {
@@ -499,6 +502,7 @@ class Generate
                     // --- システムコマンド系
                     if ($lineParameters->getCommand() == SYSTEM["TEXT_ONLY"] || $lineParameters->getCommand() == SYSTEM["EMPTY_LINE"]) {
                         $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                        $lineParameters->setAutoIndent($this->flagAutoIndent);
                     }
                     //  --- サブコマンドリストPull対応
                     if ($lineParameters->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
@@ -593,6 +597,9 @@ class Generate
                 //  ------ 自動改行対応
                 $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
                 $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                //  ------ 自動インデント対応
+                $this->flagAutoIndent = $this->commands[$command]->isAutoIndent();
+                $lineParameters->setAutoIndent($this->flagAutoIndent);
                 //  コンテナに格納
                 $this->vesselContainer[] = $lineParameters;
             }
@@ -625,9 +632,6 @@ class Generate
             // ブロックコマンド抽出
             $vessel->setIndent($this->currentIndent);
             if ($vessel->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
-                // 現在のサブコマンドを設定する
-                $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent(), $this->commands[$vessel->getCommand()]->isAutoLineBreak());
-                array_push($this->closerStack, $this->currentSubCommand);
                 // インデント数
                 $this->currentIndent += 1;
             }
@@ -799,14 +803,16 @@ class Generate
                 }
                 continue;
             }
+            // インデント分生成
+            if ($vessel->isAutoIndent() || $vessel->getCommand() != SYSTEM["TEXT_ONLY"]) {
+                $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent());
+            } else {
+                $indentText = "";
+            }
             // 空行
             if ($vessel->getCommand() == SYSTEM["EMPTY_LINE"]) {
-                $this->documentWork[] = $vessel->isAutoLineBreak() ? "<br>" : "";
+                $this->documentWork[] = $vessel->isAutoLineBreak() ? ($indentText . "<br>") : "";
                 continue;
-            }
-            // インデント分生成
-            if ($vessel->getAutoIndent()) {
-                $indentText = Libs\StrUtils::indentRepeat($vessel->getIndent());
             }
             // 通常
             // - スクリプト対応
@@ -832,6 +838,9 @@ class Generate
                                     . $comment;
                     break;
                 case BaseTag::BLOCK_TYPE_BLOCK:
+                    // 現在のサブコマンドを設定する
+                    $this->currentSubCommand = new CloserInfo($vessel->getTagClose(), $this->commands[$vessel->getCommand()]->getSubCommand(), $vessel->getIndent(), $this->commands[$vessel->getCommand()]->isAutoLineBreak());
+                    array_push($this->closerStack, $this->currentSubCommand);
                     $this->documentWork[] = $indentText
                                           . $vessel->getTagOpen()
                                           . $comment;
@@ -841,7 +850,7 @@ class Generate
                     break;
                 case BaseTag::BLOCK_TYPE_NONE:
                 default:
-                    $this->documentWork[] = $indentText . $vessel->getText() . ($vessel->isAutoIndent() ? "<br>" : "");
+                    $this->documentWork[] = $indentText . $vessel->getText() . ($vessel->isAutoLineBreak() ? "<br>" : "");
                     break;
             }
         }

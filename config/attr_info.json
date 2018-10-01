@@ -1,0 +1,550 @@
+{
+    "ANY_US_NZ": {
+        "name": "ステップ数",
+        "type": "<説明を参照>",
+        "description": [
+            "ステップ数を設定する",
+            "数値 : 指定した数値で間隔を設定する",
+            "any : ステップを設定しない"
+        ]
+    },
+    "BUTTON_TYPE": {
+        "name": "",
+        "description": []
+    },
+    "CLEAR_TYPE": {
+        "name": "",
+        "description": []
+    },
+    "COLOR": {
+        "name": "色",
+        "type": "文字列",
+        "description": ["色コードもしくは色ネーム"]
+    },
+    "COORDS": {
+        "name": "領域の座標",
+        "type": "文字列",
+        "description": [
+            "領域の形状(shape)が、",
+            "rectの場合: 左上と右下の角の座標（X,Y,X,Y）",
+            "circleの場合: 中心点の座標と半径（X,Y,半径）",
+            "polyの場合: すべての角の座標（X,Y,X,Y ...）",
+            "defaultの場合:  coords属性の指定は不要 "
+        ]
+    },
+    "DATETIME": {
+        "name": "日時",
+        "type": "<説明を参照>",
+        "description": [
+            "'YYYY-MM-DDThh:mm:ssTZD'を設定する。",
+            "YYYY = 年",
+            "MM = 月",
+            "DD = 日",
+            "T = （固定）",
+            "hh = 時",
+            "mm = 分",
+            "ss = 秒",
+            "TZD = +09:00（日本）"
+        ]
+    },
+    "DIR_TYPE": {
+        "name": "",
+        "description": []
+    },
+    "ENCODE": {
+        "name": "文字コード",
+        "type": "文字列",
+        "description": [
+            "文字コードを設定する"
+        ]
+    },
+    "FILENAME": {
+        "name": "ファイル名",
+        "type": "文字列",
+        "description": [
+            "デフォルトのファイル名を指定"
+        ]
+    },
+    "FLOAT": {
+        "name": "",
+        "description": []
+    },
+    "FLT": {
+        "name": "",
+        "description": []
+    },
+    "FONT": {
+        "name": "",
+        "description": [],
+        "comment": "フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく"
+    },
+    "GET_POST": {
+        "name": "HTTPメソッド",
+        "type": "get/post",
+        "description": [
+            "データの送信方式として'get'もしくは'post'を指定する。"
+        ]
+    },
+    "LANG": {
+        "name": "言語コード",
+        "type": "言語コード",
+        "description": [
+            "言語コードを指定する"
+        ]
+    },
+    "INPUT_MODE": {
+        "name": "入力モード指定",
+        "description": [
+            "入力モードの指定を行う",
+            "verbatim : 文章ではない英数字による文字列の入力（ユーザー名、パスワード、製品コード 等、対コンピューター向け）",
+            "latin : ラテン文字による自由形式なテキストの入力（入力予測等の入力支援が期待される）",
+            "latin-name : ラテン文字によるユーザー名の入力（人名の入力に適した入力支援が期待される）",
+            "latin-prose : ラテン文字によるメッセージの入力（対人コミュニケーションに適した入力支援が期待される）",
+            "full-width-latin : 全角英数字モード",
+            "kana : 全角かな入力モード",
+            "kana-name : 全角かな入力モード（人名の入力に適した入力支援が期待される）",
+            "katakana : 全角カタカナ入力モード",
+            "numeric : , や - を含む半角数字の入力（クレジットカード番号 等）、数値の場合は type=\"number\" が適切",
+            "tel : * や # を含む半角数字の入力（電話番号）、通常は type=\"tel\" を使用",
+            "email : @ や . を含む半角英数字の入力（メールアドレス）、通常は type=\"email\" を使用",
+            "url : / や . を含む半角英数字の入力（URL）、通常は type=\"url\" を使用"
+        ]
+    },
+    "INPUT_TYPE": {
+        "name": "部品のタイプ",
+        "type": "文字列",
+        "description": [
+            "フォームの部品を以下のアイテムから設定する。",
+            "text : テキスト入力欄 （初期値）",
+            "password : パスワード入力欄",
+            "radio : ラジオボタン",
+            "checkbox : チェックボックス",
+            "file : ファイル選択",
+            "hidden : 隠しデータ",
+            "submit : 送信ボタン",
+            "reset : リセットボタン",
+            "image : 画像による送信ボタン",
+            "button : 汎用ボタン",
+            "tel : 電話番号入力欄 (HTML 5以降)",
+            "url : URL入力欄 (HTML 5以降)",
+            "email: メールアドレス入力欄 (HTML 5以降)",
+            "search : 検索テキスト入力欄 (HTML 5以降)",
+            "date : 日付入力欄 (HTML 5以降)",
+            "time : 時間入力欄 (HTML 5以降)",
+            "number : 数値入力欄 (HTML 5以降)",
+            "range : 大まかな数値の入力欄 (HTML 5以降)",
+            "color : 色入力欄 (HTML 5以降)",
+            "month : 年月入力欄 (HTML 5.1以降)",
+            "week : 週入力欄 (HTML 5.1以降)",
+            "datetime-lcoal : ローカル日時入力 (HTML 5.1以降)"
+        ]
+    },
+    "LINE_FRAME": {
+        "name": "外枠の表示方法",
+        "type": "文字列",
+        "description": [
+            "void : 外枠なし （初期値）",
+            "lhs : 左のみ表示",
+            "rhs : 右のみ表示",
+            "vsides : 左右のみ表示",
+            "above : 上のみ表示",
+            "below : 下のみ表示",
+            "hsides : 上下のみ表示",
+            "box : 全ての外枠を表示",
+            "border : 全ての外枠を表示"
+        ]
+    },
+    "LINE_RULES": {
+        "name": "内罫線の表示方法",
+        "type": "文字列",
+        "description": [
+            "none : 罫線なし （初期値）",
+            "rows : 横罫線のみ表示",
+            "cols : 縦罫線のみ表示",
+            "groups : グループ間の罫線のみ表示",
+            "all : 全ての罫線を表示"
+        ]
+    },
+    "LINE_TYPE": {
+        "name": "",
+        "description": []
+    },
+    "LIST_NUM": {
+        "name": "番号の種類",
+        "type": "文字",
+        "description": [
+            "1 : アラビア数字",
+            "A : アルファベット大文字",
+            "a : アルファベット小文字",
+            "I : ローマ数字大文字",
+            "i : ローマ数字小文字"
+        ]
+    },
+    "LIST_STYLE": {
+        "name": "リスト文字の種類",
+        "type": "文字列",
+        "description": [
+            "disc : 黒丸",
+            "circle : 白丸",
+            "square : 四角",
+            "1 : アラビア数字",
+            "A : アルファベット大文字",
+            "a : アルファベット小文字",
+            "I : ローマ数字大文字",
+            "i : ローマ数字小文字"
+        ]
+    },
+    "LIST_SYMBOL": {
+        "name": "リスト文字の種類",
+        "type": "文字列",
+        "description": [
+            "disc : 黒丸",
+            "circle : 白丸",
+            "square : 四角"
+        ]
+    },
+    "NC": {
+        "name": "整数値",
+        "type": "整数値",
+        "description": [
+            "整数値を設定する"
+        ]
+    },
+    "NZ": {
+        "name": "整数値",
+        "type": "整数値",
+        "description": [
+            "ゼロを除く整数値を設定する"
+        ]
+    },
+    "NC_PCT": {
+        "name": "整数値/パーセント",
+        "type": "整数値/パーセント",
+        "description": [
+            "整数値もしくはパーセントを設定する"
+        ]
+    },
+    "NZ_PCT": {
+        "name": "整数値/パーセント",
+        "type": "整数値/パーセント",
+        "description": [
+            "ゼロを除く整数値もしくはパーセントを設定する"
+        ]
+    },
+    "NZ_PCT_RLT": {
+        "name": "整数値/パーセント/相対比率",
+        "type": "整数値/パーセント/相対比率",
+        "description": [
+            "ゼロを除く整数値、パーセントもしくは相対比率を設定する"
+        ]
+    },
+    "MEDIA_QUERY": {
+        "name": "メディアクエリ",
+        "type": "メディアクエリ",
+        "description": [
+            "画像の埋め込み対象とするメディアを指定"
+        ]
+    },
+    "MIME": {
+        "name": "MIME",
+        "type": "MIME",
+        "description": [
+            "MIMEを設定する"
+        ]
+    },
+    "ON_OFF": {
+        "name": "ON/OFF",
+        "type": "文字列",
+        "description": [
+            "機能の有効化、無効化をON/OFFで設定する"
+        ]
+    },
+    "ON_OFF_AUTO": {
+        "name": "ON/OFF/AUTO",
+        "type": "文字列",
+        "description": [
+            "機能の有効化、無効化をON/OFF/AUTOで設定する"
+        ]
+    },
+    "ONE_NULL": {
+        "name": "",
+        "description": []
+    },
+    "PCT": {
+        "name": "",
+        "description": []
+    },
+    "PRELOAD": {
+        "name": "先読みの目安",
+        "type": "文字列",
+        "description": [
+            "none : 先読みを必要としない",
+            "metadata : メタデータだけは先読み",
+            "auto : 全体を先読み"
+        ]
+    },
+    "REL_TYPE_A": {
+        "name": "現在の文書から見たリンク先の関係",
+        "type": "文字列",
+        "description": [
+            "alternate : 代替文書を示す",
+            "　- hreflang属性との併用 … 翻訳版を示す",
+            "　- media属性との併用 … 別メディア版を示す",
+            "author:著者情報の文書、または連絡先を示す",
+            "bookmark : ブックマークを示す （文書内のアンカーへのリンクを示す）",
+            "help : ヘルプの文書を示す",
+            "license:著作権情報の文書を示す",
+            "next : 次の文書を示す",
+            "nofollow:リンク先をフォローしない",
+            "noreferrer:リンク先にリファラーを送らない",
+            "prefetch:リンク先の事前読み込み",
+            "prev : 前の文書を示す",
+            "search:関連文書を検索するためのページを示す",
+            "tag:関連するタグを示す"
+        ]
+    },
+    "REL_TYPE_L": {
+        "name": "現在の文書から見たリンク先の関係",
+        "type": "文字列",
+        "description": [
+            "alternate ： 代替文書を示す",
+            "　- hreflang属性との併用 … 翻訳版を示す",
+            "　- media属性との併用 … 別メディア版を示す",
+            "author：著者情報の文書、または連絡先を示す",
+            "help ： ヘルプの文書を示す",
+            "icon：アイコンを示す",
+            "license：著作権情報の文書を示す",
+            "next ： 次の文書を示す",
+            "prefetch：リンク先の事前読み込み",
+            "prev ： 前の文書を示す",
+            "search：関連文書を検索するためのページを示す",
+            "stylesheet ： 外部スタイルシートを示す",
+            "　- alternate との併用 … 代替スタイルシートを示す"
+        ]
+    },
+    "REPET_NC_PCT_ASTER": {
+        "name": "各フレームのサイズを指定",
+        "type": "数値、%、*",
+        "description": [
+            "各フレームのサイズをピクセル数、パーセント、相対比率 （初期値は 100%）で指定"
+        ]
+    },
+    "RLT": {
+        "name": "",
+        "description": []
+    },
+    "SANDBOX": {
+        "name": "セキュリティ上の制限",
+        "type": "文字列",
+        "description": [
+            "インラインフレーム内のコンテンツに制限をかける対象を以下から指定する",
+            "allow-same-origin : 親文書と同じドメインを持つものとする",
+            "allow-top-navigation : 最上位のウィンドウの操作を許可する",
+            "allow-forms : フォームの送信を許可する",
+            "allow-scripts : スクリプトの実行を許可する",
+            "allow-pointer-lock : Pointer Lock APIを許可する",
+            "allow-popups : ポップアップを許可する"
+        ]
+    },
+    "SCOPE": {
+        "name": "見出しの対象範囲",
+        "type": "文字列",
+        "description": [
+            "row : 行方向（横列）のセルを対象にする",
+            "col : 列方向（縦列）のセルを対象にする",
+            "rowgroup : 行グループ内のセルを対象にする",
+            "colgroup : 列グループ内のセルを対象にする"
+        ]
+    },
+    "SIDE_ALL": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "top : 上端揃え",
+            "middle : 中央揃え",
+            "bottom : 下端揃え",
+            "left : 左フロート",
+            "right : 右フロート"
+        ]
+    },
+    "SIDE_TB": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "top : 上端揃え",
+            "bottom : 下端揃え"
+        ]
+    },
+    "SIDE_TMB": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "top : 上端揃え",
+            "middle : 中央揃え",
+            "bottom : 下端揃え"
+        ]
+    },
+    "SIDE_TMBBL": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": []
+    },
+    "SIDE_TMB1BL": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "top : 上端揃え",
+            "middle : 中央揃え",
+            "bottom : 下端揃え",
+            "baseline : 1行目をベースラインで揃える"
+        ]
+    },
+    "SIDE_LMR": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "left : 左寄せ",
+            "center : 中央揃え",
+            "right : 右寄せ"
+        ]
+    },
+    "SIDE_LMRJ": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "left : 左寄せ",
+            "center : 中央揃え",
+            "right : 右寄せ",
+            "justify : 両端揃え"
+        ]
+    },
+    "SIDE_LMRJC": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "left : 左寄せ",
+            "center : 中央揃え",
+            "right : 右寄せ",
+            "justify : 両端揃え",
+            "char : char属性で指定した文字の位置で揃える"
+        ]
+    },
+    "SIDE_TRBL": {
+        "name": "位置指定",
+        "type": "文字列",
+        "description": [
+            "top : 上端揃え",
+            "right : 右寄せ",
+            "bottom : 下端揃え",
+            "left : 左寄せ"
+        ]
+    },
+    "SHAPE": {
+        "name": "領域の形状",
+        "type": "文字列",
+        "description": [
+            "rect : 四角形",
+            "circle : 円形",
+            "poly : 多角形",
+            "default : 画像全体"
+        ]
+    },
+    "SRCSET": {
+        "name": "画像リスト",
+        "type": "文字列",
+        "description": [
+            "以下の情報の組み合わせを複数定義してレスポンシブ画像を設定する",
+            "URL : 画像ファイルのURL",
+            "URL 横幅w : ビューポートの幅による切り替え： 画像ファイルのURL、画像ファイルの横幅（ピクセル数）、記述子（w）",
+            "URL 比率x : デバイスピクセル比による切り替え： 画像ファイルのURL、比率を示す数値、記述子（x）"
+        ]
+    },
+    "STRING": {
+        "name": "文字列",
+        "type": "文字列",
+        "description": [
+            "<任意の文字列を設定する。>"
+        ]
+    },
+    "TYPEMODE": {
+        "name": "入力モードの指定",
+        "type": "文字列",
+        "description": [
+            "入力モードの指定を行う",
+            "verbatim : 文章ではない英数字による文字列の入力（ユーザー名、パスワード、製品コード 等、対コンピューター向け）",
+            "latin : ラテン文字による自由形式なテキストの入力（入力予測等の入力支援が期待される）",
+            "latin-name : ラテン文字によるユーザー名の入力（人名の入力に適した入力支援が期待される）",
+            "latin-prose : ラテン文字によるメッセージの入力（対人コミュニケーションに適した入力支援が期待される）",
+            "full-width-latin : 全角英数字モード",
+            "kana : 全角かな入力モード",
+            "kana-name : 全角かな入力モード（人名の入力に適した入力支援が期待される）",
+            "katakana : 全角カタカナ入力モード",
+            "numeric : , や - を含む半角数字の入力（クレジットカード番号 等）、数値の場合は type=\"number\" が適切",
+            "tel : * や # を含む半角数字の入力（電話番号）、通常は type=\"tel\" を使用",
+            "email : @ や . を含む半角英数字の入力（メールアドレス）、通常は type=\"email\" を使用",
+            "url : / や . を含む半角英数字の入力（URL）、通常は type=\"url\" を使用"
+        ]
+    },
+    "URI": {
+        "name": "URI",
+        "type": "文字列",
+        "description": [
+            "URIを設定する"
+        ]
+    },
+    "USE_SIGNIN": {
+        "name": "別ドメインにあるリソースの扱い方法",
+        "type": "文字列",
+        "description": [
+            "anonymous : 認証を利用しない",
+            "use-credentials : 認証を利用する"
+        ]
+    },
+    "US_FLT": {
+        "name": "符号なし浮動小数点",
+        "type": "符号なし浮動小数点",
+        "description": []
+    },
+    "US_NC": {
+        "name": "符号なし整数値",
+        "type": "符号なし整数値",
+        "description": [
+            "符号なし整数値を設定する",
+        ]
+    },
+    "US_NZ": {
+        "name": "符号なしゼロを除外した整数値",
+        "type": "符号なしゼロを除外した整数値",
+        "description": [
+            "符号なしゼロを除外した整数値を設定する"
+        ]
+    },
+    "US_NC_PCT": {
+        "name": "",
+        "description": []
+    },
+    "US_NZ_PCT": {
+        "name": "",
+        "description": []
+    },
+    "WINDOW": {
+        "name": "表示先の指定",
+        "type": "文字列",
+        "description": [
+            "表示先の指定は以下のようのものが指定できる。",
+            "_blank : 新規のウィンドウに表示",
+            "_self : 現在のウィンドウ（フレーム）に表示",
+            "_parent : 親ウィンドウ（フレーム）に表示",
+            "_top : フレームを解除してウィンドウ全体に表示",
+            "ウィンドウ名、フレーム名 : 任意のウィンドウ（フレーム）に表示"
+        ]
+    },
+    "ZERO_ONE": {
+        "name": "機能の有効/無効",
+        "type": "0/1",
+        "description": [
+            "0 : 無効",
+            "1 : 有効"
+        ]
+    }
+}

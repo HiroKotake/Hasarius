@@ -464,9 +464,224 @@
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "STRING"
+            },
+            "alt": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF"
+            },
+            "dirname": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formaction": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "formenctype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formmethod": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
+            },
+            "formtarget": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NC"
+            },
+            "list": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "maxlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "min": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "minlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "pattern": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "placeholder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "size": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "step": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ANY_US_NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
             }
         },
         "HTML5_1": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "INPUT_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "alt": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "inputmode": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "INPUT_MODE"
+            },
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF"
+            },
+            "dirname": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formaction": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "formenctype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formmethod": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
+            },
+            "formtarget": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NC"
+            },
+            "list": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "maxlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "min": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "minlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "pattern": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "placeholder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "size": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "step": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ANY_US_NZ"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            }
         }
     },
     "CustomAttributes": {
@@ -477,7 +692,7 @@
             "AttributeName": "checked",
             "Alias": "checked",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"]
         },
         "disabled": {
             "Priority": "OPTION",
@@ -486,7 +701,7 @@
             "AttributeName": "disabled",
             "Alias": "disabled",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"]
         },
         "ismap": {
             "Priority": "OPTION",
@@ -504,7 +719,34 @@
             "AttributeName": "readonly",
             "Alias": "readonly",
             "Value": "ON_OFF",
-            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"]
+        },
+        "formnovalidate": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "formnovalidate",
+            "Alias": "formnovalidate",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "multiple": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "multiple",
+            "Alias": "multiple",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "required": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "required",
+            "Alias": "required",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
         },
         "autofocus": {
             "Priority": "OPTION",

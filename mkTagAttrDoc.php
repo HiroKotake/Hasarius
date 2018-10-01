@@ -51,7 +51,7 @@ if (array_key_exists("SubCommand", $settings)) {
 
 // 雛形作成
 $line = [];
-$line[] = $tagData->name . PHP_EOL;
+$line[] = "#h1 " . $tagData->name . " (略：" . $tagData->alias . ")". PHP_EOL;
 $line[] = "#hr" . PHP_EOL;
 $line[] = "#h2 用途" . PHP_EOL;
 $line[] = "ブロックタイプ： " . $tagData->blockType . PHP_EOL;
@@ -189,6 +189,11 @@ class TagData
     {
         if (!array_key_exists($attrName, $this->attribute)) {
             $this->attribute[$attrName] = new TagAttributes();
+            $this->attribute[$attrName]->value = $tagData["Value"];
+            foreach ($tagData["DocumentType"] as $format) {
+                $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);
+            }
+        } else {
             $this->attribute[$attrName]->value = $tagData["Value"];
             foreach ($tagData["DocumentType"] as $format) {
                 $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);

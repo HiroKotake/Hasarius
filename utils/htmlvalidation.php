@@ -39,53 +39,55 @@ class HtmlValidation
      * @var array
      */
     private static $validPattern = [
-        "BUTTON_TYPE" => "/^(submit|reset|button)$/u",
-        "CLEAR_TYPE" => "/^(left|right|all|none)$/u",
-        "DIR_TYPE" => "/^(ltr|rtl|auto)$/",
+        "BUTTON_TYPE" => "/^(submit|reset|button)$/ui",
+        "CLEAR_TYPE" => "/^(left|right|all|none)$/ui",
+        "DIR_TYPE" => "/^(ltr|rtl|auto)$/ui",
         "FONT" => "/^.*$/",     // フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく
-        "GET_POST" => "/^(get|post)$/iu",
+        "GET_POST" => "/^(get|post)$/ui",
+        "INPUT_MODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/ui",
         "LANG" => "/^[a-z]{2}(-[a-zA-Z]{2})?$/",
-        "LINE_FRAME" => "/^(void|lhs|rhs|vsides|above|below|hsides|box|border)$/",
+        "LINE_FRAME" => "/^(void|lhs|rhs|vsides|above|below|hsides|box|border)$/ui",
         "LIST_NUM" => "/^(1|A|a|I|i)$/",
-        "LINE_RULES" => "/^(none|rows|cols|groups|all)$/",
-        "LINE_TYPE" => "/^(alternate|stylesheet|start|next|prev|contents|index|glossary|copyright|chapter|section|subsection|appendix|help|bookmark)$/",
+        "LINE_RULES" => "/^(none|rows|cols|groups|all)$/ui",
+        "LINE_TYPE" => "/^(alternate|stylesheet|start|next|prev|contents|index|glossary|copyright|chapter|section|subsection|appendix|help|bookmark)$/ui",
         "LIST_STYLE" => "/^(disc|circle|square|1|A|a|I|i)$/",
-        "LIST_SYMBOL" => "/^(disc|circle|square)$/",
+        "LIST_SYMBOL" => "/^(disc|circle|square)$/ui",
         "NC_PCT" => "/^-?\d*\%?$/",
         "NZ_PCT" => "/^-?(1|2|3|4|5|6|7|8|9)\d*\%?$/",
         "MEDIA_QUERY" => "/^(not|only)?\s*((all|screen|print|speech|tv|projection|handheld|tty|braille|embossed)?\s*((and)?\s*(\((((min-|max-)?((device-)?width:\s*\d*px|(device-)?height:\s*\d*|(device-)?acept-ratio:\s*(\d*\/\d*)|color(-index)?:\s*\d*|monochrome:\s*\d*|resolution:\s*\d*(dpi|apcm)))|oriencation:\s*(portrait|landspace)|scan:\s*(progressive|interlace)|grid:\s*(0|1))\))*(\s*\d*(vw|px))?,?)*\s*)*$/",
         "NZ_PCT_RLT" => "/^(((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*))$/",
-        "ON_OFF" => "/^(on|off)$/",
-        "ON_OFF_AUTO" => "/^(on|off|auto)$/",
+        "ON_OFF" => "/^(on|off)$/ui",
+        "ON_OFF_AUTO" => "/^(on|off|auto)$/ui",
         "PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%$/",
-        "PRELOAD" => "/^(none|metadata|auto)$/",
-        "REL_TYPE_A" => "/^(alternate|author|bookmark|help|license|next|nofollow|noreferrer|prefetch|prev|search|tag)$/",
-        "REL_TYPE_L" => "/^(alternate|author|help|icon|license|next|prefetch|prev|search|stylesheet)$/",
+        "PRELOAD" => "/^(none|metadata|auto)$/ui",
+        "REL_TYPE_A" => "/^(alternate|author|bookmark|help|license|next|nofollow|noreferrer|prefetch|prev|search|tag)$/ui",
+        "REL_TYPE_L" => "/^(alternate|author|help|icon|license|next|prefetch|prev|search|stylesheet)$/ui",
         "REPET_NC_PCT_ASTER" => "/^((((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*)),\s?)*(((1|2|3|4|5|6|7|8|9)\d*\%?)|(\d*\*))$/",
         "RLT" => "/^\d*\*$/",
-        "SANDBOX" => "/^allow-(same-origin|top-navigation|forms|scripts|pointer-lock|popups)$/",
-        "SCOPE" => "/^(row|col|rowgroup|colgroup)$/",
-        "SIDE_ALL" => "/^(left|right|top|middle|bottom)$/",
-        "SIDE_TB" => "/^(top|bottom)$/",
-        "SIDE_TMB" => "/^(top|middle|bottom)$/",
-        "SIDE_TMBBL" => "/^(top|middle|bottom|baseline)$/",
-        "SIDE_TMB1BL" => "/^(top|middle|bottom|baseline)$/",
-        "SIDE_LMR" => "/^(left|middle|right)$/",
-        "SIDE_LMRJ" => "/^(left|middle|right|justify)$/",
-        "SIDE_LMRJC" => "/^(left|middle|right|justify|char)$/",
-        "SIDE_TRBL" => "/^(top|right|bottom|left)$/",
-        "SHAPE" => "/^(rect|circle|poly|default)$/",
+        "SANDBOX" => "/^allow-(same-origin|top-navigation|forms|scripts|pointer-lock|popups)$/ui",
+        "SCOPE" => "/^(row|col|rowgroup|colgroup)$/ui",
+        "SIDE_ALL" => "/^(left|right|top|middle|bottom)$/ui",
+        "SIDE_TB" => "/^(top|bottom)$/ui",
+        "SIDE_TMB" => "/^(top|middle|bottom)$/ui",
+        "SIDE_TMBBL" => "/^(top|middle|bottom|baseline)$/ui",
+        "SIDE_TMB1BL" => "/^(top|middle|bottom|baseline)$/ui",
+        "SIDE_LMR" => "/^(left|middle|right)$/ui",
+        "SIDE_LMRJ" => "/^(left|middle|right|justify)$/ui",
+        "SIDE_LMRJC" => "/^(left|middle|right|justify|char)$/ui",
+        "SIDE_TRBL" => "/^(top|right|bottom|left)$/ui",
+        "SHAPE" => "/^(rect|circle|poly|default)$/ui",
         "SRCSET" => "/^(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?(,\s+(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?)*$/",
-        "TYPEMODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/",
+        "TYPEMODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/ui",
         //"URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
         "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w-.\/?%&=]*)?$/",
-        "USE_SIGNIN" => "/^(anonymous|use-credentials)$/",
+        "USE_SIGNIN" => "/^(anonymous|use-credentials)$/ui",
         "US_NC_PCT" => "/^\d*\%?$/",
         "US_NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
         "ZERO_ONE" => "/^(0|1)$/",
     ];
 
     private static $functions = [
+        "ANY_US_NZ" => "isAnyUsNz",
         "COLOR" => "isColor",
         "COORDS" => "isCoords",
         "DATETIME" => "isDateTime",
@@ -616,22 +618,21 @@ class HtmlValidation
             "submit",           // 送信ボタン
             "reset",            // リセットボタン
             "image",            // 画像による送信ボタン
-            "datetime",         // UTCによる日時入力
-            "datetime-lcoal",   // ローカル日時入力
             "button",           // 汎用ボタン
         ];
         if (preg_match("/^HTML5.*$/", $dtd)) {
-            $type[] = "search"; // 検索テキスト
-            $type[] = "tel";    // 電話番号
-            $type[] = "url";    // URL
-            $type[] = "email";  // メールアドレス
-            $type[] = "date";   // 日付
-            $type[] = "month";  // 月
-            $type[] = "week";   // 週
-            $type[] = "time";   // 時間
-            $type[] = "number"; // 数値
-            $type[] = "range";  // レンジ
-            $type[] = "color";  // 色
+            $type[] = "search";         // 検索テキスト
+            $type[] = "tel";            // 電話番号
+            $type[] = "url";            // URL
+            $type[] = "email";          // メールアドレス
+            $type[] = "date";           // 日付
+            $type[] = "month";          // 月
+            $type[] = "week";           // 週
+            $type[] = "time";           // 時間
+            $type[] = "datetime-local"; // ローカル日時入力
+            $type[] = "number";         // 数値
+            $type[] = "range";          // レンジ
+            $type[] = "color";          // 色
         }
 
         return in_array($inputtype, $type);
@@ -727,5 +728,14 @@ class HtmlValidation
     public static function isWhiteSpaces($str): bool
     {
         return preg_match('/^[\s　]$/', $str) == 1;
+    }
+
+    public static function isAnyUsNz(string $str): bool
+    {
+        if (preg_match("/^any$/ui", $str) == 1) {
+            return true;
+        }
+
+        return self::isUsNc($str);
     }
 }

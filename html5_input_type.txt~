@@ -1,0 +1,140 @@
+name -> STRING
+value -> STRING
+disabled -> custom
+form -> id STRING
+autofocus -> custom
+
+
+password:
+size -> US_NC
+maxlength -> US_NC
+minlength -> US_NC
+autocomplete -> ON_OFF
+pattern -> STRING
+placeholder -> STRING
+*inputmode -> INPUT_MODE :
+        verbatim 	文章ではない英数字による文字列の入力（ユーザー名、パスワード、製品コード 等、対コンピューター向け）
+        latin 	ラテン文字による自由形式なテキストの入力（入力予測等の入力支援が期待される）
+        latin-name 	ラテン文字によるユーザー名の入力（人名の入力に適した入力支援が期待される）
+        latin-prose 	ラテン文字によるメッセージの入力（対人コミュニケーションに適した入力支援が期待される）
+        full-width-latin 	全角英数字モード（？）
+        kana 	全角かな入力モード
+        kana-name 	全角かな入力モード（人名の入力に適した入力支援が期待される）
+        katakana 	全角カタカナ入力モード
+        numeric 	, や - を含む半角数字の入力（クレジットカード番号 等）、数値の場合は type="number" が適切
+        tel 	* や # を含む半角数字の入力（電話番号）、通常は type="tel" を使用
+        email 	@ や . を含む半角英数字の入力（メールアドレス）、通常は type="email" を使用
+        url 	/ や . を含む半角英数字の入力（URL）、通常は type="url" を使用
+readonly -> custom
+required -> custom
+
+tel:
+size -> US_NC
+maxlength -> US_NC
+minlength -> US_NC
+autocomplete -> ON_OFF
+list -> STRING <id>
+pattern -> STRING
+placeholder -> STRING
+readonly -> custom
+required -> custom
+
+url:
+size -> US_NC
+maxlength -> US_NC
+minlength -> US_NC
+autocomplete -> ON_OFF
+list -> STRING <id>
+pattern -> STRING
+placeholder -> STRING
+readonly -> custom
+required -> custom
+
+email:
+size -> US_NC
+maxlength -> US_NC
+minlength -> US_NC
+autocomplete -> ON_OFF
+list -> STRING <id>
+pattern -> STRING
+placeholder -> STRING
+multiple -> custom
+readonly -> custom
+required -> custom
+
+search:
+size -> US_NC
+maxlength -> US_NC
+minlength -> US_NC
+autocomplete -> ON_OFF
+list -> STRING <id>
+pattern -> STRING
+placeholder -> STRING
+dirname -> STRING
+*inputmode -> INPUT_MODE :
+readonly -> custom
+required -> custom
+
+date:
+min -> YYYY_MM_DD
+max -> YYYY_MM_DD
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+readonly -> custom
+required -> custom
+
+month:
+min -> YYYY_MM
+max -> YYYY_MM
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+readonly -> custom
+required -> custom
+
+week:
+min -> YYYY_Wnn
+max -> YYYY_Wnn
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+readonly -> custom
+required -> custom
+
+time:
+min -> hh:mm:ss
+max -> hh:mm:ss 
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+readonly -> custom
+required -> custom
+
+datetime-local:
+min -> YYYY_MM_DDThh:mm:ss
+max -> YYYY_MM_DDThh:mm:ss
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+readonly -> custom
+required -> custom
+
+number:
+max -> FLT 
+min -> FLT
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+placeholder -> STRING
+*inputmode -> INPUT_MODE :
+readonly -> custom
+required -> custom
+
+range:
+max -> FLT 
+min -> FLT
+step -> ANY_US_NC  => "any" or 数値
+autocomplete -> ON_OFF
+list -> STRING <id>
+

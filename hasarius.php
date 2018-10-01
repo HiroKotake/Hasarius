@@ -44,7 +44,7 @@ $autoload = new \Hasarius\AutoLoader();
 $autoload->autoload();
 
 $genarate = new \Hasarius\system\Generate();
-$genarate->make(["Source" => $src, "Destination" => $dist, "title" => $title]);
+$genarate->make(["Source" => $src, "Destination" => $dist, "Title" => $title]);
 
 function showCommandLine()
 {

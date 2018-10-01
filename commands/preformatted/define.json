@@ -1,5 +1,5 @@
 {
-    "CommandName": "preformated",
+    "CommandName": "preformatted",
     "TagOpen": "pre",
     "TagClose": "</pre>",
     "BlockType": "BLOCK",

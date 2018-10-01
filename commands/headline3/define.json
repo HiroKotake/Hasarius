@@ -1,5 +1,5 @@
 {
-    "CommandName": "headline1",
+    "CommandName": "headline3",
     "TagOpen": "h3",
     "TagClose": "</h3>",
     "BlockType": "ONELINE",
