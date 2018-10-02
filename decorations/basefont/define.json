@@ -12,7 +12,7 @@
         "XHTML1_LOOSE": ["id"],
         "XHTML1_FRAME": ["id"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML4_LOOSE": [],
         "HTML4_FRAME": [],
         "XHTML1_LOOSE": [],

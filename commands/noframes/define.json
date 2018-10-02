@@ -13,7 +13,7 @@
         "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
         "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
         "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
         "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],

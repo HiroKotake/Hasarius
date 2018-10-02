@@ -1,7 +1,7 @@
 {
     "CommandName": "break",
     "TagOpen": "br",
-    "TagClose": "</br>",
+    "TagClose": "",
     "BlockType": "INLINE",
     "CommandPerposes": ["HTML"],
     "CommandAlias": "br",
@@ -18,7 +18,7 @@
         "HTML5": ["style", "class", "id", "title"],
         "HTML5_1": ["style", "class", "id", "title"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML4_LOOSE": [],
         "HTML4_STRICT": [],
         "HTML4_FRAME": [],

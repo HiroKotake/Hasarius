@@ -25,13 +25,23 @@ if (!file_exists($distnationDir) || !is_dir($distnationDir)) {
 }
 $wFilename = $distnationDir . DIRECTORY_SEPARATOR . str_replace("/", "_", $targetTagName) . ".txt";
 
+// Tag情報ファイル読み込み
 $json = file_get_contents($filename);
 $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
 $settings = json_decode($json, true);
 
+// 属性情報ファイル読み込み
+$attrJsonFile = __DIR__ . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "attr_info.json";
+$attrJson = file_get_contents($attrJsonFile);
+$attrJson = mb_convert_encoding($attrJson, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+$attrInfos = json_decode($attrJson, true);
+//var_dump($attrInfos);
+
 $tagData = new TagData();
 $tagData->name = $settings["CommandName"];
-$tagData->alias = $settings["CommandAlias"];
+if (array_key_exists("CommandAlias", $settings)) {
+    $tagData->alias = $settings["CommandAlias"];
+}
 $tagData->setPossibleDocType($settings["DocumentType"]);
 $tagData->blockType = $settings["BlockType"];
 // Attribute
@@ -41,8 +51,10 @@ foreach ($settings["TagAttributes"] as $format => $attributes) {
     }
 }
 // Custom Attribute
-foreach ($settings["CustomAttributes"] as $attrName => $data) {
-    $tagData->setCustomAttribute($attrName, $data);
+if (array_key_exists("CustomAttributes", $settings)) {
+    foreach ($settings["CustomAttributes"] as $attrName => $data) {
+        $tagData->setCustomAttribute($attrName, $data);
+    }
 }
 // Sub Command
 if (array_key_exists("SubCommand", $settings)) {
@@ -51,7 +63,11 @@ if (array_key_exists("SubCommand", $settings)) {
 
 // 雛形作成
 $line = [];
-$line[] = "#h1 " . $tagData->name . " (略：" . $tagData->alias . ")". PHP_EOL;
+if (empty($tagData->alias)) {
+    $line[] = "#h1 " . $tagData->name . PHP_EOL;
+} else {
+    $line[] = "#h1 " . $tagData->name . " (略：" . $tagData->alias . ")". PHP_EOL;
+}
 $line[] = "#hr" . PHP_EOL;
 $line[] = "#h2 用途" . PHP_EOL;
 $line[] = "ブロックタイプ： " . $tagData->blockType . PHP_EOL;
@@ -67,7 +83,7 @@ if (empty($tagData->attribute)) {
     $line[] = "このタグではHTMLで定義されているグローバル属性のみ使用可能です。" . PHP_EOL;
 } else {
     $line[] = "このタグではHTMLで定義されているグローバル属性以外に以下の属性が使用可能です。" . PHP_EOL;
-    $line[] = '#tbl' . PHP_EOL;
+    $line[] = '#tbl border=""' . PHP_EOL;
     $line[] = "+" . PHP_EOL;
     $line[] = "! 属性名" . PHP_EOL;
     $line[] = "! 属性値" . PHP_EOL;
@@ -79,11 +95,22 @@ if (empty($tagData->attribute)) {
     foreach ($tagData->attribute as $attrName => $data) {
         $line[] = "+" . PHP_EOL;
         $line[] = "| " . $attrName . PHP_EOL;
-        $line[] = "| " . $data->value . PHP_EOL;
+        // 属性値の種別、説明文を生成
+        $attrType = "";
+        $description = "";
+        foreach ($data->value as $attr) {
+            $attrType .= $attrInfos[$attr]["type"] . ",";
+            // 説明文抽出
+            foreach ($attrInfos[$attr]["description"] as $desc) {
+                $description .= $desc . "<br>";
+            }
+        }
+        $attrType = rtrim($attrType, ",");
+        $line[] = "| $attrType" . PHP_EOL;
         foreach ($settings["DocumentType"] as $dtype) {
             $line[] = "|" . ($data->target[$dtype] == 0 ? " ×" : ($data->target[$dtype] == 1 ? " 〇" : ($data->target[$dtype] == 2 ? " △" : " ▲"))) . PHP_EOL;
         }
-        $line[] = "| <説明>" . PHP_EOL;
+        $line[] = "| $description" . PHP_EOL;
         $line[] = "##" . PHP_EOL;
     }
     $line[] = "##" . PHP_EOL;
@@ -100,7 +127,7 @@ if (!empty($tagData->subCommand)) {
     $line[] = '通常はタグコマンドであることを示すために行頭に"#<タグ名>"を設定しますが、サブコマンドが設定されている場合はサブコマンドのみでタグ名を指定をする必要はありません。' . PHP_EOL;
     $line[] = 'サブコマンドには以下のものが定義されています。' . PHP_EOL;
     $line[] = PHP_EOL;
-    $line[] = "#tbl" . PHP_EOL;
+    $line[] = '#tbl border="1"' . PHP_EOL;
     $line[] = "+" . PHP_EOL;
     $line[] = "! サブコマンド" . PHP_EOL;
     $line[] = "! 対応するタグ" . PHP_EOL;
@@ -138,7 +165,7 @@ echo "DONE !!" . PHP_EOL;
 /*********************************************************************************************************************/
 class TagAttributesTarget
 {
-    public $value = "";
+    public $value = [];
     public $target = [
         "HTML4_LOOSE"   => 0,   // 0:設定なし 1:設定あり（必須） 2:設定あり（任意）3:非推奨
         "HTML4_STRICT"  => 0,
@@ -150,10 +177,37 @@ class TagAttributesTarget
         "HTML5"         => 0,
         "HTML5_1"       => 0,
     ];
+    public $description = [];
 
     public function setTargetType(string $format, string $priority): void
     {
         $this->target[$format] = $priority == "OPTION" ? 2 : ($priority == "DEPRECATION" ? 3 : 1);
+    }
+
+    public function setValue(string $value): void
+    {
+        if (!in_array($value, $this->value)) {
+            $this->value[] = $value;
+        }
+    }
+    public function getValueString(): string
+    {
+        return implode(",", $this->value);
+    }
+    public function isValueExist(string $value): bool
+    {
+        return in_array($value);
+    }
+
+    public function setDescription(string $value, array $desc): void
+    {
+        if (!in_array($value, $this->value)) {
+            $this->description = array_merge($this->description, $desc);
+        }
+    }
+    public function getDescription(): array
+    {
+        return $this->description;
     }
 }
 
@@ -178,9 +232,10 @@ class TagData
     {
         if (array_key_exists($attrName, $this->attribute)) {
             $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);
+            $this->attribute[$attrName]->setValue($tagData["Value"]);
         } else {
             $this->attribute[$attrName] = new TagAttributesTarget();
-            $this->attribute[$attrName]->value = $tagData["Value"];
+            $this->attribute[$attrName]->setValue($tagData["Value"]);
             $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);
         }
     }
@@ -188,13 +243,13 @@ class TagData
     public function setCustomAttribute(string $attrName, array $tagData): void
     {
         if (!array_key_exists($attrName, $this->attribute)) {
-            $this->attribute[$attrName] = new TagAttributes();
-            $this->attribute[$attrName]->value = $tagData["Value"];
+            $this->attribute[$attrName] = new TagAttributesTarget();
+            $this->attribute[$attrName]->setValue($tagData["Value"]);
             foreach ($tagData["DocumentType"] as $format) {
                 $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);
             }
         } else {
-            $this->attribute[$attrName]->value = $tagData["Value"];
+            $this->attribute[$attrName]->setValue($tagData["Value"]);
             foreach ($tagData["DocumentType"] as $format) {
                 $this->attribute[$attrName]->setTargetType($format, $tagData["Priority"]);
             }

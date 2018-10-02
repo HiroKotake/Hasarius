@@ -309,7 +309,15 @@ class HtmlValidation
         $result = "";
         $attributeInfo = $tag->getPossibleTagAttributes();
         $customAttributeInfo = $tag->getPossibleCustomAttributes();
+        $eventAttributeInfo = $tag->getPossibleEventAttributes();
         foreach ($paramaters as $key => $value) {
+            // Hasarius Common Check
+            if (preg_match("/^(ScriptFile|CssFile)$/ui", $key) > 0) {
+                if (!file_exists($value)) {
+                    $result .= "[Validate Error] File is not exists. ($key : $value)" . PHP_EOL;
+                }
+                continue;
+            }
             // Global Attribute Check
             if (array_key_exists($key, GLOBAL_ATTRIBUTES)) {
                 // PREG
@@ -337,6 +345,11 @@ class HtmlValidation
                         continue;
                     }
                 }
+            }
+            // Event Attribute Check
+            if (array_key_exists(MAKE_DocumentType, $eventAttributeInfo) && in_array($key, $eventAttributeInfo[MAKE_DocumentType])) {
+                // イベント関連の属性ならば属性値は javascript なのでチェックせずに次へ
+                continue;
             }
             // Normal Attribute Check
             $check = self::commonValidate($attributeInfo[MAKE_DocumentType], $paramaters, $key, $value);

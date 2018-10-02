@@ -10,7 +10,7 @@
         "HTML4_FRAME": ["style", "class", "id", "title"],
         "XHTML1_FRAME": ["style", "class", "id", "title"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML4_FRAME": [],
         "XHTML1_FRAME": []
     },

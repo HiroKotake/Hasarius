@@ -11,7 +11,7 @@
         "HTML5": ["id"],
         "HTML5_1": ["id"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML5": [],
         "HTML5_1": []
     },

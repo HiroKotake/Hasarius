@@ -17,7 +17,7 @@
         "HTML5": ["style", "class", "id", "title", "lang", "dir", "accesskey"],
         "HTML5_1": ["style", "class", "id", "title", "lang", "dir", "accesskey"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
         "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
         "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],

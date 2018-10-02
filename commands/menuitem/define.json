@@ -10,7 +10,7 @@
     "GlobalAttributes": {
         "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
     },
-    "EventAttribute": {
+    "EventAttributes": {
         "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
     },
     "TagAttributes": {
