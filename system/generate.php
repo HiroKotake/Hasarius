@@ -160,11 +160,11 @@ class Generate
     {
         return $this->pageTitle;
     }
-    public function setDestination(string $dist): void
+    public function setDestDir(string $dist): void
     {
         $this->destination = $dist;
     }
-    public function getDestination(): string
+    public function getDestDir(): string
     {
         return $this->destination;
     }
@@ -291,12 +291,12 @@ class Generate
      * HTMLファイル生成
      * @param  array $params[
      *                          "Source" => (必須) HTML化するファイル
-     *                          "Destination" => (任意) 生成したファイルを保存先ディレクトリ : make.json内で記載可だが、指定した場合はここでの指定が優先される
+     *                          "DestDir" => (任意) 生成したファイルを保存先ディレクトリ : make.json内で記載可だが、指定した場合はここでの指定が優先される
      *                          "Title" => (任意) ページタイトル : make.json内で記載可だが、指定した場合はここでの指定が優先される
      *                      ]
      * @return bool           成功時には真を、失敗時に偽を返す
      */
-    public function make(array $params = ["Source" => "", "Destination" => "", "Title" => ""]): bool
+    public function make(array $params = ["Source" => "", "DestDir" => "", "DestFile"=> "", "Title" => ""]): bool
     {
         // ソース指定チェック
         if (!array_key_exists("Source", $params) || empty($params["Source"])) {
@@ -319,7 +319,11 @@ class Generate
         $this->initialize();
 
         // 変換後のHTMLファイル名設定
-        $this->destFileName = $this->makeDestFileName($sourceFileName);
+        if (!array_key_exists("DestFile", $params) || empty($params["DestFile"])) {
+            $this->destFileName = $this->makeDestFileName($sourceFileName);
+        } else {
+            $this->destFileName =  $params["DestFile"];
+        }
 
         // ページタイトル変更
         if (array_key_exists("Title", $params) && !empty($params["Title"])) {
@@ -329,24 +333,23 @@ class Generate
         }
 
         // 保存先設定
-        if (array_key_exists("Destination", $params)) {
-            $this->destination = empty($params["Destination"]) ? MAKE_WriteTargetDir : $params["Destination"];
-        } elseif (array_key_exists("Destination", $params)) {
-            $this->destination = $params["Destination"];
+        if (array_key_exists("DestDir", $params)) {
+            $this->destination = empty($params["DestDir"]) ? MAKE_WriteTargetDir : $params["DestDir"];
+        } elseif (defined("MAKE_WriteTargetDir") || MAKE_WriteTargetDir != "") {
+            $this->destination = MAKE_WriteTargetDir;
         } else {
             // Make.json にも引数にも保存先の指定がない
             throw new \Exception("[ERROR] Paramater Invalid: No destination specified !!", 1);
         }
         // 保存先確認
         if (!file_exists($this->destination)) {
-            throw new \Exception("[ERROR] Paramater Invalid: Destination does not exist !!", 1);
+            throw new \Exception("[ERROR] Paramater Invalid: DestDir does not exist !!", 1);
         }
-
         // HTML生成
         try {
             // ToDo: プリプロセス処理を追加（定数対応、変数対応、プリプロセス用バッチコマンド対応)
             // プリプロセス
-            $lines = $this->preprocess($params["Source"]);
+            $lines = $this->preprocess($params);
             // 解析
             $this->analyze($lines);
             // 構築
@@ -391,18 +394,48 @@ class Generate
         return $lineArray;
     }
 
+    private function getVariableInParam(string $key, string $value): array
+    {
+        $result = [
+            "varName"  => null,
+            "varValue" => null,
+            "comment"  => null
+        ];
+
+        $result["varName"] = ltrim($key, '@');
+        $result["varValue"] = $value;
+        return $result;
+    }
+
     /**
      * ファイルを読み込み事前準備を実施する
-     * @param  string $source ソースファイル
+     * @param  array $params  生成情報一覧
+     *                        [
+     *                          "Source" => 解析対象ファイル,
+     *                            ・
+     *                            ・
+     *                            ・
+     *                          "@<変数名>" => <変数値>,
+     *                          "@<変数名>" => <変数値>,
+     *                        ]
      * @return array          事前準備完了後のデータ配列
      */
-    public function preprocess(string $source): array
+    public function preprocess(array $params): array
     {
+        // ファイル関連
+        $source = realpath($params["Source"]);
+        $filename = pathinfo($source, PATHINFO_BASENAME);
+        $sourceDir = dirname($source);
         $lineNumber = 0;
         $lines = [];
-        $sourceInfo = explode(DIRECTORY_SEPARATOR, $source);
-        $filename = array_pop($sourceInfo);
-        $sourceDir = implode(DIRECTORY_SEPARATOR, $sourceInfo);
+
+        // コマンドライン引数での変数指定
+        foreach ($params as $key => $value) {
+            $varName = [];
+            if (preg_match("/^@(\S*)$/", $key, $varName)) {
+                $this->variables[$varName[1]] = $this->getVariableInParam($key, $value);
+            }
+        }
         try {
             // ファイル存在確認
             if (!file_exists($source)) {
@@ -424,40 +457,41 @@ class Generate
                 // 外部ソースチェック & 読み込み
                 $checkedSource = Utils\Parser::getIncludeFile($line, $sourceDir);
                 if (!empty($checkedSource["filename"])) {
-                    $lines = array_merge($lines, $this->preprocess($checkedSource["filename"]));
+                    $lines = array_merge($lines, $this->preprocess(["Source" => $checkedSource["filename"]]));
                     continue;
                 }
                 // 変数対応
                 $tempVar = Utils\Parser::getValiable($line);
-                if (array_key_exists($tempVar['varName'], $this->variables)) {
-                    throw new \Exception("Deplicate variable error !!");
-                }
-                if (!empty($tempVar['varName'])) {
+                if (!empty($tempVar['varName']) && !array_key_exists($tempVar["varName"], $this->variables)) {
+                    // 同一の変数がある場合は最初に定義した変数を優先する
+                    // そのためコマンドライン引数で変数を設定した場合はそちらが優先される
                     $this->variables[$tempVar['varName']] = $tempVar;
                     continue;
                 }
                 // 特殊コマンド対応
                 // ToDo 下記コードは未テスト。なぜなら、プリプロセス用コマンドがないから
-                $vessel = Utils\Parser::analyzeLine(["lineText" => $line, "lineNumber" => $lineNumber], [], '@', '=');
-                $pCommand = $vessel->getCommand();
-                if (!is_numeric($pCommand) && !empty($pCommand)) {
-                    if (array_key_exists($pCommand, $this->preprocessCommandAlias)) {
-                        $pCommand = $this->preprocessCommandAlias[$pCommand];
-                    }
-                    if (!array_key_exists($pCommand, $this->preprocessCommand)) {
-                        throw new \Exception("Preprocess Command not exists !! (" . $pCommand . ")");
-                    }
+                if (preg_match("/^@.*[^@]$/", $line) > 0) {
+                    $vessel = Utils\Parser::analyzeLine(["lineText" => $line, "lineNumber" => $lineNumber], [], '@', '=');
+                    $pCommand = $vessel->getCommand();
+                    if (!is_numeric($pCommand) && !empty($pCommand)) {
+                        if (array_key_exists($pCommand, $this->preprocessCommandAlias)) {
+                            $pCommand = $this->preprocessCommandAlias[$pCommand];
+                        }
+                        if (!array_key_exists($pCommand, $this->preprocessCommand)) {
+                            throw new \Exception("Preprocess Command not exists !! (" . $pCommand . ")");
+                        }
 
-                    $pResult = $this->preprocessCommand[$pCommand]->getBatch($vessel);
-                    foreach ($pResult as $batch) {
-                        $lines[] = [
-                            'filename' => $filename,
-                            'filefullpath' => $source,
-                            'lineNumber' => $lineNumber,
-                            'lineText' => $batch,
-                        ];
+                        $pResult = $this->preprocessCommand[$pCommand]->getBatch($vessel);
+                        foreach ($pResult as $batch) {
+                            $lines[] = [
+                                'filename' => $filename,
+                                'filefullpath' => $source,
+                                'lineNumber' => $lineNumber,
+                                'lineText' => $batch,
+                            ];
+                        }
+                        continue;
                     }
-                    continue;
                 }
                 // ライン読み込み
                 $lines[] = [
@@ -470,7 +504,7 @@ class Generate
             // ファイルクローズ
             fclose($hFile);
         } catch (\Exception $e) {
-            throw new \Exception('[ERROR:PREPROCESS] ' . $filename . ':' . $lineNumber . ' - ' . $e->getMessage(), 1);
+            throw new \Exception('[ERROR:PREPROCESS] ' . $filename . ':' . $lineNumber . ' - ' . $e->getMessage() . PHP_EOL, 1);
         }
         return $lines;
     }
@@ -500,9 +534,12 @@ class Generate
                 $lineParameters = Utils\Parser::analyzeLine($line, $this->currentSubCommand->getSubCommand());
                 if (is_numeric($lineParameters->getCommand())) {
                     // --- システムコマンド系
-                    if ($lineParameters->getCommand() == SYSTEM["TEXT_ONLY"] || $lineParameters->getCommand() == SYSTEM["EMPTY_LINE"]) {
+                    if ($lineParameters->getCommand() == SYSTEM["EMPTY_LINE"]) {
                         $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
                         $lineParameters->setAutoIndent($this->flagAutoIndent);
+                        //  コンテナに格納
+                        $this->vesselContainer[] = $lineParameters;
+                        continue;
                     }
                     //  --- サブコマンドリストPull対応
                     if ($lineParameters->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
@@ -510,10 +547,15 @@ class Generate
                         if (!empty($subCommandParts) && $this->commands[$subCommandParts->getCommand()]->hasSubCommand()) {
                             $this->currentSubCommand = $subCommandParts;
                         }
+                        //  コンテナに格納
+                        $this->vesselContainer[] = $lineParameters;
+                        continue;
                     }
-                    //  コンテナに格納
-                    $this->vesselContainer[] = $lineParameters;
-                    continue;
+                    //  --- テキストのみ
+                    if ($lineParameters->getCommand() == SYSTEM["TEXT_ONLY"]) {
+                        $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                        $lineParameters->setAutoIndent($this->flagAutoIndent);
+                    }
                 }
 
                 // サブコマンド処理
@@ -525,33 +567,35 @@ class Generate
 
                 // 通常コマンド処理
                 $command = $lineParameters->getCommand();
-                //  ---- コマンドエイリアス確認
-                if (array_key_exists($command, $this->commandsAlias)) {
-                    $command = $this->commandsAlias[$command];
-                    $lineParameters->setCommand($command);
-                }
-                //  ---- コマンドエイリアスになければ実態を確認
-                if (!array_key_exists($command, $this->commands)) {
-                    throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
-                }
-                //  ----- パラメータ検証
-                $validateResult = Utils\HtmlValidation::validate($this->commands[$command], $lineParameters->getParamaters());
-                if (!empty($validateResult)) {
-                    if (MAKE_ValidateStop) {
-                        throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
-                    } else {
-                        $this->validateErrorList[] = $validateResult;
+                if (!is_numeric($command)) {
+                    //  ---- コマンドエイリアス確認
+                    if (array_key_exists($command, $this->commandsAlias)) {
+                        $command = $this->commandsAlias[$command];
+                        $lineParameters->setCommand($command);
                     }
+                    //  ---- コマンドエイリアスになければ実態を確認
+                    if (!array_key_exists($command, $this->commands)) {
+                        throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $command . ')');
+                    }
+                    //  ----- パラメータ検証
+                    $validateResult = Utils\HtmlValidation::validate($this->commands[$command], $lineParameters->getParamaters());
+                    if (!empty($validateResult)) {
+                        if (MAKE_ValidateStop) {
+                            throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
+                        } else {
+                            $this->validateErrorList[] = $validateResult;
+                        }
+                    }
+                    //  ----- コマンド処理
+                    $this->commands[$command]->trancelate($lineParameters);
                 }
-                //  ----- コマンド処理
-                $this->commands[$command]->trancelate($lineParameters);
                 // 修飾コマンド
                 $subIndex = 0;
                 foreach ($lineParameters->getModifiers() as $decorate) {
                     //  ---- 修飾コマンド解析
                     $decorateCommand = Utils\Parser::analyzeModifier($decorate);
                     //  ---- インデックス設定
-                    $decorateCommand['id'] = $lineParameters->getId() . '_' . $subIndex;
+                    $decorateCommand['id'] = "id_m_" . $line['lineNumber'] . '_' . $subIndex;
                     //  ---- 修飾エイリアス確認
                     if (array_key_exists($decorateCommand['command'], $this->decorationsAlias)) {
                         $decorateCommand['command'] = $this->decorationsAlias[$decorateCommand['command']];
@@ -561,7 +605,7 @@ class Generate
                         throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . 'Not Defined Command !! (' . $decorateCommand['command'] . ')');
                     }
                     //  ----- パラメータ検証
-                    $validateResult = Utils\HtmlValidation($this->decorations[$decorateCommand], $decorateCommand['params']);
+                    $validateResult = Utils\HtmlValidation::validate($this->decorations[$decorateCommand['command']], $decorateCommand['params']);
                     if (!empty($validateResult)) {
                         if (MAKE_ValidateStop) {
                             throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
@@ -570,7 +614,7 @@ class Generate
                         }
                     }
                     //  ----- テキスト置換
-                    $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorate);
+                    $replaceData = $this->decorations[$decorateCommand['command']]->trancelate($decorateCommand);
                     $lineParameters->setText(str_replace($decorate, $replaceData['text'], $lineParameters->getText()));
                     //  ------ Script
                     if (!empty($replaceData['script'])) {
@@ -586,20 +630,22 @@ class Generate
                     $subIndex += 1;
                 }
                 //  ------ サブコマンドリストPush対応
-                if ($this->commands[$lineParameters->getCommand()]->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
-                    $subCommandParts = new CloserInfo($lineParameters->getCommand(), $this->commands[$lineParameters->getCommand()]->getSubCommand());
-                    $subCommandParts->setCommand($lineParameters->getCommand());
-                    array_push($this->subCommandStack, $subCommandParts);
-                    if (!empty($subCommandParts->getSubCommand())) {
-                        $this->currentSubCommand = $subCommandParts;
+                if (!is_numeric($command)) {
+                    if ($this->commands[$lineParameters->getCommand()]->getBlockType() == BaseTag::BLOCK_TYPE_BLOCK) {
+                        $subCommandParts = new CloserInfo($lineParameters->getCommand(), $this->commands[$lineParameters->getCommand()]->getSubCommand());
+                        $subCommandParts->setCommand($lineParameters->getCommand());
+                        array_push($this->subCommandStack, $subCommandParts);
+                        if (!empty($subCommandParts->getSubCommand())) {
+                            $this->currentSubCommand = $subCommandParts;
+                        }
                     }
+                    //  ------ 自動改行対応
+                    $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
+                    $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
+                    //  ------ 自動インデント対応
+                    $this->flagAutoIndent = $this->commands[$command]->isAutoIndent();
+                    $lineParameters->setAutoIndent($this->flagAutoIndent);
                 }
-                //  ------ 自動改行対応
-                $this->flagAutoLineBreak = $this->commands[$command]->isAutoLineBreak();
-                $lineParameters->setAutoLineBreak($this->flagAutoLineBreak);
-                //  ------ 自動インデント対応
-                $this->flagAutoIndent = $this->commands[$command]->isAutoIndent();
-                $lineParameters->setAutoIndent($this->flagAutoIndent);
                 //  コンテナに格納
                 $this->vesselContainer[] = $lineParameters;
             }
