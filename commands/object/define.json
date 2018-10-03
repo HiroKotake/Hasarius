@@ -1,0 +1,629 @@
+{
+    "CommandName": "object",
+    "TagOpen": "object",
+    "TagClose": "</object>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "obj",
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            },
+            "border": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "hspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "vspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            }
+        },
+        "HTML4_STRICT": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML4_FRAME": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            },
+            "border": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "hspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "vspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            },
+            "border": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "hspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "vspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "declare": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^declare$/"
+            }
+        },
+        "XHTML1_STRICT": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "declare": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^declare$/"
+            }
+        },
+        "XHTML1_FRAME": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            },
+            "border": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "hspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "vspace": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC"
+            },
+            "declare": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^declare$/"
+            }
+        },
+        "XHTML1_1": {
+            "data": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "classid": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codetype": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "archive": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "codebase": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "standby": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "declare": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^declare$/"
+            }
+        },
+        "HTML5": {
+            "data": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML5_1": {
+            "data": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "type": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "usemap": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "declare": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "declare",
+            "Alias": "declare",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
+        },
+        "typemustmatch": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "typemustmatch",
+            "Alias": "typemustmatch",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

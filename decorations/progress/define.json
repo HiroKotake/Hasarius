@@ -1,0 +1,44 @@
+{
+    "CommandName": "progress",
+    "TagOpen": "progress",
+    "TagClose": "</progress>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "pgres",
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5": {
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_FLT"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_FLT"
+            }
+        },
+        "HTML5_1": {
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_FLT"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_FLT"
+            }
+        }
+    }
+}

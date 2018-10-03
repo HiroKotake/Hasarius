@@ -1,0 +1,31 @@
+{
+    "CommandName": "strike",
+    "TagOpen": "strike",
+    "TagClose": "</strike>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+        },
+        "HTML4_FRAME": {
+        },
+        "XHTML1_LOOSE": {
+        },
+        "XHTML1_FRAME": {
+        }
+    }
+}

@@ -1,0 +1,535 @@
+{
+    "CommandName": "ol_theader",
+    "TagOpen": "th",
+    "TagClose": "</th>",
+    "BlockType": "ONELINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "ol_th",
+    "ParentElement": "tr",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "height": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "HTML4_STRICT": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML4_FRAME": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "height": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "height": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "nowrap": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^nowrap$/"
+            }
+        },
+        "XHTML1_STRICT": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "XHTML1_FRAME": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "height": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "nowrap": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^nowrap$/"
+            }
+        },
+        "XHTML1_1": {
+            "align": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_LMRJC"
+            },
+            "valign": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_TMB1BL"
+            },
+            "char": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charoff": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NC_PCT"
+            },
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scope": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            },
+            "axis": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML5": {
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scoop": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            }
+        },
+        "HTML5_1": {
+            "callspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rowspan": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "abbr": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "headers": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "scoop": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SCOPE"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "nowrap": {
+            "Priority": "DEPRECATION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "nowrap",
+            "Alias": "nowrap",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

@@ -1,0 +1,347 @@
+{
+    "CommandName": "textarea",
+    "TagOpen": "textarea",
+    "TagClose": "</textarea>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "samp",
+    "ParentElement": "ORIGIN|<ParentTagName>",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur", "onselect", "onchange"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            }
+        },
+        "HTML4_STRICT": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            }
+        },
+        "HTML4_FRAME": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/"
+            },
+            "readonly": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^readonly$/"
+            }
+        },
+        "XHTML1_STRICT": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/"
+            },
+            "readonly": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^readonly$/"
+            }
+        },
+        "XHTML1_FRAME": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/"
+            },
+            "readonly": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^readonly$/"
+            }
+        },
+        "XHTML1_1": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/"
+            },
+            "readonly": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^readonly$/"
+            }
+        },
+        "HTML5": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "maxlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "minlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "wrap": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(soft|hard)$/i"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(on|off)$/i"
+            },
+            "placeholder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "dirname": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "inputmode": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "TYPEMODE"
+            }
+        },
+        "HTML5_1": {
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "cols": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "rows": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "maxlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "minlength": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "wrap": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(soft|hard)$/i"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "autocomplete": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(on|off)$/i"
+            },
+            "placeholder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "dirname": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "inputmode": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "TYPEMODE"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "disabled": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "disabled",
+            "Alias": "disabled",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
+        },
+        "readonly": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "readonly",
+            "Alias": "readonly",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
+        },
+        "required": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "required",
+            "Alias": "must",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "autofocus": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "autofocus",
+            "Alias": "focus",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

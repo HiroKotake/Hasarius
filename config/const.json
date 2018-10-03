@@ -1,0 +1,145 @@
+{
+    "SYSTEM": {
+        "COMMENT_LINE": 10000,
+        "EMPTY_LINE": 10001,
+        "BLOCK_CLOSE": 10002,
+        "TEXT_ONLY": 10003
+    },
+    "HEAD_META": {
+        "ContentType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Type"
+        },
+        "Pragma": {
+            "attribute": "http-equiv",
+            "origin": "Pragma"
+        },
+        "CacheControl": {
+            "attribute": "http-equiv",
+            "origin": "Cache-Control"
+        },
+        "Expires": {
+            "attribute": "http-equiv",
+            "origin": "Expires"
+        },
+        "ContentScriptType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Script-Type"
+        },
+        "ContentStyleType": {
+            "attribute": "http-equiv",
+            "origin": "Content-Style-Type"
+        },
+        "Refresh": {
+            "attribute": "http-equiv",
+            "origin": "Refresh"
+        },
+        "Jump": {
+            "attribute": "http-equiv",
+            "origin": "Jump"
+        },
+        "Keywords": {
+            "attribute": "name",
+            "origin": "keywords"
+        },
+        "Description": {
+            "attribute": "name",
+            "origin": "description"
+        },
+        "Robots": {
+            "attribute": "name",
+            "origin": "ROBOTS"
+        },
+        "Author": {
+            "attribute": "name",
+            "origin": "author"
+        },
+        "ReplyTo": {
+            "attribute": "name",
+            "origin": "reply-to"
+        },
+        "Copyright": {
+            "attribute": "name",
+            "origin": "copyright"
+        },
+        "Generator": {
+            "attribute": "name",
+            "origin": "generator"
+        },
+        "Date": {
+            "attribute": "name",
+            "origin": "date"
+        },
+        "Property": {
+            "attribute": "property",
+            "origin": "property"
+        }
+    },
+    "SCRIPT": {
+        "None": {
+            "READY": {
+                "Open": "Windows.onLoad = function() {",
+                "Close": "}"
+            }
+        },
+        "JQuery": {
+            "READY": {
+                "Open": "$(function)(){",
+                "Close": "});"
+            }
+        }
+    },
+    "SCRIPT_FILE": "ScriptFile",
+    "CSS_FILE": "CssFile",
+    "GLOBAL_ATTRIBUTES": {
+        "id": {
+            "Alias": "id",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "title": {
+            "Alias": "title",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "style": {
+            "Alias": "css",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "class": {
+            "Alias": "class",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "lang": {
+            "Alias": "lang",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        },
+        "dir": {
+            "Alias": "dir",
+            "CompareType": "DEFINED",
+            "Value": "DIR_TYPE"
+        }
+    },
+    "TAG_ATTRIBUTES": {
+        "id": {
+            "Alias": "id",
+            "CompareType": "DEFINED",
+            "Value": "STRING"
+        }
+    },
+    "CSS_ATTRIBUTES": {
+        "width": {
+            "Alias": "w",
+            "CompareType": "DEFINED",
+            "Value": "US_NZ_PX_PCT"
+        },
+        "hight": {
+            "Alias": "h",
+            "CompareType": "DEFINED",
+            "Value": "US_NZ_PX_PCT"
+        }
+    }
+}

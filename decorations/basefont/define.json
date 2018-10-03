@@ -1,0 +1,101 @@
+{
+    "CommandName": "basefont",
+    "TagOpen": "basefont",
+    "TagClose": "</basefont>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["id"],
+        "HTML4_FRAME": ["id"],
+        "XHTML1_LOOSE": ["id"],
+        "XHTML1_FRAME": ["id"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": [],
+        "HTML4_FRAME": [],
+        "XHTML1_LOOSE": [],
+        "XHTML1_FRAME": []
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "size": {
+                "Priority": "REQUIRED_DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "HTML4_STRICT": {
+        },
+        "HTML4_FRAME": {
+            "size": {
+                "Priority": "REQUIRED_DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "size": {
+                "Priority": "REQUIRED_DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "XHTML1_STRICT": {
+        },
+        "XHTML1_FRAME": {
+            "size": {
+                "Priority": "REQUIRED_DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "XHTML1_1": {
+        },
+        "HTML5": {
+        },
+        "HTML5_1": {
+        }
+    }
+}

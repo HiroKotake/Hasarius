@@ -1,0 +1,83 @@
+{
+    "CommandName": "meter",
+    "TagOpen": "meter",
+    "TagClose": "</meter>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "min": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "low": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "high": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "optimum": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            }
+        },
+        "HTML5_1": {
+            "value": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "min": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "max": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "low": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "high": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            },
+            "optimum": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FLT"
+            }
+        }
+    }
+}

@@ -1,0 +1,173 @@
+{
+    "CommandName": "body",
+    "TagOpen": "body",
+    "TagClose": "</body>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onload", "onunload"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "background": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "text": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "link": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "vlink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "alink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "HTML4_STRICT": {
+        },
+        "HTML4_FRAME": {
+            "background": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "text": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "link": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "vlink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "alink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "background": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "text": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "link": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "vlink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "alink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "XHTML1_STRICT": {
+        },
+        "XHTML1_FRAME": {
+            "background": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "bgcolor": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "text": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "link": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "vlink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "alink": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            }
+        },
+        "XHTML1_1": {
+        },
+        "HTML5": {
+        },
+        "HTML5_1": {
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

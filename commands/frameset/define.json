@@ -1,0 +1,51 @@
+{
+    "CommandName": "frameset",
+    "TagOpen": "frameset",
+    "TagClose": "</frameset>",
+    "BlockType": "BLOCK",
+    "CommandAlias": "frames",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML4_FRAME","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"]
+    },
+    "EventAttributes": {
+        "HTML4_FRAME": ["onload", "onunload"],
+        "XHTML1_FRAME": ["onload", "onunload"]
+    },
+    "TagAttributes": {
+        "HTML4_FRAME": {
+            "cols": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "REPET_NC_PCT_ASTER"
+            },
+            "rows": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "REPET_NC_PCT_ASTER"
+            },
+            "border": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(0|1)$/"
+            }
+        },
+        "XHTML1_FRAME": {
+            "cols": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "REPET_NC_PCT_ASTER"
+            },
+            "rows": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "REPET_NC_PCT_ASTER"
+            }
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

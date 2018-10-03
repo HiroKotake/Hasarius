@@ -1,0 +1,296 @@
+{
+    "CommandName": "button",
+    "TagOpen": "button",
+    "TagClose": "</button>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "btn",
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir", "accesskey", "tabindex"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir", "accesskey", "tabindex"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir", "accesskey", "tabindex"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey", "tabindex"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey", "tabindex"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey", "tabindex"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey", "tabindex"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir", "accesskey", "tabindex"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir", "accesskey", "tabindex"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML4_STRICT": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML4_FRAME": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/i"
+            }
+        },
+        "XHTML1_STRICT": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/i"
+            }
+        },
+        "XHTML1_FRAME": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/i"
+            }
+        },
+        "XHTML1_1": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "disabled": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^disabled$/i"
+            }
+        },
+        "HTML5": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "menu": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formaction": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "formmethod": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
+            },
+            "formenctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
+            },
+            "formtarget": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML5_1": {
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "BUTTON_TYPE"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "form": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "menu": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "formaction": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "formmethod": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "GET_POST"
+            },
+            "formenctype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "<^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)$>"
+            },
+            "formtarget": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "disabled": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "disabled",
+            "Alias": "disabled",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","HTML5","HTML5_1"]
+        },
+        "autofocus": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "autofocus",
+            "Alias": "autofocus",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        },
+        "formnovalidate": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "formnovalidate",
+            "Alias": "formnovalidate",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
+    }
+}

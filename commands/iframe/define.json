@@ -1,0 +1,323 @@
+{
+    "CommandName": "iframe",
+    "TagOpen": "iframe",
+    "TagClose": "</iframe>",
+    "BlockType": "BLOCK",
+    "CommandAlias": "ifrm",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ORIGIN",
+    "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title"],
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"],
+        "HTML5": ["style", "class", "id", "title"],
+        "HTML5_1": ["style", "class", "id", "title"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": [],
+        "HTML4_FRAME": [],
+        "XHTML1_LOOSE": [],
+        "XHTML1_FRAME": [],
+        "HTML5": [],
+        "HTML5_1": []
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            }
+        },
+        "HTML4_FRAME": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            }
+        },
+        "XHTML1_FRAME": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "scrolling": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ON_OFF_AUTO"
+            },
+            "frameborder": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ZERO_ONE"
+            },
+            "marginwidth": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "marginheight": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "US_NZ"
+            },
+            "align": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "SIDE_ALL"
+            }
+        },
+        "HTML5": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "srcdoc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "sandbox": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SANDBOX"
+            }
+        },
+        "HTML5_1": {
+            "src": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "longdesc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "width": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "height": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "NZ_PCT"
+            },
+            "srcdoc": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "sandbox": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SANDBOX"
+            }
+        }
+    },
+    "CustomAttributes": {
+        "allowfullscreen": {
+            "Priority": "OPTION",
+            "CompareType": "DEFINED",
+            "Type": "NAME_ONLY",
+            "AttributeName": "allowfullscreen",
+            "Alias": "fullscrren",
+            "Value": "ON_OFF",
+            "DocumentType": ["HTML5","HTML5_1"]
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

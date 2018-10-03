@@ -1,0 +1,481 @@
+{
+    "CommandName": "anker",
+    "TagOpen": "a",
+    "TagClose": "</a>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "a",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir", "accesskey","tabindex"],
+        "HTML4_STRICT": ["style", "class", "id", "title", "lang", "dir", "accesskey","tabindex"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir", "accesskey","tabindex"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey","tabindex"],
+        "XHTML1_STRICT": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey","tabindex"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey","tabindex"],
+        "XHTML1_1": ["style", "class", "id", "title", "lang", "dir", "xml:lang", "accesskey","tabindex"],
+        "HTML5": ["style", "class", "id", "title", "lang", "dir", "accesskey","tabindex"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir", "accesskey","tabindex"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML4_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_STRICT": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "XHTML1_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML4_STRICT": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML4_FRAME": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_STRICT": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_FRAME": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "XHTML1_1": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "charset": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "ENCODE"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "shape": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "SHAPE"
+            },
+            "coords": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "COORDS"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML5": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "download": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FILENAME"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        },
+        "HTML5_1": {
+            "href": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "URI"
+            },
+            "name": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "hreflang": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LANG"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            },
+            "rel": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "rev": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "LINE_TYPE"
+            },
+            "download": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "FILENAME"
+            },
+            "target": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "WINDOW"
+            }
+        }
+    }
+}

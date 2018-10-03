@@ -1,0 +1,91 @@
+{
+    "CommandName": "font",
+    "TagOpen": "font",
+    "TagClose": "</font>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML4_LOOSE","HTML4_FRAME","XHTML1_LOOSE","XHTML1_FRAME"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML4_FRAME": ["style", "class", "id", "title", "lang", "dir"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title", "lang", "dir", "xml:lang"],
+        "XHTML1_FRAME": ["style", "class", "id", "title", "lang", "dir", "xml:lang"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML4_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_LOOSE": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "XHTML1_FRAME": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "HTML4_FRAME": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        },
+        "XHTML1_FRAME": {
+            "size": {
+                "Priority": "DEPRECATION",
+                "CompareType": "VALUE",
+                "Value": "/^[+-]?[1234567]$/"
+            },
+            "color": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "COLOR"
+            },
+            "face": {
+                "Priority": "DEPRECATION",
+                "CompareType": "NONE",
+                "Value": "FONT"
+            }
+        }
+    }
+}

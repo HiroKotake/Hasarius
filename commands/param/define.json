@@ -1,0 +1,213 @@
+{
+    "CommandName": "param",
+    "TagOpen": "param",
+    "TagClose": "</param>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "applet,object",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["id"],
+        "HTML4_STRICT": ["id"],
+        "HTML4_FRAME": ["id"],
+        "XHTML1_LOOSE": ["id"],
+        "XHTML1_STRICT": ["id"],
+        "XHTML1_FRAME": ["id"],
+        "XHTML1_1": ["id"],
+        "HTML5": ["id"],
+        "HTML5_1": ["id"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": [],
+        "HTML4_STRICT": [],
+        "HTML4_FRAME": [],
+        "XHTML1_LOOSE": [],
+        "XHTML1_STRICT": [],
+        "XHTML1_FRAME": [],
+        "XHTML1_1": [],
+        "HTML5": [],
+        "HTML5_1": []
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "HTML4_STRICT": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "HTML4_FRAME": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "XHTML1_STRICT": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "XHTML1_FRAME": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "XHTML1_1": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "valuetype": {
+                "Priority": "OPTION",
+                "CompareType": "VALUE",
+                "Value": "/^(data|ref|object)$/"
+            },
+            "type": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "MIME"
+            }
+        },
+        "HTML5": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        },
+        "HTML5_1": {
+            "name": {
+                "Priority": "REQUIRED",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            },
+            "value": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "STRING"
+            }
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

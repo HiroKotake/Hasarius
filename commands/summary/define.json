@@ -1,0 +1,21 @@
+{
+    "CommandName": "summary",
+    "TagOpen": "summary",
+    "TagClose": "</summary>",
+    "BlockType": "BLOCK",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "details",
+    "DocumentType": ["HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5_1": {
+        }
+    },
+    "AutoIndent": 1,
+    "AutoLineBreak": 1
+}

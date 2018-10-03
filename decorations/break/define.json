@@ -1,0 +1,77 @@
+{
+    "CommandName": "break",
+    "TagOpen": "br",
+    "TagClose": "",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "CommandAlias": "br",
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML4_LOOSE": ["style", "class", "id", "title"],
+        "HTML4_STRICT": ["style", "class", "id", "title"],
+        "HTML4_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_LOOSE": ["style", "class", "id", "title"],
+        "XHTML1_STRICT": ["style", "class", "id", "title"],
+        "XHTML1_FRAME": ["style", "class", "id", "title"],
+        "XHTML1_1": ["style", "class", "id", "title"],
+        "HTML5": ["style", "class", "id", "title"],
+        "HTML5_1": ["style", "class", "id", "title"]
+    },
+    "EventAttributes": {
+        "HTML4_LOOSE": [],
+        "HTML4_STRICT": [],
+        "HTML4_FRAME": [],
+        "XHTML1_LOOSE": [],
+        "XHTML1_STRICT": [],
+        "XHTML1_FRAME": [],
+        "XHTML1_1": [],
+        "HTML5": [],
+        "HTML5_1": []
+    },
+    "TagAttributes": {
+        "HTML4_LOOSE": {
+            "clear": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "CLEAR_TYPE"
+            }
+        },
+        "HTML4_STRICT": {
+            "clear": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "CLEAR_TYPE"
+            }
+        },
+        "HTML4_FRAME": {
+            "clear": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "CLEAR_TYPE"
+            }
+        },
+        "XHTML1_LOOSE": {
+            "clear": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "CLEAR_TYPE"
+            }
+        },
+        "XHTML1_STRICT": {
+        },
+        "XHTML1_FRAME": {
+            "clear": {
+                "Priority": "DEPRECATION",
+                "CompareType": "DEFINED",
+                "Value": "CLEAR_TYPE"
+            }
+        },
+        "XHTML1_1": {
+        },
+        "HTML5": {
+        },
+        "HTML5_1": {
+        }
+    }
+}

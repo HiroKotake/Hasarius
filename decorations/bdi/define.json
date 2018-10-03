@@ -1,0 +1,33 @@
+{
+    "CommandName": "bdi",
+    "TagOpen": "bdi",
+    "TagClose": "</bdi>",
+    "BlockType": "INLINE",
+    "CommandPerposes": ["HTML"],
+    "ParentElement": "ALONE",
+    "DocumentType": ["HTML5","HTML5_1"],
+    "GlobalAttributes": {
+        "HTML5": ["style", "class", "id", "title", "lang", "dir"],
+        "HTML5_1": ["style", "class", "id", "title", "lang", "dir"]
+    },
+    "EventAttributes": {
+        "HTML5": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"],
+        "HTML5_1": ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown", "onkeyup"]
+    },
+    "TagAttributes": {
+        "HTML5": {
+            "dir": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DIR_TYPE"
+            }
+        },
+        "HTML5_1": {
+            "dir": {
+                "Priority": "OPTION",
+                "CompareType": "DEFINED",
+                "Value": "DIR_TYPE"
+            }
+        }
+    }
+}
