@@ -95,6 +95,14 @@
             "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
         }
     },
+    "SubCommandDescription": "以下はリストアイテムを構成する要素を要素名を使用せずに指定する為に定義する",
+    "SubCommand": [
+        {
+            "Symbol": "+",
+            "Tag": "ol_listitem",
+            "Description": "項目指定"
+        }
+    ],
     "AutoIndent": 1,
     "AutoLineBreak": 1
 }

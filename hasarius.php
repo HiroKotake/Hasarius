@@ -79,7 +79,7 @@ $genarate = new \Hasarius\system\Generate();
 //$genarate->make(["Source" => $src, "DestDir" => $dist, "Title" => $title]);
 $result = $genarate->make($params);
 if ($result) {
-    echo "Done !!" . PHP_EOL;
+    echo "\033[0;36mDONE !!\033[0m" . PHP_EOL;
 }
 
 function showCommandLine()

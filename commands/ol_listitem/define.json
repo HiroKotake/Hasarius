@@ -1,11 +1,11 @@
 {
-    "CommandName": "orderlist",
-    "TagOpen": "ol",
-    "TagClose": "</ol>",
-    "BlockType": "BLOCK",
+    "CommandName": "ol_listitem",
+    "TagOpen": "li",
+    "TagClose": "</li>",
+    "BlockType": "ONELINE",
     "CommandPerposes": ["HTML"],
-    "CommandAlias": "ol",
-    "ParentElement": "ORIGIN",
+    "CommandAlias": "li",
+    "ParentElement": "ul,ol,dir,menu",
     "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME","XHTML1_LOOSE","XHTML1_STRICT","XHTML1_FRAME","XHTML1_1","HTML5","HTML5_1"],
     "GlobalAttributes": {
         "HTML4_LOOSE": ["style", "class", "id", "title", "lang", "dir"],
@@ -34,33 +34,23 @@
             "type": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
+                "Value": "LIST_STYLE"
             },
-            "start": {
+            "value": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "HTML4_STRICT": {
-            "type": {
-                "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
-            },
-            "start": {
-                "Priority": "DEPRECATION",
-                "CompareType": "DEFINED",
-                "Value": "NC"
-            }
         },
         "HTML4_FRAME": {
             "type": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
+                "Value": "LIST_STYLE"
             },
-            "start": {
+            "value": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
@@ -70,17 +60,12 @@
             "type": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
+                "Value": "LIST_STYLE"
             },
-            "start": {
+            "value": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
-            },
-            "compact": {
-                "Priority": "DEPRECATION",
-                "CompareType": "VALUE",
-                "Value": "/^compact$/"
             }
         },
         "XHTML1_STRICT": {
@@ -89,74 +74,31 @@
             "type": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
+                "Value": "LIST_STYLE"
             },
-            "start": {
+            "value": {
                 "Priority": "DEPRECATION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
-            },
-            "compact": {
-                "Priority": "DEPRECATION",
-                "CompareType": "VALUE",
-                "Value": "/^compact$/"
             }
         },
         "XHTML1_1": {
         },
         "HTML5": {
-            "type": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
-            },
-            "start": {
+            "value": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         },
         "HTML5_1": {
-            "type": {
-                "Priority": "OPTION",
-                "CompareType": "DEFINED",
-                "Value": "LIST_NUM"
-            },
-            "start": {
+            "value": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "NC"
             }
         }
     },
-    "CustomAttributes": {
-        "compact": {
-            "Priority": "DEPRECATION",
-            "CompareType": "DEFINED",
-            "Type": "NAME_ONLY",
-            "AttributeName": "compact",
-            "Alias": "compact",
-            "Value": "ON_OFF",
-            "DocumentType": ["HTML4_LOOSE","HTML4_STRICT","HTML4_FRAME"]
-        },
-        "reversed": {
-            "Priority": "OPTION",
-            "CompareType": "DEFINED",
-            "Type": "NAME_ONLY",
-            "AttributeName": "compact",
-            "Alias": "compact",
-            "Value": "ON_OFF",
-            "DocumentType": ["HTML5","HTML5_1"]
-        }
-    },
-    "SubCommandDescription": "以下はリストアイテムを構成する要素を要素名を使用せずに指定する為に定義する",
-    "SubCommand": [
-        {
-            "Symbol": "+",
-            "Tag": "ol_listitem",
-            "Description": "項目指定"
-        }
-    ],
     "AutoIndent": 1,
     "AutoLineBreak": 1
 }

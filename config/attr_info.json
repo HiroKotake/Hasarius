@@ -9,12 +9,24 @@
         ]
     },
     "BUTTON_TYPE": {
-        "name": "",
-        "description": []
+        "name": "ボタンのタイプ",
+        "type": "文字列",
+        "description": [
+            "submit : 送信ボタン （初期値）",
+            "reset : リセットボタン",
+            "button : 汎用ボタン",
+            "menu : (HTML5.1) メニュー表示ボタン"
+        ]
     },
     "CLEAR_TYPE": {
-        "name": "",
-        "description": []
+        "name": "回り込みの解除",
+        "type": "文字列",
+        "description": [
+            "left : 左フロートに対する回り込みを解除",
+            "right : 右フロートに対する回り込みを解除",
+            "all : どちらの回り込みも解除",
+            "none : 回り込みを解除しない （初期値）"
+        ]
     },
     "COLOR": {
         "name": "色",
@@ -48,8 +60,12 @@
         ]
     },
     "DIR_TYPE": {
-        "name": "",
-        "description": []
+        "name": "書字方向",
+        "type": "文字列",
+        "description": [
+            "ltr : 左から右へ",
+            "rtl : 右から左へ"
+        ]
     },
     "ENCODE": {
         "name": "文字コード",
@@ -70,12 +86,18 @@
         "description": []
     },
     "FLT": {
-        "name": "",
-        "description": []
+        "name": "<項目によって名称が異なる>",
+        "type": "浮動小数点",
+        "description": [
+            "<項目によって内容が異なる>"
+        ]
     },
     "FONT": {
-        "name": "",
-        "description": [],
+        "name": "フォント名",
+        "type": "フォント名",
+        "description": [
+            "カンマ（ , ）区切りで複数指定可能"
+        ],
         "comment": "フォントリストを持たないので空白を含まない文字列であればとりあえずOKにしておく"
     },
     "GET_POST": {
@@ -94,6 +116,7 @@
     },
     "INPUT_MODE": {
         "name": "入力モード指定",
+        "type": "文字列",
         "description": [
             "入力モードの指定を行う",
             "verbatim : 文章ではない英数字による文字列の入力（ユーザー名、パスワード、製品コード 等、対コンピューター向け）",
@@ -166,8 +189,24 @@
         ]
     },
     "LINE_TYPE": {
-        "name": "",
-        "description": []
+        "name": "リンクタイプ",
+        "type": "文字列",
+        "description": [
+            "alternate : 代替の文書を示す",
+            "　hreflang属性との併用 … 翻訳版を示す",
+            "　media属性との併用 … 別メディア版を示す",
+            "author : 著者情報の文書、または連絡先を示す",
+            "bookmark : パーマリンクを示す",
+            "help : ヘルプの文書を示す",
+            "license : 著作権情報の文書を示す",
+            "next : 一連の文書の中で次の文書を示す",
+            "nofollow : リンク先をフォローしない",
+            "noreferrer : リンク先にリファラーを送らない",
+            "prefetch : リンク先の事前読み込み",
+            "prev : 一連の文書の中で前の文書を示す",
+            "search : 関連文書を検索するためのページを示す",
+            "tag : 関連するタグを示す"
+        ]
     },
     "LIST_NUM": {
         "name": "番号の種類",
@@ -525,12 +564,18 @@
         ]
     },
     "US_NC_PCT": {
-        "name": "",
-        "description": []
+        "name": "符号なし整数値/パーセント",
+        "type": "符号なし整数値/パーセント",
+        "description": [
+            "符号なし整数値もしくは元を基本として比率をパーセントで設定する"
+        ]
     },
     "US_NZ_PCT": {
-        "name": "",
-        "description": []
+        "name": "符号なしでゼロを除外した整数値/パーセント",
+        "type": "符号なしでゼロを除外した整数値/パーセント",
+        "description": [
+            "符号なしでゼロを除外した整数値もしくは元を基本として比率をパーセントで設定する"
+        ]
     },
     "WINDOW": {
         "name": "表示先の指定",
