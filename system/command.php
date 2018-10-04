@@ -64,7 +64,7 @@ class Command extends BaseTag
                 $parameters .= " " . $key . '="' . $value . '"';
             }
             $tagOpen = '<' . $this->getTagOpen() . $parameters;
-            $parsed->setTagOpen($tagOpen . '>');
+            $parsed->setTagOpen($tagOpen . (empty($this->getTagClose()) ? " /" : "") . '>');
             // 終了タグ（スタック用）
             $parsed->setTagClose($this->getTagClose());
             // scriptがあるならばそのデータを定義

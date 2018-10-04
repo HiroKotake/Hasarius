@@ -359,7 +359,7 @@ class Generate
             // HTML保存
             $this->saveHtml();
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            echo $e->getMessage() . PHP_EOL;
             return false;
         }
 
@@ -650,7 +650,7 @@ class Generate
                 $this->vesselContainer[] = $lineParameters;
             }
         } catch (\Exception $e) {
-            throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . $e->getMessage());
+            throw new \Exception('[ERROR:ANALYZE] ' . $line['filename']. ':' . $line['lineNumber'] . ' - ' . $e->getMessage() . PHP_EOL);
         }
         // 使用したスタックを空に
         $this->subCommandStack = [];

@@ -57,7 +57,7 @@ class Decoration extends BaseTag
             $paramWork .= $key . '="' . $value . '" ';
         }
         $paramWork = rtrim($paramWork);
-        $result['text'] .= $paramWork . ">" . $params['text'] . $this->getTagClose();
+        $result['text'] .= $paramWork . (empty($this->getTagClose()) ? " /" : "") . ">" . $params['text'] . $this->getTagClose();
         // スクリプト対応
         $filename = null;
         if (array_key_exists('ScriptFile', $params['params'])) {
