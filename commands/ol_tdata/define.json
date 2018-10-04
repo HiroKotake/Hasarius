@@ -51,7 +51,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -118,7 +118,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -170,7 +170,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -237,7 +237,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -309,7 +309,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -361,7 +361,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -433,7 +433,7 @@
                 "CompareType": "DEFINED",
                 "Value": "NC_PCT"
             },
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -465,7 +465,7 @@
             }
         },
         "HTML5": {
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"
@@ -482,7 +482,7 @@
             }
         },
         "HTML5_1": {
-            "callspan": {
+            "colspan": {
                 "Priority": "OPTION",
                 "CompareType": "DEFINED",
                 "Value": "US_NZ"

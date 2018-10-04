@@ -79,7 +79,7 @@ class HtmlValidation
         "SRCSET" => "/^(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?(,\s+(http(s)?:\/\/)?\S+(\s+\d+(w|x)?)?)*$/",
         "TYPEMODE" => "/^(verbatim|latin|latin-name|latin-prose|full-width-latin|kana|kana-name|katakana|numeric|tel|email|url)$/ui",
         //"URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w- .\/?%&=]*)?$/",
-        "URI" => "/^(http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w-.\/?%&=]*)?$/",
+        "URI" => "/^((http(s)?:\/\/)?([\w-]*\.{0,2})+(\/[\w-.\/?%&=]*)|#\S*)?$/",
         "USE_SIGNIN" => "/^(anonymous|use-credentials)$/ui",
         "US_NC_PCT" => "/^\d*\%?$/",
         "US_NZ_PCT" => "/^(1|2|3|4|5|6|7|8|9)\d*\%?$/",
@@ -304,9 +304,9 @@ class HtmlValidation
      * @param  array $paramaters 確認するデータ
      * @return string       問題がある場合は文字列を、無い場合は空文字を返す
      */
-    public static function validate(object &$tag, array $paramaters): string
+    public static function validate(object &$tag, array $paramaters): array
     {
-        $result = "";
+        $result = [];
         $attributeInfo = $tag->getPossibleTagAttributes();
         $customAttributeInfo = $tag->getPossibleCustomAttributes();
         $eventAttributeInfo = $tag->getPossibleEventAttributes();
@@ -314,7 +314,7 @@ class HtmlValidation
             // Hasarius Common Check
             if (preg_match("/^(ScriptFile|CssFile)$/ui", $key) > 0) {
                 if (!file_exists($value)) {
-                    $result .= "[Validate Error] File is not exists. ($key : $value)" . PHP_EOL;
+                    $result[] = "[Validate Error] File is not exists. ($key : $value)" . PHP_EOL;
                 }
                 continue;
             }
@@ -326,7 +326,7 @@ class HtmlValidation
                 } elseif (GLOBAL_ATTRIBUTES[$key]["CompareType"] == "VALUE") {
                     // unique
                     if (!self::checkValidate(GLOBAL_ATTRIBUTES[$key]["Value"], $value)) {
-                        $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                        $result[] = "[Validate Error] $key : $value" . PHP_EOL;
                     }
                     continue;
                 } else {
@@ -334,13 +334,13 @@ class HtmlValidation
                     if (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$functions)) {
                         // METHOD
                         if (!self::checkValidateByFunc(GLOBAL_ATTRIBUTES[$key]["Value"], $value, (self::matchArrayKey("shape", $paramaters) ? $paramaters["shape"] : null))) {
-                            $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                            $result[] = "[Validate Error] $key : $value" . PHP_EOL;
                         }
                         continue;
                     } elseif (array_key_exists(GLOBAL_ATTRIBUTES[$key]["Value"], self::$validPattern)) {
                         // PATTERN
                         if (!self::checkValidate(self::$validPattern[GLOBAL_ATTRIBUTES[$key]["Value"]], $value)) {
-                            $result .= "[Validate Error] $key : $value" . PHP_EOL;
+                            $result[] = "[Validate Error] $key : $value" . PHP_EOL;
                         }
                         continue;
                     }
@@ -354,21 +354,20 @@ class HtmlValidation
             // Normal Attribute Check
             $check = self::commonValidate($attributeInfo[MAKE_DocumentType], $paramaters, $key, $value);
             if ($check["existence"]) {
-                $result .= !empty($check["message"]) ? $check["message"] : "";
+                $result[] = !empty($check["message"]) ? $check["message"] : "";
                 continue;
             }
             // Custom Attribute Check
             if (array_key_exists($key, $customAttributeInfo) && in_array(MAKE_DocumentType, $customAttributeInfo[$key]["DocumentType"])) {
                 $check = self::commonValidate($customAttributeInfo, $paramaters, $key, $value);
                 if ($check["existence"]) {
-                    $result .= !empty($check["message"]) ? $check["message"] : "";
+                    $result[] = !empty($check["message"]) ? $check["message"] : "";
                     continue;
                 }
             }
             // No Exists
-            $result .= "[Attribute Not Defined] $key" . PHP_EOL;
+            $result[] = "[Attribute Not Defined] $key" . PHP_EOL;
         }
-
         return $result;
     }
 
