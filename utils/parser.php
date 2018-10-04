@@ -89,19 +89,25 @@ class Parser
             return $vessel;
         }
 
+        // 修飾コマンド抽出
+        // 先に修飾コマンドの処理を入れて、本文中から抜いて処理をさせないと修飾コマンドの引数と、コマンドの引数がダブって処理される
+        $modifierCommand = self::getModifiers($separated['body'], $modifiersKey, $escape);
+        $withoutModifierCommand = self::getModifiers($separated['body'], $modifiersKey, $escape, true);
+        $commandParamWork = str_replace($withoutModifierCommand, '', $separated['body']);
+
         // コマンドラインか確認
         $matchCommand = null;
-        preg_match('/^' . $commandHead . '\S+\s*/ui', ltrim($separated['body']), $matchCommand);
+        preg_match('/^' . $commandHead . '\S+\s*/ui', ltrim($commandParamWork), $matchCommand);
         $commandName = SYSTEM["TEXT_ONLY"];
         $paramaters = [];
         if (!empty($matchCommand)) {
             // コマンド確定
             $commandName = trim($matchCommand[0], $commandHead . ' ');
-            $lineWork = str_replace($matchCommand[0], '', $separated['body']);
+            $lineWork = str_replace($matchCommand[0], '', $commandParamWork);
             // パラメータ抽出
             $paramatersWork = self::getParamaters($lineWork, $parameterDelim);
             // テキスト抽出およびパラメータ解析
-            $text = $lineWork;
+            $text = str_replace($matchCommand[0], '', $separated['body']);
             foreach ($paramatersWork as $param) {
                 $text = str_replace($param, '', $text);
                 // パラメータ解析
@@ -113,8 +119,16 @@ class Parser
             $text = str_replace($escape . $parameterDelim, $parameterDelim, $text);
         }
 
-        // 修飾コマンド抽出
-        $modifierCommand = self::getModifiers($text, $modifiersKey, $escape);
+        // テキスト中のエスケープを除く
+        $excludeEscape = [$escape . $commandHead, $escape . $parameterDelim, $escape . $modifiersKey[0]];
+        $replaceEscape = [$commandHead, $parameterDelim, $modifiersKey[0]];
+        if ($modifiersKey[0] != $modifiersKey[1]) {
+            $excludeEscape[] = $escape . $modifiersKey[1];
+            $replaceEscape[] = $modifiersKey[1];
+        }
+        $text = str_replace($excludeEscape, $replaceEscape, $text);
+
+        // データ設定
         $vessel->setCommand($commandName);
         $vessel->setParamaters($paramaters);
         $vessel->setModifiers($modifierCommand);
@@ -138,9 +152,9 @@ class Parser
             'comment' => "",
         ];
         // コメント行対応
-        if (preg_match('/^\/\/\s+.*/', ltrim($str)) == 1) {
+        if (preg_match('/^\/\/\s*.*/', ltrim($str)) == 1) {
             $result['body'] = "";
-            $result['comment'] = trim(preg_replace('/^\/\/\s+/', '', trim($str)));    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
+            $result['comment'] = trim(preg_replace('/^\/\/\s*/', '', trim($str)));    // 本文中にコメントと同じ'//'を入れたい場合は'\/\/'とエスケープするが、実利用時に問題なるので置換しておく。
             return $result;
         }
         // 空白行対応
@@ -194,7 +208,8 @@ class Parser
     private static function getModifiers(
         string $line,
         array $modifiersKey = ['@', '@'],
-        string $escape = '\\'
+        string $escape = '\\',
+        bool $withoutEscape = false
     ): array {
         $flagEscapeOn = false;
         $flagModifierOn = false;
@@ -213,7 +228,7 @@ class Parser
                 continue;
             }
             // 文中のエスケープ文字か？
-            if ($char == $escape) {
+            if (!$withoutEscape && $char == $escape) {
                 // 修飾コマンド中なら修飾コマンド文字列中に含める？
                 if ($flagModifierOn) {
                     $modifiersCommand .= $char;
@@ -345,13 +360,13 @@ class Parser
         }
         $flagMatch = preg_match('/^@include\s*(\S*)\s*(\/)*\s*(.*)$/u', $source, $match);
         if ($flagMatch) {
-            $result["filename"] = $match[1];
+            $result["filename"] = trim($match[1], "\"'");
             $result["comment"]  = $match[3];
             if (preg_match('/^\/{2,}\s*.*$/u', trim($match[1]))) {
                 // ファイル指定がない場合例外発生
                 throw new \Exception("File is not mention !!");
             }
-            if (!file_exists($match[1])) {
+            if (!file_exists($result["filename"])) {
                 if (!empty($baseDir) && file_exists($baseDir . DIRECTORY_SEPARATOR . $match[1])) {
                     $result["filename"] = $baseDir . DIRECTORY_SEPARATOR . $match[1];
                 } else {

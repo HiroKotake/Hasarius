@@ -832,7 +832,7 @@ class Generate
             // * 設定ファイルによりコメント表示がONならばコメントテキストを追加する
             $comment = "";
             if (MAKE_ShowComment && !empty($vessel->getComment())) {
-                $comment = ' <!-- ' . $vessel->getComment() . ' -->';
+                $comment = '<!-- ' . $vessel->getComment() . ' -->';
             }
             // ブロッククローズ
             if ($vessel->getCommand() == SYSTEM["BLOCK_CLOSE"]) {
@@ -857,7 +857,7 @@ class Generate
             }
             // 空行
             if ($vessel->getCommand() == SYSTEM["EMPTY_LINE"]) {
-                $this->documentWork[] = $vessel->isAutoLineBreak() ? ($indentText . "<br>") : "";
+                $this->documentWork[] = ($vessel->isAutoLineBreak() ? ($indentText . "<br>") : "") . $comment;
                 continue;
             }
             // 通常
@@ -896,7 +896,7 @@ class Generate
                     break;
                 case BaseTag::BLOCK_TYPE_NONE:
                 default:
-                    $this->documentWork[] = $indentText . $vessel->getText() . ($vessel->isAutoLineBreak() ? "<br>" : "");
+                    $this->documentWork[] = $indentText . $vessel->getText() . ($vessel->isAutoLineBreak() ? "<br>" : "") . $comment;
                     break;
             }
         }
