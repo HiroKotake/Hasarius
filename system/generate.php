@@ -610,7 +610,7 @@ class Generate
                         if (MAKE_ValidateStop) {
                             throw new \Exception('[ERROR:VALIDATE] ' . $line['filename'] . ':' . $line['lineNumber'] . PHP_EOL . $validateResult);
                         } else {
-                            $this->validateErrorList = array_merge($this->validateErrorList, $validateResult);
+                            $this->validateErrorList[] = $validateResult;
                         }
                     }
                     //  ----- テキスト置換
